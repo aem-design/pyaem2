@@ -22,7 +22,7 @@ def find_version(*file_paths):
         return version_match.group(1)
     raise RuntimeError("Unable to find version string.")
 
-long_description = read('README.md')
+long_description = "TODO" #read('README.md')
 
 class PyTest(TestCommand):
     def finalize_options(self):
@@ -42,7 +42,8 @@ setup(
     license='MIT License',
     author='Cliffano Subagio',
     tests_require=['pytest'],
-    install_requires=['requests>=2.2.1'
+    install_requires=['requests>=2.2.1',
+                    'BeautifulSoup>=3.2.1'
                     ],
     cmdclass={'test': PyTest},
     author_email='cliffano@gmail.com',

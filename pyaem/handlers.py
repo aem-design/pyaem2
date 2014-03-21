@@ -1,14 +1,30 @@
 from BeautifulSoup import *
-import json
+
+def ok_html(response, **kwargs):
+
+	soup   = BeautifulSoup(response.text)
+	errors = soup.findAll(attrs={ 'class': 'error' })
+
+	if len(errors) == 0:
+		return response.text
+	else:
+		raise Exception(errors[0].string)
 
 def ok_json(response, **kwargs):
 
-	result = json.loads(response.text)
+	result = response.json()
 
 	if result['success'] == True:
 		return result['msg']
 	else:
 		raise Exception(result['msg'])
+
+def ok_file(response, **kwargs):
+
+	with open(kwargs['file'], 'wb') as fd:
+		for chunk in response.iter_content(1024):
+			fd.write(chunk)
+		return '{0} was successfully uploaded'.format(kwargs['file'])
 
 def auth_fail(response, **kwargs):
 
@@ -35,5 +51,6 @@ def unexpected(response, **kwargs):
 
 def _debug(response, debug):
 
+	# TODO: pretty-print json and html
 	if debug == True:
 		print 'Response status code {0}\nResponse text:{1}\n'.format(str(response.status_code), str(response.text))

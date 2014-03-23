@@ -1,56 +1,87 @@
 from BeautifulSoup import *
+import exception
+import json
 
 def ok_html(response, **kwargs):
 
-	soup   = BeautifulSoup(response.text)
+	HEX_MASSAGE = [(re.compile('&#x([^;]+);'), lambda m: '&#%d;' % int(m.group(1), 16))]
+
+	code   = response['http_code']
+	soup   = BeautifulSoup(response['body'],
+		convertEntities = BeautifulSoup.HTML_ENTITIES,
+		markupMassage   = HEX_MASSAGE
+	)
 	errors = soup.findAll(attrs={ 'class': 'error' })
 
 	if len(errors) == 0:
-		return response.text
+		result = {
+			'status' : 'success',
+			'message': 'TODO - where to get success message from'
+		}
 	else:
-		raise Exception(errors[0].string)
+		result = {
+			'status' : 'failure',
+			'message': errors[0].string
+		}
+
+	return result
+
 
 def ok_json(response, **kwargs):
 
-	result = response.json()
+	data    = json.loads(response['body'])
+	message = data['msg']
 
-	if result['success'] == True:
-		return result['msg']
-	else:
-		raise Exception(result['msg'])
+	result = {
+		'status' : 'success' if data['success'] == True else 'failure',
+		'message': message
+	}
 
-def ok_file(response, **kwargs):
+	return result
 
-	with open(kwargs['file'], 'wb') as fd:
-		for chunk in response.iter_content(1024):
-			fd.write(chunk)
-		return '{0} was successfully uploaded'.format(kwargs['file'])
+
+def ok_download_file(response, **kwargs):
+
+	result = {
+		'status' : 'success',
+		'message': '{0} was successfully downloaded'.format(kwargs['file_name'])
+	}
+
+	return result
+
+
+def ok_upload_file(response, **kwargs):
+
+	data = json.loads(response['body'])
+
+	result = {
+		'status' : 'success' if data['success'] == True else 'failure',
+		'message': data['msg']
+	}
+
+	return result
+
 
 def auth_fail(response, **kwargs):
 
-	_debug(response, kwargs['debug'])
-	raise Exception('Authentication failed - incorrect username and/or password')
+	code    = response['http_code']
+	message = 'Authentication failed - incorrect username and/or password'
 
-def auth_required(response, **kwargs):
+	raise exception.PyAemException(code, message)
 
-	_debug(response, kwargs['debug'])
-	raise Exception('Authentication required - set username and password')
 
 def method_not_allowed(response, **kwargs):
 
-	soup  = BeautifulSoup(response.text)
-	error = soup.p.string
+	code    = response['http_code']
+	soup    = BeautifulSoup(response['body'])
+	message = soup.p.string	
 
-	_debug(response, kwargs['debug'])
-	raise Exception(error)
+	raise exception.PyAemException(code, message)
+
 
 def unexpected(response, **kwargs):
 
-	_debug(response, True)
-	raise Exception('Unexpected status code')
+	code    = response['http_code']
+	message = 'Unexpected http code'
 
-def _debug(response, debug):
-
-	# TODO: pretty-print json and html
-	if debug == True:
-		print 'Response status code {0}\nResponse text:{1}\n'.format(str(response.status_code), str(response.text))
+	raise exception.PyAemException(code, message)

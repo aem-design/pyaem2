@@ -42,8 +42,8 @@ setup(
     license='MIT License',
     author='Cliffano Subagio',
     tests_require=['pytest'],
-    install_requires=['requests>=2.2.1',
-                    'BeautifulSoup>=3.2.1'
+    install_requires=['BeautifulSoup>=3.2.1',
+                    'pycurl>=7.19.3.1'
                     ],
     cmdclass={'test': PyTest},
     author_email='cliffano@gmail.com',

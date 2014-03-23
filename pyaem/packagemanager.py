@@ -3,7 +3,7 @@ import handlers
 import json
 import pycurl
 
-class Crx(object):
+class PackageManager(object):
 
 
 	def __init__(self, url, **kwargs):

@@ -1,6 +1,6 @@
+import contentrepo
 import packagemanager
 import webconsole
-import jcr
 
 class PyAem(object):
 
@@ -10,9 +10,16 @@ class PyAem(object):
 		protocol = 'http' if use_ssl == False else 'https'
 		url      = '{0}://{1}:{2}@{3}:{4}'.format(protocol, username, password, host, port)
 
+		self.content_repo    = contentrepo.ContentRepo(url, debug=debug)
 		self.package_manager = packagemanager.PackageManager(url, debug=debug)
 		self.web_console     = webconsole.WebConsole(url, debug=debug)
-		self.jcr = jcr.Jcr(url, debug=debug)
+
+
+	# content repo methods
+
+
+	def activate_tree(self, path, **kwargs):
+		return self.content_repo.activate_tree(path, **kwargs)
 
 
 	# package manager methods
@@ -51,10 +58,3 @@ class PyAem(object):
 
 	def stop_bundle(self, bundle_name, **kwargs):
 		return self.web_console.stop_bundle(bundle_name, **kwargs)
-
-
-	# jcr methods
-
-
-	def activate_tree(self, path, **kwargs):
-		return self.jcr.activate_tree(path, **kwargs)

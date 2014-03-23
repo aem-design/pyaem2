@@ -2,7 +2,7 @@ import bagofrequests as bag
 import handlers
 import json
 
-class Jcr(object):
+class ContentRepo(object):
 
 
 	def __init__(self, url, **kwargs):

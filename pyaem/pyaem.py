@@ -1,4 +1,5 @@
 import packagemanager
+import webconsole
 import jcr
 
 class PyAem(object):
@@ -10,10 +11,11 @@ class PyAem(object):
 		url      = '{0}://{1}:{2}@{3}:{4}'.format(protocol, username, password, host, port)
 
 		self.package_manager = packagemanager.PackageManager(url, debug=debug)
+		self.web_console     = webconsole.WebConsole(url, debug=debug)
 		self.jcr = jcr.Jcr(url, debug=debug)
 
 
-	# crx package manager methods
+	# package manager methods
 
 
 	def create_package(self, group_name, package_name, package_version, **kwargs):
@@ -38,6 +40,17 @@ class PyAem(object):
 
 	def install_package(self, group_name, package_name, package_version, **kwargs):
 		return self.package_manager.install_package(group_name, package_name, package_version, **kwargs)
+
+
+	# web console methods
+
+
+	def start_bundle(self, bundle_name, **kwargs):
+		return self.web_console.start_bundle(bundle_name, **kwargs)
+
+
+	def stop_bundle(self, bundle_name, **kwargs):
+		return self.web_console.stop_bundle(bundle_name, **kwargs)
 
 
 	# jcr methods

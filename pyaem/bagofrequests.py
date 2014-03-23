@@ -26,7 +26,7 @@ def request(method, url, params, handlers, **kwargs):
 	}
 
 	curl.close()
-	
+
 	if response['http_code'] in handlers:
 		return handlers[response['http_code']](response, **kwargs)
 	else:

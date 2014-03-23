@@ -86,25 +86,50 @@ class ContentRepo(object):
 		return bag.request(method, url, params, _handlers, **opts)
 
 
-	def set_permission(self, user, **kwargs):
+	def set_permission(self, user_name, **kwargs):
 
 		def _handler_ok(response, **kwargs):
 
 			result = {
 				'status' : 'success',
-				'message': 'Permission of user {0} was set'.format(user_path)
+				'message': 'Permission of user {0} was set'.format(user_name)
 			}
 
 			return result
 
 		params    = {
-			'authorizableId': user
+			'authorizableId': user_name
 		}
 		_handlers = {
 			200: _handler_ok
 		}
 		method    = 'post'
 		url       = '{0}/.cqactions.html'.format(self.url)
+		params    = dict(params.items() + kwargs.items())
+		_handlers = dict(self.handlers.items() + _handlers.items())
+		opts      = self.kwargs
+
+		return bag.request(method, url, params, _handlers, **opts)
+
+
+	def set_agent(self, agent_name, run_mode, **kwargs):
+
+		def _handler_ok(response, **kwargs):
+
+			result = {
+				'status' : 'success',
+				'message': '{0} agent {1} was set'.format(run_mode, agent_name)
+			}
+
+			return result
+
+		params    = {
+		}
+		_handlers = {
+			200: _handler_ok
+		}
+		method    = 'post'
+		url       = '{0}/etc/replication/agents.{1}/{2}'.format(self.url, run_mode, agent_name)
 		params    = dict(params.items() + kwargs.items())
 		_handlers = dict(self.handlers.items() + _handlers.items())
 		opts      = self.kwargs

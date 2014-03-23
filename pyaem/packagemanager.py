@@ -8,10 +8,22 @@ class PackageManager(object):
 
 	def __init__(self, url, **kwargs):
 
+		def _handler_ok(response, **kwargs):
+
+			data    = json.loads(response['body'])
+			message = data['msg']
+
+			result = {
+				'status' : 'success' if data['success'] == True else 'failure',
+				'message': message
+			}
+
+			return result
+
 		self.url      = url
 		self.kwargs   = kwargs
 		self.handlers = {
-			200: handlers.ok_json,
+			200: _handler_ok,
 			401: handlers.auth_fail,
 			405: handlers.method_not_allowed
 		}
@@ -69,8 +81,17 @@ class PackageManager(object):
 
 	def download_package(self, group_name, package_name, package_version, **kwargs):
 
+		def _handler_ok(response, **kwargs):
+
+			result = {
+				'status' : 'success',
+				'message': '{0} was successfully downloaded'.format(kwargs['file_name'])
+			}
+
+			return result
+
 		_handlers = {
-			200: handlers.ok_download_file
+			200: _handler_ok
 		}
 		opts      = {
 			'file_name': '{0}-{1}.zip'.format(package_name, package_version)
@@ -86,13 +107,24 @@ class PackageManager(object):
 
 	def upload_package(self, group_name, package_name, package_version, **kwargs):
 
+		def _handler_ok(response, **kwargs):
+
+			data = json.loads(response['body'])
+
+			result = {
+				'status' : 'success' if data['success'] == True else 'failure',
+				'message': data['msg']
+			}
+
+			return result
+
 		file_name = '{0}-{1}.zip'.format(package_name, package_version)
 		params    = {
 			'cmd': 'upload',
 			'package': (pycurl.FORM_FILE, file_name)
 		}
 		_handlers = {
-			200: handlers.ok_upload_file
+			200: _handler_ok
 		}
 		opts      = {
 			'file_name': file_name

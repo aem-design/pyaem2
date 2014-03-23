@@ -22,9 +22,10 @@ class WebConsole(object):
       405: handlers.method_not_allowed
     }
 
+
   def start_bundle(self, bundle_name, **kwargs):
 
-    def _handler_ok_start_bundle(response, **kwargs):
+    def _handler_ok(response, **kwargs):
       result = {
         'status' : 'success',
         'message': 'Bundle {0} was successfully started'.format(kwargs['bundle_name'])
@@ -35,7 +36,7 @@ class WebConsole(object):
       'action': 'start'
     }
     _handlers = {
-      200: _handler_ok_start_bundle
+      200: _handler_ok
     }
     opts      = {
       'bundle_name': bundle_name
@@ -51,7 +52,7 @@ class WebConsole(object):
 
   def stop_bundle(self, bundle_name, **kwargs):
 
-    def _handler_ok_stop_bundle(response, **kwargs):
+    def _handler_ok(response, **kwargs):
       result = {
         'status' : 'success',
         'message': 'Bundle {0} was successfully stopped'.format(kwargs['bundle_name'])
@@ -62,7 +63,7 @@ class WebConsole(object):
       'action': 'stop'
     }
     _handlers = {
-      200: _handler_ok_stop_bundle
+      200: _handler_ok
     }
     opts      = {
       'bundle_name': bundle_name

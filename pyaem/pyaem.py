@@ -61,3 +61,7 @@ class PyAem(object):
 
 	def stop_bundle(self, bundle_name, **kwargs):
 		return self.web_console.stop_bundle(bundle_name, **kwargs)
+
+
+	def install_bundle(self, bundle_name, bundle_version, **kwargs):
+		return self.web_console.install_bundle(bundle_name, bundle_version, **kwargs)

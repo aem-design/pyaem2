@@ -120,7 +120,7 @@ class PackageManager(object):
 
 		file_name = '{0}-{1}.zip'.format(package_name, package_version)
 		params    = {
-			'cmd': 'upload',
+			'cmd'    : 'upload',
 			'package': (pycurl.FORM_FILE, file_name)
 		}
 		_handlers = {

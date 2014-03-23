@@ -26,6 +26,9 @@ class PyAem(object):
 		return self.content_repo.change_password(user_path, old_password, new_password, **kwargs)
 
 
+	def set_permission(self, user, **kwargs):
+		return self.content_repo.set_permission(user, **kwargs)
+
 	# package manager methods
 
 

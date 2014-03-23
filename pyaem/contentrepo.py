@@ -84,3 +84,29 @@ class ContentRepo(object):
 		opts      = self.kwargs
 
 		return bag.request(method, url, params, _handlers, **opts)
+
+
+	def set_permission(self, user, **kwargs):
+
+		def _handler_ok(response, **kwargs):
+
+			result = {
+				'status' : 'success',
+				'message': 'Permission of user {0} was set'.format(user_path)
+			}
+
+			return result
+
+		params    = {
+			'authorizableId': user
+		}
+		_handlers = {
+			200: _handler_ok
+		}
+		method    = 'post'
+		url       = '{0}/.cqactions.html'.format(self.url)
+		params    = dict(params.items() + kwargs.items())
+		_handlers = dict(self.handlers.items() + _handlers.items())
+		opts      = self.kwargs
+
+		return bag.request(method, url, params, _handlers, **opts)

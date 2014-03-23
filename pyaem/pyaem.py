@@ -22,6 +22,10 @@ class PyAem(object):
 		return self.content_repo.activate_tree(path, **kwargs)
 
 
+	def change_password(self, user_path, old_password, new_password, **kwargs):
+		return self.content_repo.change_password(user_path, old_password, new_password, **kwargs)
+
+
 	# package manager methods
 
 

@@ -105,7 +105,7 @@ class PackageManager(object):
 		return bag.download_file(url, params, _handlers, **opts)
 
 
-	def upload_package(self, group_name, package_name, package_version, **kwargs):
+	def upload_package(self, group_name, package_name, package_version, file_path, **kwargs):
 
 		def _handler_ok(response, **kwargs):
 
@@ -121,7 +121,7 @@ class PackageManager(object):
 		file_name = '{0}-{1}.zip'.format(package_name, package_version)
 		params    = {
 			'cmd'    : 'upload',
-			'package': (pycurl.FORM_FILE, file_name)
+			'package': (pycurl.FORM_FILE, '{0}/{1}'.format(file_path, file_name))
 		}
 		_handlers = {
 			200: _handler_ok

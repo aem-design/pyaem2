@@ -16,6 +16,7 @@ def request(method, url, params, handlers, **kwargs):
 		url = '{0}?{1}'.format(url, urllib.urlencode(params))
 
 	curl.setopt(pycurl.URL, url)
+	curl.setopt(pycurl.FOLLOWLOCATION, 1)
 	curl.setopt(pycurl.WRITEFUNCTION, body_io.write)
 	
 	curl.perform()
@@ -40,6 +41,7 @@ def download_file(url, params, handlers, **kwargs):
 	file = open(kwargs['file_name'], 'wb')
 
 	curl.setopt(pycurl.URL, url)
+	curl.setopt(pycurl.FOLLOWLOCATION, 1)
 	curl.setopt(pycurl.WRITEDATA, file)
 	
 	curl.perform()
@@ -68,6 +70,7 @@ def upload_file(url, params, handlers, **kwargs):
 	curl.setopt(pycurl.POST, 1)
 	curl.setopt(pycurl.HTTPPOST, _params)
 	curl.setopt(pycurl.URL, url)
+	curl.setopt(pycurl.FOLLOWLOCATION, 1)
 	curl.setopt(pycurl.WRITEFUNCTION, body_io.write)
 	
 	curl.perform()

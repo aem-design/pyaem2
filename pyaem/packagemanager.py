@@ -56,7 +56,7 @@ class PackageManager(object):
 			'path'       : '/etc/packages/{0}/{1}-{2}.zip'.format(group_name, package_name, package_version),
 			'_charset_'  : 'utf-8'
 		}
-		method   = 'post'
+		method   = 'get'
 		url      = '{0}/crx/packmgr/update.jsp'.format(self.url)
 		params   = dict(params.items() + kwargs.items())
 		handlers = self.handlers

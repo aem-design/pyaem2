@@ -79,13 +79,13 @@ class PackageManager(object):
 		return bag.request(method, url, params, handlers, **opts)
 
 
-	def download_package(self, group_name, package_name, package_version, **kwargs):
+	def download_package(self, group_name, package_name, package_version, file_path, **kwargs):
 
 		def _handler_ok(response, **kwargs):
 
 			result = {
 				'status' : 'success',
-				'message': '{0} was successfully downloaded'.format(kwargs['file_name'])
+				'message': '{0} was successfully downloaded'.format(kwargs['file'])
 			}
 
 			return result
@@ -94,7 +94,7 @@ class PackageManager(object):
 			200: _handler_ok
 		}
 		opts      = {
-			'file_name': '{0}-{1}.zip'.format(package_name, package_version)
+			'file': '{0}/{1}-{2}.zip'.format(file_path, package_name, package_version)
 		}
 		method    = 'get'
 		url       = '{0}/etc/packages/{1}/{2}-{3}.zip'.format(self.url, group_name, package_name, package_version)

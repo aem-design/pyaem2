@@ -53,8 +53,8 @@ class PyAem(object):
 		return self.package_manager.download_package(group_name, package_name, package_version, file_path, **kwargs)
 
 
-	def upload_package(self, group_name, package_name, package_version, **kwargs):
-		return self.package_manager.upload_package(group_name, package_name, package_version, **kwargs)
+	def upload_package(self, group_name, package_name, package_version, file_path, **kwargs):
+		return self.package_manager.upload_package(group_name, package_name, package_version, file_path, **kwargs)
 
 
 	def install_package(self, group_name, package_name, package_version, **kwargs):

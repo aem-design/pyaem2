@@ -1,7 +1,6 @@
 import cStringIO
 from handlers import unexpected as handle_unexpected
 import pycurl
-import requests
 import urllib
 
 def request(method, url, params, handlers, **kwargs):
@@ -18,7 +17,7 @@ def request(method, url, params, handlers, **kwargs):
 	curl.setopt(pycurl.URL, url)
 	curl.setopt(pycurl.FOLLOWLOCATION, 1)
 	curl.setopt(pycurl.WRITEFUNCTION, body_io.write)
-	
+
 	curl.perform()
 
 	response = {
@@ -38,7 +37,7 @@ def download_file(url, params, handlers, **kwargs):
 
 	curl = pycurl.Curl()
  	url  = '{0}?{1}'.format(url, urllib.urlencode(params))
-	file = open(kwargs['file_name'], 'wb')
+	file = open(kwargs['file'], 'wb')
 
 	curl.setopt(pycurl.URL, url)
 	curl.setopt(pycurl.FOLLOWLOCATION, 1)

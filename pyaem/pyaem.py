@@ -18,8 +18,12 @@ class PyAem(object):
 	# content repo methods
 
 
-	def activate_tree(self, path, **kwargs):
-		return self.content_repo.activate_tree(path, **kwargs)
+	def create_path(self, path, **kwargs):
+		return self.content_repo.create_path(path, **kwargs)
+
+
+	def activate_path(self, path, **kwargs):
+		return self.content_repo.activate_path(path, **kwargs)
 
 
 	def change_password(self, user_path, old_password, new_password, **kwargs):

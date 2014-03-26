@@ -17,7 +17,30 @@ class ContentRepo(object):
 		}
 
 
-	def activate_tree(self, path, **kwargs):
+	def create_path(self, path, **kwargs):
+
+		def _handler_ok(response, **kwargs):
+
+			result = {
+				'status' : 'success',
+				'message': 'Path {0} was created'.format(path)
+			}
+
+			return result
+
+		_handlers = {
+			200: _handler_ok
+		}
+		method    = 'post'
+		url       = '{0}/{1}'.format(self.url, path)
+		params    = kwargs
+		_handlers = dict(self.handlers.items() + _handlers.items())
+		opts      = self.kwargs
+
+		return bag.request(method, url, params, _handlers, **opts)
+
+
+	def activate_path(self, path, **kwargs):
 
 		def _handler_ok(response, **kwargs):
 

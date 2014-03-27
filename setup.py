@@ -6,8 +6,6 @@ import os
 import sys
 import re
 
-import pyaem
-
 here = os.path.abspath(os.path.dirname(__file__))
 
 def read(*parts):
@@ -37,7 +35,7 @@ class PyTest(TestCommand):
 
 setup(
     name='pyaem',
-    version=pyaem.__version__,
+    version='0.0.1',
     url='http://github.com/cliffano/pyaem/',
     license='MIT License',
     author='Cliffano Subagio',

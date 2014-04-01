@@ -82,6 +82,64 @@ class ContentRepo(object):
 		return bag.request(method, url, params, _handlers, **opts)
 
 
+	def create_user(self, user_path, user_name, password, **kwargs):
+
+		def _handler_ok(response, **kwargs):
+
+			result = {
+				'status' : 'success',
+				'message': 'User {0}/{1} was created'.format(user_path, user_name)
+			}
+
+			return result
+
+		params    = {
+			'createUser'      : '',
+			'authorizableId'  : user_name,
+			'rep:password'    : password,
+			'intermediatePath': user_path
+		}
+		_handlers = {
+			200: _handler_ok
+		}
+		method    = 'post'
+		url       = '{0}/libs/granite/security/post/authorizables'.format(self.url)
+		params    = dict(params.items() + kwargs.items())
+		_handlers = dict(self.handlers.items() + _handlers.items())
+		opts      = self.kwargs
+
+		return bag.request(method, url, params, _handlers, **opts)
+
+
+	def create_group(self, group_path, group_name, **kwargs):
+
+		def _handler_ok(response, **kwargs):
+
+			result = {
+				'status' : 'success',
+				'message': 'Group {0}/{1} was created'.format(group_path, group_name)
+			}
+
+			return result
+
+		params    = {
+			'createGroup'     : '',
+			'authorizableId'  : group_name,
+			'profile/giveName': group_name,
+			'intermediatePath': group_path
+		}
+		_handlers = {
+			200: _handler_ok
+		}
+		method    = 'post'
+		url       = '{0}/libs/granite/security/post/authorizables'.format(self.url)
+		params    = dict(params.items() + kwargs.items())
+		_handlers = dict(self.handlers.items() + _handlers.items())
+		opts      = self.kwargs
+
+		return bag.request(method, url, params, _handlers, **opts)
+
+
 	def change_password(self, user_path, old_password, new_password, **kwargs):
 
 		def _handler_ok(response, **kwargs):

@@ -26,6 +26,14 @@ class PyAem(object):
 		return self.content_repo.activate_path(path, **kwargs)
 
 
+	def create_user(self, user_path, user_name, password, **kwargs):
+		return self.content_repo.create_user(user_path, user_name, password, **kwargs)
+
+
+	def create_group(self, group_path, group_name, password, **kwargs):
+		return self.content_repo.create_group(group_path, group_name, password, **kwargs)
+
+
 	def change_password(self, user_path, old_password, new_password, **kwargs):
 		return self.content_repo.change_password(user_path, old_password, new_password, **kwargs)
 

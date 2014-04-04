@@ -121,6 +121,32 @@ class ContentRepo(object):
 		return bag.request(method, url, params, _handlers, **opts)
 
 
+	def add_user_to_group(self, user_name, group_path, group_name, **kwargs):
+
+		def _handler_ok(response, **kwargs):
+
+			result = {
+				'status' : 'success',
+				'message': 'User {0} was added to group {1}/{2}'.format(user_name, group_path, group_name)
+			}
+
+			return result
+
+		params    = {
+			'addMembers': user_name
+		}
+		_handlers = {
+			200: _handler_ok
+		}
+		method    = 'post'
+		url       = '{0}/{1}/{2}.rw.html'.format(self.url, group_path, group_name)
+		params    = dict(params.items() + kwargs.items())
+		_handlers = dict(self.handlers.items() + _handlers.items())
+		opts      = self.kwargs
+
+		return bag.request(method, url, params, _handlers, **opts)
+
+		
 	def create_group(self, group_path, group_name, **kwargs):
 
 		def _handler_ok(response, **kwargs):

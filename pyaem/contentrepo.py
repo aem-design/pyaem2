@@ -93,6 +93,15 @@ class ContentRepo(object):
 
 			return result
 
+		def _handler_exist_or_error(response, **kwargs):
+
+			result = {
+				'status' : 'success',
+				'message': 'User {0}/{1} already exists or there is an unexpected error - check AEM log'.format(user_path, user_name)
+			}
+
+			return result
+
 		params    = {
 			'createUser'      : '',
 			'authorizableId'  : user_name,
@@ -100,7 +109,8 @@ class ContentRepo(object):
 			'intermediatePath': user_path
 		}
 		_handlers = {
-			200: _handler_ok
+			201: _handler_ok,
+			500: _handler_exist_or_error
 		}
 		method    = 'post'
 		url       = '{0}/libs/granite/security/post/authorizables'.format(self.url)

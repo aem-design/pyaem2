@@ -34,12 +34,12 @@ class PyAem(object):
 		return self.content_repo.add_user_to_group(user_name, group_path, group_name, **kwargs)
 
 
-	def create_group(self, group_path, group_name, password, **kwargs):
-		return self.content_repo.create_group(group_path, group_name, password, **kwargs)
+	def create_group(self, group_path, group_name, **kwargs):
+		return self.content_repo.create_group(group_path, group_name, **kwargs)
 
 
-	def change_password(self, user_path, old_password, new_password, **kwargs):
-		return self.content_repo.change_password(user_path, old_password, new_password, **kwargs)
+	def change_password(self, user_path, user_name, old_password, new_password, **kwargs):
+		return self.content_repo.change_password(user_path, user_name, old_password, new_password, **kwargs)
 
 
 	def set_permission(self, user_name, **kwargs):

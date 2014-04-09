@@ -81,3 +81,14 @@ Error Handling
     except pyaem.PyAemException, e:
     
         print e.message
+        
+TODO
+----
+
+* Improve test coverage
+* Coverage report
+* Improve code documentation
+* Generate project site
+
+Please remember that I'm working on this package at my own spare time, including my weekends.
+If there is something that you believe could be done better, roll up your sleeves, pull requests are always welcome!

@@ -6,16 +6,14 @@
 PyAEM
 -----
 
-PyAEM is a Python client for [Adobe Experience Manager](http://dev.day.com/docs/en/cq/current.html) API.
+PyAEM is a Python client for [Adobe Experience Manager](http://dev.day.com/docs/en/cq/current.html) (AEM) API.
 
 Tested with AEM 5.6.1
-
-NOTE: this is still a work in progress, not yet published to PyPI.
 
 Installation
 ------------
 
-TODO
+NOTE: This package is still a work in progress, not yet published to PyPI.
 
     pip install pyaem
 
@@ -25,6 +23,24 @@ Usage
     import pyaem
 
     aem = pyaem.PyAem('admin', 'password', 'localhost', 4502)
+
+Content Management
+
+	aem.create_path('/content/mysite')
+
+	aem.activate_path('/content/mysite')
+
+	aem.create_user('/home/users/m', 'myuser', 'mypassword')
+
+	aem.add_user_to_group('myuser', '/home/groups/m', 'mygroup')
+
+	aem.create_group('/home/groups/m', 'mygroup')
+
+	aem.change_password('/home/users/m', 'myuser', 'myoldpassword', 'mynewpassword')
+
+	aem.set_permission('myuser')
+
+	aem.set_agent('myagent', 'runmode')
 
 Package Management
 
@@ -41,3 +57,19 @@ Package Management
     aem.install_package('mygroup', 'mypackage', 1.2.3)
 
     aem.replicate_package('mygroup', 'mypackage', 1.2.3)
+    
+Bundle Management
+
+	aem.start_bundle('mybundle')
+
+	aem.stop_bundle('mybundle')
+
+    aem.install_bundle('mybundle')
+
+Error Handling
+--------------
+
+    try:
+        aem.activate_path('/content/mysite')
+    except pyaem.PyAemException, e:
+        print e.message

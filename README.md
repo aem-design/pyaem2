@@ -15,6 +15,13 @@ Installation
 
 NOTE: This package is still a work in progress, not yet published to PyPI.
 
+To use master:
+
+# Add https://github.com/cliffano/pyaem/archive/master.zip to your requirements.txt file
+# Run pip install --requirement requirements.txt 
+
+And later on when pyaem is published to PyPI:
+
     pip install pyaem
 
 Usage
@@ -26,21 +33,21 @@ Usage
 
 Content Management
 
-	aem.create_path('/content/mysite')
+    aem.create_path('/content/mysite')
 
-	aem.activate_path('/content/mysite')
+    aem.activate_path('/content/mysite')
 
-	aem.create_user('/home/users/m', 'myuser', 'mypassword')
+    aem.create_user('/home/users/m', 'myuser', 'mypassword')
 
-	aem.add_user_to_group('myuser', '/home/groups/m', 'mygroup')
+    aem.add_user_to_group('myuser', '/home/groups/m', 'mygroup')
 
-	aem.create_group('/home/groups/m', 'mygroup')
+    aem.create_group('/home/groups/m', 'mygroup')
 
-	aem.change_password('/home/users/m', 'myuser', 'myoldpassword', 'mynewpassword')
+    aem.change_password('/home/users/m', 'myuser', 'myoldpassword', 'mynewpassword')
 
-	aem.set_permission('myuser')
+    aem.set_permission('myuser')
 
-	aem.set_agent('myagent', 'runmode')
+    aem.set_agent('myagent', 'runmode')
 
 Package Management
 
@@ -60,9 +67,9 @@ Package Management
     
 Bundle Management
 
-	aem.start_bundle('mybundle')
+    aem.start_bundle('mybundle')
 
-	aem.stop_bundle('mybundle')
+    aem.stop_bundle('mybundle')
 
     aem.install_bundle('mybundle')
 

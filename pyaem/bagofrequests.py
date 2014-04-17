@@ -10,7 +10,7 @@ def request(method, url, params, handlers, **kwargs):
 
 	if method == 'post':
 		curl.setopt(pycurl.POST, 1)
-		curl.setopt(pycurl.POSTFIELDS, urllib.urlencode(params)) 
+		curl.setopt(pycurl.POSTFIELDS, urllib.urlencode(params))
 	else:
 		url = '{0}?{1}'.format(url, urllib.urlencode(params))
 

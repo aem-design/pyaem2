@@ -1,8 +1,7 @@
-from mock import MagicMock
 import pyaem
 import unittest
 
-class TestPyAemException(unittest.TestCase):
+class TestException(unittest.TestCase):
 
 
   def test_init(self):

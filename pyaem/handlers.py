@@ -21,6 +21,6 @@ def method_not_allowed(response, **kwargs):
 def unexpected(response, **kwargs):
 
 	code    = response['http_code']
-	message = 'Unexpected response http code {0} and body\n{1}'.format(response['http_code'], response['body'])
+	message = 'Unexpected response\nhttp code: {0}\nbody:\n{1}'.format(response['http_code'], response['body'])
 
 	raise exception.PyAemException(code, message)

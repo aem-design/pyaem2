@@ -45,7 +45,7 @@ class TestHandlers(unittest.TestCase):
       self.fail('An exception should have been raised')
     except pyaem.PyAemException, e:
       self.assertEqual(e.code, 500)
-      self.assertEqual(e.message, 'Unexpected response http code 500 and body\nsome unexpected server error')
+      self.assertEqual(e.message, 'Unexpected response\nhttp code: 500\nbody:\nsome unexpected server error')
 
 
 if __name__ == '__main__':

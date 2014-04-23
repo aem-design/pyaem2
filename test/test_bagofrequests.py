@@ -1,6 +1,4 @@
-import cStringIO
 from mock import MagicMock
-from mock import PropertyMock
 import pyaem
 import pycurl
 import unittest

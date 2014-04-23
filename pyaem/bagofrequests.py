@@ -44,7 +44,7 @@ def download_file(url, params, handlers, **kwargs):
     curl.setopt(pycurl.FOLLOWLOCATION, 1)
     curl.setopt(pycurl.WRITEDATA, file)
     curl.setopt(pycurl.WRITEFUNCTION, body_io.write)
-    
+
     curl.perform()
 
     response = {
@@ -74,7 +74,7 @@ def upload_file(url, params, handlers, **kwargs):
     curl.setopt(pycurl.URL, url)
     curl.setopt(pycurl.FOLLOWLOCATION, 1)
     curl.setopt(pycurl.WRITEFUNCTION, body_io.write)
-    
+
     curl.perform()
 
     response = {

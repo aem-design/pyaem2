@@ -147,7 +147,7 @@ class ContentRepo(object):
 
         return bag.request(method, url, params, _handlers, **opts)
 
-        
+
     def create_group(self, group_path, group_name, **kwargs):
 
         def _handler_ok(response, **kwargs):

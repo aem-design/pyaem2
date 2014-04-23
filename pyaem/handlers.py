@@ -13,7 +13,7 @@ def method_not_allowed(response, **kwargs):
 
     code    = response['http_code']
     soup    = BeautifulSoup(response['body'])
-    message = soup.p.string    
+    message = soup.p.string
 
     raise exception.PyAemException(code, message)
 

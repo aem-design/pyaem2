@@ -89,7 +89,7 @@ class WebConsole(object):
 
         file_name = '{0}-{1}.zip'.format(bundle_name, bundle_version)
         params    = {
-            'action'        : 'install',
+            'action'    : 'install',
             'bundlefile': (pycurl.FORM_FILE, file_name)
         }
         _handlers = {
@@ -104,4 +104,3 @@ class WebConsole(object):
         opts      = dict(self.kwargs.items() + opts.items())
 
         return bag.upload_file(url, params, _handlers, **opts)
-        

@@ -71,7 +71,8 @@ class PackageManager(object):
             'cmd': 'build'
         }
         method   = 'post'
-        url      = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(self.url, group_name, package_name, package_version)
+        url      = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(
+            self.url, group_name, package_name, package_version)
         params   = dict(params.items() + kwargs.items())
         handlers = self.handlers
         opts     = self.kwargs
@@ -143,7 +144,8 @@ class PackageManager(object):
             'cmd': 'install'
         }
         method   = 'post'
-        url      = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(self.url, group_name, package_name, package_version)
+        url      = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(
+            self.url, group_name, package_name, package_version)
         params   = dict(params.items() + kwargs.items())
         handlers = self.handlers
         opts     = self.kwargs
@@ -157,7 +159,8 @@ class PackageManager(object):
             'cmd': 'replicate'
         }
         method   = 'post'
-        url      = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(self.url, group_name, package_name, package_version)
+        url      = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(
+            self.url, group_name, package_name, package_version)
         params   = dict(params.items() + kwargs.items())
         handlers = self.handlers
         opts     = self.kwargs

@@ -75,7 +75,8 @@ class TestPyAem(unittest.TestCase):
         aem.content_repo.change_password = MagicMock()
 
         aem.change_password('/home/users/u/', 'someusername1', 'someoldpassword', 'somenewpassword')
-        aem.content_repo.change_password.assert_called_once_with('/home/users/u/', 'someusername1', 'someoldpassword', 'somenewpassword')
+        aem.content_repo.change_password.assert_called_once_with(
+            '/home/users/u/', 'someusername1', 'someoldpassword', 'somenewpassword')
 
 
     def test_set_permission(self):
@@ -132,7 +133,8 @@ class TestPyAem(unittest.TestCase):
         aem.package_manager.download_package = MagicMock()
 
         aem.download_package('somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
-        aem.package_manager.download_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
+        aem.package_manager.download_package.assert_called_once_with(
+            'somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
 
 
     def test_upload_package(self):
@@ -141,7 +143,8 @@ class TestPyAem(unittest.TestCase):
         aem.package_manager.upload_package = MagicMock()
 
         aem.upload_package('somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
-        aem.package_manager.upload_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
+        aem.package_manager.upload_package.assert_called_once_with(
+            'somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
 
 
     def test_build_package(self):

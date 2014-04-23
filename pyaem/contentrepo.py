@@ -97,7 +97,8 @@ class ContentRepo(object):
 
             result = {
                 'status' : 'success',
-                'message': 'User {0}/{1} already exists or there is an unexpected error - check AEM log'.format(user_path, user_name)
+                'message': 'User {0}/{1} already exists or there is an unexpected error - check AEM log'
+                    .format(user_path, user_name)
             }
 
             return result

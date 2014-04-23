@@ -104,3 +104,4 @@ class WebConsole(object):
         opts      = dict(self.kwargs.items() + opts.items())
 
         return bag.upload_file(url, params, _handlers, **opts)
+        

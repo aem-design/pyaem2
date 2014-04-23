@@ -24,3 +24,4 @@ def unexpected(response, **kwargs):
     message = 'Unexpected response\nhttp code: {0}\nbody:\n{1}'.format(response['http_code'], response['body'])
 
     raise exception.PyAemException(code, message)
+    

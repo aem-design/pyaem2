@@ -7,3 +7,4 @@ class PyAemException(Exception):
 
         self.code    = code
         self.message = message
+        

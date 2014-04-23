@@ -13,7 +13,7 @@ class TestHandlers(unittest.TestCase):
         try:
             pyaem.handlers.auth_fail(response)
             self.fail('An exception should have been raised')
-        except pyaem.PyAemException, e:
+        except pyaem.PyAemException as e:
             self.assertEqual(e.code, 401)
             self.assertEqual(e.message, 'Authentication failed - incorrect username and/or password')
 
@@ -28,7 +28,7 @@ class TestHandlers(unittest.TestCase):
         try:
             pyaem.handlers.method_not_allowed(response)
             self.fail('An exception should have been raised')
-        except pyaem.PyAemException, e:
+        except pyaem.PyAemException as e:
             self.assertEqual(e.code, 405)
             self.assertEqual(e.message, 'some error message')
 
@@ -43,7 +43,7 @@ class TestHandlers(unittest.TestCase):
         try:
             pyaem.handlers.unexpected(response)
             self.fail('An exception should have been raised')
-        except pyaem.PyAemException, e:
+        except pyaem.PyAemException as e:
             self.assertEqual(e.code, 500)
             self.assertEqual(e.message, 'Unexpected response\nhttp code: 500\nbody:\nsome unexpected server error')
 

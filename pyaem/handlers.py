@@ -1,4 +1,4 @@
-from BeautifulSoup import *
+from BeautifulSoup import BeautifulSoup
 import exception
 
 def auth_fail(response, **kwargs):

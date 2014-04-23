@@ -1,5 +1,5 @@
 import bagofrequests as bag
-from BeautifulSoup import *
+from BeautifulSoup import BeautifulSoup
 import handlers
 import json
 import re
@@ -51,7 +51,7 @@ class ContentRepo(object):
                 convertEntities = BeautifulSoup.HTML_ENTITIES,
                 markupMassage   = HEX_MASSAGE
             )
-            errors = soup.findAll(attrs={ 'class': 'error' })
+            errors = soup.findAll(attrs={'class': 'error'})
 
             if len(errors) == 0:
                 result = {

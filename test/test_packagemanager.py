@@ -20,7 +20,7 @@ class TestPackageManager(unittest.TestCase):
 
         packagemanager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html', foo = 'bar')
         handler        = packagemanager.handlers[200]
-        response       = { 'body': '{ "success": true, "msg": "some message" }' }
+        response       = {'body': '{ "success": true, "msg": "some message" }'}
         result         = handler(response)
 
         self.assertEquals(result['status'], 'success')
@@ -31,7 +31,7 @@ class TestPackageManager(unittest.TestCase):
 
         packagemanager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html', foo = 'bar')
         handler        = packagemanager.handlers[200]
-        response       = { 'body': '{ "success": false, "msg": "some message" }' }
+        response       = {'body': '{ "success": false, "msg": "some message" }'}
         result         = handler(response)
 
         self.assertEquals(result['status'], 'failure')

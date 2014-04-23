@@ -147,15 +147,6 @@ class TestPyAem(unittest.TestCase):
             'somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
 
 
-    def test_build_package(self):
-
-        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-        aem.package_manager.build_package = MagicMock()
-
-        aem.build_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
-        aem.package_manager.build_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
-
-
     def test_install_package(self):
 
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)

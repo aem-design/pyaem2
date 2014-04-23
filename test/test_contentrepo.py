@@ -10,7 +10,7 @@ class TestContentRepo(unittest.TestCase):
 
         self.assertEqual(contentrepo.url, 'http://localhost:4502/.cqactions.html')
         self.assertEqual(contentrepo.kwargs['foo'], 'bar')
-        
+
         self.assertTrue(401 in contentrepo.handlers)
         self.assertTrue(405 in contentrepo.handlers)
 

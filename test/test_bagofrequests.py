@@ -65,10 +65,10 @@ class TestBagOfRequests(unittest.TestCase):
         curl.close   = MagicMock()
         pycurl.Curl  = MagicMock(return_value = curl)
 
-        method   = 'gett'
+        method   = 'get'
         url      = 'http://localhost:4502/.cqactions.html'
-        params   = { 'foo1': 'bar1', 'foo2': 'bar2' }
-        handlers = { 200: _handler_dummy }
+        params   = {'foo1': 'bar1', 'foo2': 'bar2'}
+        handlers = {200: _handler_dummy}
 
         result = pyaem.bagofrequests.request(method, url, params, handlers)
 
@@ -95,17 +95,17 @@ class TestBagOfRequests(unittest.TestCase):
         curl.close   = MagicMock()
         pycurl.Curl  = MagicMock(return_value = curl)
 
-        method   = 'gett'
+        method   = 'get'
         url      = 'http://localhost:4502/.cqactions.html'
-        params   = { 'foo1': 'bar1', 'foo2': 'bar2' }
+        params   = {'foo1': 'bar1', 'foo2': 'bar2'}
         handlers = {}
 
         try:
-                pyaem.bagofrequests.request(method, url, params, handlers)
-                self.fail('An exception should have been raised')
-        except pyaem.PyAemException, e:
-                self.assertEqual(e.code, 500)
-                self.assertEqual(e.message, 'Unexpected response\nhttp code: 500\nbody:\n')
+            pyaem.bagofrequests.request(method, url, params, handlers)
+            self.fail('An exception should have been raised')
+        except pyaem.PyAemException as e:
+            self.assertEqual(e.code, 500)
+            self.assertEqual(e.message, 'Unexpected response\nhttp code: 500\nbody:\n')
 
         curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
@@ -137,8 +137,8 @@ class TestBagOfRequests(unittest.TestCase):
         pycurl.Curl  = MagicMock(return_value = curl)
 
         url      = 'http://localhost:4502/.cqactions.html'
-        params   = { 'foo1': 'bar1', 'foo2': 'bar2' }
-        handlers = { 200: _handler_dummy }
+        params   = {'foo1': 'bar1', 'foo2': 'bar2'}
+        handlers = {200: _handler_dummy}
 
         result = pyaem.bagofrequests.download_file(url, params, handlers, file = '/tmp/somefile')
 
@@ -166,15 +166,15 @@ class TestBagOfRequests(unittest.TestCase):
         pycurl.Curl  = MagicMock(return_value = curl)
 
         url      = 'http://localhost:4502/.cqactions.html'
-        params   = { 'foo1': 'bar1', 'foo2': 'bar2' }
+        params   = {'foo1': 'bar1', 'foo2': 'bar2'}
         handlers = {}
 
         try:
-                pyaem.bagofrequests.download_file(url, params, handlers, file = '/tmp/somefile')
-                self.fail('An exception should have been raised')
-        except pyaem.PyAemException, e:
-                self.assertEqual(e.code, 500)
-                self.assertEqual(e.message, 'Unexpected response\nhttp code: 500\nbody:\n')
+            pyaem.bagofrequests.download_file(url, params, handlers, file = '/tmp/somefile')
+            self.fail('An exception should have been raised')
+        except pyaem.PyAemException as e:
+            self.assertEqual(e.code, 500)
+            self.assertEqual(e.message, 'Unexpected response\nhttp code: 500\nbody:\n')
 
         curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
@@ -206,8 +206,8 @@ class TestBagOfRequests(unittest.TestCase):
         pycurl.Curl  = MagicMock(return_value = curl)
 
         url      = 'http://localhost:4502/.cqactions.html'
-        params   = { 'foo1': 'bar1', 'foo2': 'bar2' }
-        handlers = { 200: _handler_dummy }
+        params   = {'foo1': 'bar1', 'foo2': 'bar2'}
+        handlers = {200: _handler_dummy}
 
         result = pyaem.bagofrequests.upload_file(url, params, handlers, file = '/tmp/somefile')
 
@@ -237,15 +237,15 @@ class TestBagOfRequests(unittest.TestCase):
         pycurl.Curl  = MagicMock(return_value = curl)
 
         url      = 'http://localhost:4502/.cqactions.html'
-        params   = { 'foo1': 'bar1', 'foo2': 'bar2' }
+        params   = {'foo1': 'bar1', 'foo2': 'bar2'}
         handlers = {}
 
         try:
-                pyaem.bagofrequests.upload_file(url, params, handlers, file = '/tmp/somefile')
-                self.fail('An exception should have been raised')
-        except pyaem.PyAemException, e:
-                self.assertEqual(e.code, 500)
-                self.assertEqual(e.message, 'Unexpected response\nhttp code: 500\nbody:\n')
+            pyaem.bagofrequests.upload_file(url, params, handlers, file = '/tmp/somefile')
+            self.fail('An exception should have been raised')
+        except pyaem.PyAemException as e:
+            self.assertEqual(e.code, 500)
+            self.assertEqual(e.message, 'Unexpected response\nhttp code: 500\nbody:\n')
 
         curl.setopt.assert_any_call(pycurl.POST, 1)
         curl.setopt.assert_any_call(pycurl.HTTPPOST, [('foo1', 'bar1'), ('foo2', 'bar2')])

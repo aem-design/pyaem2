@@ -5,201 +5,201 @@ import unittest
 class TestPyAem(unittest.TestCase):
 
 
-  def test_init(self):
+    def test_init(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    self.assertTrue(hasattr(aem, 'content_repo'))
-    self.assertTrue(hasattr(aem, 'package_manager'))
-    self.assertTrue(hasattr(aem, 'web_console'))
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        self.assertTrue(hasattr(aem, 'content_repo'))
+        self.assertTrue(hasattr(aem, 'package_manager'))
+        self.assertTrue(hasattr(aem, 'web_console'))
 
 
-  def test_init_ssl_debug(self):
+    def test_init_ssl_debug(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502, use_ssl = True, debug = True)
-    self.assertTrue(hasattr(aem, 'content_repo'))
-    self.assertTrue(hasattr(aem, 'package_manager'))
-    self.assertTrue(hasattr(aem, 'web_console'))
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502, use_ssl = True, debug = True)
+        self.assertTrue(hasattr(aem, 'content_repo'))
+        self.assertTrue(hasattr(aem, 'package_manager'))
+        self.assertTrue(hasattr(aem, 'web_console'))
 
 
-  # content repo methods
+    # content repo methods
 
 
-  def test_create_path(self):
+    def test_create_path(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.content_repo.create_path = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.content_repo.create_path = MagicMock()
 
-    aem.create_path('/content/somepath')
-    aem.content_repo.create_path.assert_called_once_with('/content/somepath')
+        aem.create_path('/content/somepath')
+        aem.content_repo.create_path.assert_called_once_with('/content/somepath')
 
 
-  def test_activate_path(self):
+    def test_activate_path(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.content_repo.activate_path = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.content_repo.activate_path = MagicMock()
 
-    aem.activate_path('/content/somepath')
-    aem.content_repo.activate_path.assert_called_once_with('/content/somepath')
+        aem.activate_path('/content/somepath')
+        aem.content_repo.activate_path.assert_called_once_with('/content/somepath')
 
 
-  def test_create_user(self):
+    def test_create_user(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.content_repo.create_user = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.content_repo.create_user = MagicMock()
 
-    aem.create_user('/home/users/u/', 'someusername1', 'somepassword1')
-    aem.content_repo.create_user.assert_called_once_with('/home/users/u/', 'someusername1', 'somepassword1')
+        aem.create_user('/home/users/u/', 'someusername1', 'somepassword1')
+        aem.content_repo.create_user.assert_called_once_with('/home/users/u/', 'someusername1', 'somepassword1')
 
 
-  def test_add_user_to_group(self):
+    def test_add_user_to_group(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.content_repo.add_user_to_group = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.content_repo.add_user_to_group = MagicMock()
 
-    aem.add_user_to_group('someusername1', '/home/groups/g/', 'somegroupname1')
-    aem.content_repo.add_user_to_group.assert_called_once_with('someusername1', '/home/groups/g/', 'somegroupname1')
+        aem.add_user_to_group('someusername1', '/home/groups/g/', 'somegroupname1')
+        aem.content_repo.add_user_to_group.assert_called_once_with('someusername1', '/home/groups/g/', 'somegroupname1')
 
 
-  def test_create_group(self):
+    def test_create_group(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.content_repo.create_group = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.content_repo.create_group = MagicMock()
 
-    aem.create_group('/home/groups/g/', 'somegroupname1')
-    aem.content_repo.create_group.assert_called_once_with('/home/groups/g/', 'somegroupname1')
+        aem.create_group('/home/groups/g/', 'somegroupname1')
+        aem.content_repo.create_group.assert_called_once_with('/home/groups/g/', 'somegroupname1')
 
 
-  def test_change_password(self):
+    def test_change_password(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.content_repo.change_password = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.content_repo.change_password = MagicMock()
 
-    aem.change_password('/home/users/u/', 'someusername1', 'someoldpassword', 'somenewpassword')
-    aem.content_repo.change_password.assert_called_once_with('/home/users/u/', 'someusername1', 'someoldpassword', 'somenewpassword')
+        aem.change_password('/home/users/u/', 'someusername1', 'someoldpassword', 'somenewpassword')
+        aem.content_repo.change_password.assert_called_once_with('/home/users/u/', 'someusername1', 'someoldpassword', 'somenewpassword')
 
 
-  def test_set_permission(self):
+    def test_set_permission(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.content_repo.set_permission = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.content_repo.set_permission = MagicMock()
 
-    aem.set_permission('someusername1')
-    aem.content_repo.set_permission.assert_called_once_with('someusername1')
+        aem.set_permission('someusername1')
+        aem.content_repo.set_permission.assert_called_once_with('someusername1')
 
 
-  def test_set_agent(self):
+    def test_set_agent(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.content_repo.set_agent = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.content_repo.set_agent = MagicMock()
 
-    aem.set_agent('someagentname', 'somerunmode')
-    aem.content_repo.set_agent.assert_called_once_with('someagentname', 'somerunmode')
+        aem.set_agent('someagentname', 'somerunmode')
+        aem.content_repo.set_agent.assert_called_once_with('someagentname', 'somerunmode')
 
 
-  # package manager methods
+    # package manager methods
 
 
-  def test_create_package(self):
+    def test_create_package(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.package_manager.create_package = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager.create_package = MagicMock()
 
-    aem.create_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
-    aem.package_manager.create_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.create_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager.create_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
-  def test_update_package(self):
+    def test_update_package(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.package_manager.update_package = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager.update_package = MagicMock()
 
-    aem.update_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
-    aem.package_manager.update_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.update_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager.update_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
-  def test_build_package(self):
+    def test_build_package(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.package_manager.build_package = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager.build_package = MagicMock()
 
-    aem.build_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
-    aem.package_manager.build_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.build_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager.build_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
-  def test_download_package(self):
+    def test_download_package(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.package_manager.download_package = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager.download_package = MagicMock()
 
-    aem.download_package('somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
-    aem.package_manager.download_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
+        aem.download_package('somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
+        aem.package_manager.download_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
 
 
-  def test_upload_package(self):
+    def test_upload_package(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.package_manager.upload_package = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager.upload_package = MagicMock()
 
-    aem.upload_package('somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
-    aem.package_manager.upload_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
+        aem.upload_package('somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
+        aem.package_manager.upload_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
 
 
-  def test_build_package(self):
+    def test_build_package(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.package_manager.build_package = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager.build_package = MagicMock()
 
-    aem.build_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
-    aem.package_manager.build_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.build_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager.build_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
-  def test_install_package(self):
+    def test_install_package(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.package_manager.install_package = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager.install_package = MagicMock()
 
-    aem.install_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
-    aem.package_manager.install_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.install_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager.install_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
-  def test_replicate_package(self):
+    def test_replicate_package(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.package_manager.replicate_package = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager.replicate_package = MagicMock()
 
-    aem.replicate_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
-    aem.package_manager.replicate_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.replicate_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager.replicate_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
-  # web console methods
+    # web console methods
 
 
-  def test_start_bundle(self):
+    def test_start_bundle(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.web_console.start_bundle = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.web_console.start_bundle = MagicMock()
 
-    aem.start_bundle('somebundle')
-    aem.web_console.start_bundle.assert_called_once_with('somebundle')
+        aem.start_bundle('somebundle')
+        aem.web_console.start_bundle.assert_called_once_with('somebundle')
 
 
-  def test_stop_bundle(self):
+    def test_stop_bundle(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.web_console.stop_bundle = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.web_console.stop_bundle = MagicMock()
 
-    aem.stop_bundle('somebundle')
-    aem.web_console.stop_bundle.assert_called_once_with('somebundle')
+        aem.stop_bundle('somebundle')
+        aem.web_console.stop_bundle.assert_called_once_with('somebundle')
 
 
-  def test_install_bundle(self):
+    def test_install_bundle(self):
 
-    aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-    aem.web_console.install_bundle = MagicMock()
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.web_console.install_bundle = MagicMock()
 
-    aem.install_bundle('somebundle', '1.2-SNAPSHOT')
-    aem.web_console.install_bundle.assert_called_once_with('somebundle', '1.2-SNAPSHOT')
+        aem.install_bundle('somebundle', '1.2-SNAPSHOT')
+        aem.web_console.install_bundle.assert_called_once_with('somebundle', '1.2-SNAPSHOT')
 
 
 if __name__ == '__main__':
-  unittest.main()
+    unittest.main()

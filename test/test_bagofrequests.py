@@ -11,23 +11,23 @@ class TestBagOfRequests(unittest.TestCase):
         def _handler_dummy(response, **kwargs):
 
             result = {
-                'status' : 'success',
+                'status': 'success',
                 'message': 'some dummy message'
             }
 
             return result
 
-        curl         = pycurl.Curl()
-        curl.setopt  = MagicMock()
+        curl = pycurl.Curl()
+        curl.setopt = MagicMock()
         curl.perform = MagicMock()
-        curl.getinfo = MagicMock(return_value = 200)
-        curl.close   = MagicMock()
-        pycurl.Curl  = MagicMock(return_value = curl)
+        curl.getinfo = MagicMock(return_value=200)
+        curl.close = MagicMock()
+        pycurl.Curl = MagicMock(return_value=curl)
 
-        method   = 'post'
-        url      = 'http://localhost:4502/.cqactions.html'
-        params   = { 'foo1': 'bar1', 'foo2': 'bar2' }
-        handlers = { 200: _handler_dummy }
+        method = 'post'
+        url = 'http://localhost:4502/.cqactions.html'
+        params = {'foo1': 'bar1', 'foo2': 'bar2'}
+        handlers = {200: _handler_dummy}
 
         result = pyaem.bagofrequests.request(method, url, params, handlers)
 
@@ -52,22 +52,22 @@ class TestBagOfRequests(unittest.TestCase):
         def _handler_dummy(response, **kwargs):
 
             result = {
-                'status' : 'success',
+                'status': 'success',
                 'message': 'some dummy message'
             }
 
             return result
 
-        curl         = pycurl.Curl()
-        curl.setopt  = MagicMock()
+        curl = pycurl.Curl()
+        curl.setopt = MagicMock()
         curl.perform = MagicMock()
-        curl.getinfo = MagicMock(return_value = 200)
-        curl.close   = MagicMock()
-        pycurl.Curl  = MagicMock(return_value = curl)
+        curl.getinfo = MagicMock(return_value=200)
+        curl.close = MagicMock()
+        pycurl.Curl = MagicMock(return_value=curl)
 
-        method   = 'get'
-        url      = 'http://localhost:4502/.cqactions.html'
-        params   = {'foo1': 'bar1', 'foo2': 'bar2'}
+        method = 'get'
+        url = 'http://localhost:4502/.cqactions.html'
+        params = {'foo1': 'bar1', 'foo2': 'bar2'}
         handlers = {200: _handler_dummy}
 
         result = pyaem.bagofrequests.request(method, url, params, handlers)
@@ -88,16 +88,16 @@ class TestBagOfRequests(unittest.TestCase):
 
     def test_request_unexpected(self):
 
-        curl         = pycurl.Curl()
-        curl.setopt  = MagicMock()
+        curl = pycurl.Curl()
+        curl.setopt = MagicMock()
         curl.perform = MagicMock()
-        curl.getinfo = MagicMock(return_value = 500)
-        curl.close   = MagicMock()
-        pycurl.Curl  = MagicMock(return_value = curl)
+        curl.getinfo = MagicMock(return_value=500)
+        curl.close = MagicMock()
+        pycurl.Curl = MagicMock(return_value=curl)
 
-        method   = 'get'
-        url      = 'http://localhost:4502/.cqactions.html'
-        params   = {'foo1': 'bar1', 'foo2': 'bar2'}
+        method = 'get'
+        url = 'http://localhost:4502/.cqactions.html'
+        params = {'foo1': 'bar1', 'foo2': 'bar2'}
         handlers = {}
 
         try:
@@ -123,24 +123,24 @@ class TestBagOfRequests(unittest.TestCase):
         def _handler_dummy(response, **kwargs):
 
             result = {
-                'status' : 'success',
+                'status': 'success',
                 'message': 'some dummy message'
             }
 
             return result
 
-        curl         = pycurl.Curl()
-        curl.setopt  = MagicMock()
+        curl = pycurl.Curl()
+        curl.setopt = MagicMock()
         curl.perform = MagicMock()
-        curl.getinfo = MagicMock(return_value = 200)
-        curl.close   = MagicMock()
-        pycurl.Curl  = MagicMock(return_value = curl)
+        curl.getinfo = MagicMock(return_value=200)
+        curl.close = MagicMock()
+        pycurl.Curl = MagicMock(return_value=curl)
 
-        url      = 'http://localhost:4502/.cqactions.html'
-        params   = {'foo1': 'bar1', 'foo2': 'bar2'}
+        url = 'http://localhost:4502/.cqactions.html'
+        params = {'foo1': 'bar1', 'foo2': 'bar2'}
         handlers = {200: _handler_dummy}
 
-        result = pyaem.bagofrequests.download_file(url, params, handlers, file = '/tmp/somefile')
+        result = pyaem.bagofrequests.download_file(url, params, handlers, file='/tmp/somefile')
 
         curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
@@ -158,19 +158,19 @@ class TestBagOfRequests(unittest.TestCase):
 
     def test_download_file_unexpected(self):
 
-        curl         = pycurl.Curl()
-        curl.setopt  = MagicMock()
+        curl = pycurl.Curl()
+        curl.setopt = MagicMock()
         curl.perform = MagicMock()
-        curl.getinfo = MagicMock(return_value = 500)
-        curl.close   = MagicMock()
-        pycurl.Curl  = MagicMock(return_value = curl)
+        curl.getinfo = MagicMock(return_value=500)
+        curl.close = MagicMock()
+        pycurl.Curl = MagicMock(return_value=curl)
 
-        url      = 'http://localhost:4502/.cqactions.html'
-        params   = {'foo1': 'bar1', 'foo2': 'bar2'}
+        url = 'http://localhost:4502/.cqactions.html'
+        params = {'foo1': 'bar1', 'foo2': 'bar2'}
         handlers = {}
 
         try:
-            pyaem.bagofrequests.download_file(url, params, handlers, file = '/tmp/somefile')
+            pyaem.bagofrequests.download_file(url, params, handlers, file='/tmp/somefile')
             self.fail('An exception should have been raised')
         except pyaem.PyAemException as exception:
             self.assertEqual(exception.code, 500)
@@ -192,24 +192,24 @@ class TestBagOfRequests(unittest.TestCase):
         def _handler_dummy(response, **kwargs):
 
             result = {
-                'status' : 'success',
+                'status': 'success',
                 'message': 'some dummy message'
             }
 
             return result
 
-        curl         = pycurl.Curl()
-        curl.setopt  = MagicMock()
+        curl = pycurl.Curl()
+        curl.setopt = MagicMock()
         curl.perform = MagicMock()
-        curl.getinfo = MagicMock(return_value = 200)
-        curl.close   = MagicMock()
-        pycurl.Curl  = MagicMock(return_value = curl)
+        curl.getinfo = MagicMock(return_value=200)
+        curl.close = MagicMock()
+        pycurl.Curl = MagicMock(return_value=curl)
 
-        url      = 'http://localhost:4502/.cqactions.html'
-        params   = {'foo1': 'bar1', 'foo2': 'bar2'}
+        url = 'http://localhost:4502/.cqactions.html'
+        params = {'foo1': 'bar1', 'foo2': 'bar2'}
         handlers = {200: _handler_dummy}
 
-        result = pyaem.bagofrequests.upload_file(url, params, handlers, file = '/tmp/somefile')
+        result = pyaem.bagofrequests.upload_file(url, params, handlers, file='/tmp/somefile')
 
         curl.setopt.assert_any_call(pycurl.POST, 1)
         curl.setopt.assert_any_call(pycurl.HTTPPOST, [('foo1', 'bar1'), ('foo2', 'bar2')])
@@ -229,19 +229,19 @@ class TestBagOfRequests(unittest.TestCase):
 
     def test_upload_file_unexpected(self):
 
-        curl         = pycurl.Curl()
-        curl.setopt  = MagicMock()
+        curl = pycurl.Curl()
+        curl.setopt = MagicMock()
         curl.perform = MagicMock()
-        curl.getinfo = MagicMock(return_value = 500)
-        curl.close   = MagicMock()
-        pycurl.Curl  = MagicMock(return_value = curl)
+        curl.getinfo = MagicMock(return_value=500)
+        curl.close = MagicMock()
+        pycurl.Curl = MagicMock(return_value=curl)
 
-        url      = 'http://localhost:4502/.cqactions.html'
-        params   = {'foo1': 'bar1', 'foo2': 'bar2'}
+        url = 'http://localhost:4502/.cqactions.html'
+        params = {'foo1': 'bar1', 'foo2': 'bar2'}
         handlers = {}
 
         try:
-            pyaem.bagofrequests.upload_file(url, params, handlers, file = '/tmp/somefile')
+            pyaem.bagofrequests.upload_file(url, params, handlers, file='/tmp/somefile')
             self.fail('An exception should have been raised')
         except pyaem.PyAemException as exception:
             self.assertEqual(exception.code, 500)

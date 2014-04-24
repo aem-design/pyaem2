@@ -5,7 +5,7 @@ import urllib
 
 def request(method, url, params, handlers, **kwargs):
 
-    curl    = pycurl.Curl()
+    curl = pycurl.Curl()
     body_io = cStringIO.StringIO()
 
     if method == 'post':
@@ -22,7 +22,7 @@ def request(method, url, params, handlers, **kwargs):
 
     response = {
         'http_code': curl.getinfo(pycurl.HTTP_CODE),
-        'body'     : body_io.getvalue()
+        'body': body_io.getvalue()
     }
 
     curl.close()
@@ -35,10 +35,10 @@ def request(method, url, params, handlers, **kwargs):
 
 def download_file(url, params, handlers, **kwargs):
 
-    curl    = pycurl.Curl()
+    curl = pycurl.Curl()
     body_io = cStringIO.StringIO()
-    url     = '{0}?{1}'.format(url, urllib.urlencode(params))
-    data    = open(kwargs['file'], 'wb')
+    url = '{0}?{1}'.format(url, urllib.urlencode(params))
+    data = open(kwargs['file'], 'wb')
 
     curl.setopt(pycurl.URL, url)
     curl.setopt(pycurl.FOLLOWLOCATION, 1)
@@ -49,7 +49,7 @@ def download_file(url, params, handlers, **kwargs):
 
     response = {
         'http_code': curl.getinfo(pycurl.HTTP_CODE),
-        'body'     : body_io.getvalue()
+        'body': body_io.getvalue()
     }
 
     curl.close()
@@ -63,7 +63,7 @@ def download_file(url, params, handlers, **kwargs):
 
 def upload_file(url, params, handlers, **kwargs):
 
-    curl    = pycurl.Curl()
+    curl = pycurl.Curl()
     body_io = cStringIO.StringIO()
     _params = []
     for key, value in params.iteritems():
@@ -79,7 +79,7 @@ def upload_file(url, params, handlers, **kwargs):
 
     response = {
         'http_code': curl.getinfo(pycurl.HTTP_CODE),
-        'body'     : body_io.getvalue()
+        'body': body_io.getvalue()
     }
 
     curl.close()

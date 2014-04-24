@@ -10,8 +10,8 @@ class ContentRepo(object):
 
     def __init__(self, url, **kwargs):
 
-        self.url      = url
-        self.kwargs   = kwargs
+        self.url = url
+        self.kwargs = kwargs
         self.handlers = {
             401: handlers.auth_fail,
             405: handlers.method_not_allowed
@@ -23,7 +23,7 @@ class ContentRepo(object):
         def _handler_ok(response, **kwargs):
 
             result = {
-                'status' : 'success',
+                'status': 'success',
                 'message': 'Path {0} was created'.format(path)
             }
 
@@ -32,11 +32,12 @@ class ContentRepo(object):
         _handlers = {
             200: _handler_ok
         }
-        method    = 'post'
-        url       = '{0}/{1}'.format(self.url, path)
-        params    = kwargs
+
+        method = 'post'
+        url = '{0}/{1}'.format(self.url, path)
+        params = kwargs
         _handlers = dict(self.handlers.items() + _handlers.items())
-        opts      = self.kwargs
+        opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)
 
@@ -45,37 +46,39 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            soup   = BeautifulSoup(response['body'],
-                convertEntities = BeautifulSoup.HTML_ENTITIES,
-                markupMassage   = HEX_MASSAGE
+            soup = BeautifulSoup(response['body'],
+                convertEntities=BeautifulSoup.HTML_ENTITIES,
+                markupMassage=HEX_MASSAGE
             )
             errors = soup.findAll(attrs={'class': 'error'})
 
             if len(errors) == 0:
                 result = {
-                    'status' : 'success',
+                    'status': 'success',
                     'message': 'Path was successfully activated'
                 }
             else:
                 result = {
-                    'status' : 'failure',
+                    'status': 'failure',
                     'message': errors[0].string
                 }
 
             return result
 
-        params    = {
-            'cmd' : 'activate',
+        params = {
+            'cmd': 'activate',
             'path': path
         }
+
         _handlers = {
             200: _handler_ok
         }
-        method    = 'post'
-        url       = '{0}/etc/replication/treeactivation.html'.format(self.url)
-        params    = dict(params.items() + kwargs.items())
+
+        method = 'post'
+        url = '{0}/etc/replication/treeactivation.html'.format(self.url)
+        params = dict(params.items() + kwargs.items())
         _handlers = dict(self.handlers.items() + _handlers.items())
-        opts      = self.kwargs
+        opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)
 
@@ -85,7 +88,7 @@ class ContentRepo(object):
         def _handler_ok(response, **kwargs):
 
             result = {
-                'status' : 'success',
+                'status': 'success',
                 'message': 'User {0}/{1} was created'.format(user_path, user_name)
             }
 
@@ -94,28 +97,30 @@ class ContentRepo(object):
         def _handler_exist_or_error(response, **kwargs):
 
             result = {
-                'status' : 'success',
+                'status': 'success',
                 'message': 'User {0}/{1} already exists or there is an unexpected error - check AEM log'
                     .format(user_path, user_name)
             }
 
             return result
 
-        params    = {
-            'createUser'      : '',
-            'authorizableId'  : user_name,
-            'rep:password'    : password,
+        params = {
+            'createUser': '',
+            'authorizableId': user_name,
+            'rep:password': password,
             'intermediatePath': user_path
         }
+
         _handlers = {
             201: _handler_ok,
             500: _handler_exist_or_error
         }
-        method    = 'post'
-        url       = '{0}/libs/granite/security/post/authorizables'.format(self.url)
-        params    = dict(params.items() + kwargs.items())
+
+        method = 'post'
+        url = '{0}/libs/granite/security/post/authorizables'.format(self.url)
+        params = dict(params.items() + kwargs.items())
         _handlers = dict(self.handlers.items() + _handlers.items())
-        opts      = self.kwargs
+        opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)
 
@@ -125,23 +130,25 @@ class ContentRepo(object):
         def _handler_ok(response, **kwargs):
 
             result = {
-                'status' : 'success',
+                'status': 'success',
                 'message': 'User {0} was added to group {1}/{2}'.format(user_name, group_path, group_name)
             }
 
             return result
 
-        params    = {
+        params = {
             'addMembers': user_name
         }
+
         _handlers = {
             200: _handler_ok
         }
-        method    = 'post'
-        url       = '{0}/{1}/{2}.rw.html'.format(self.url, group_path, group_name)
-        params    = dict(params.items() + kwargs.items())
+
+        method = 'post'
+        url = '{0}/{1}/{2}.rw.html'.format(self.url, group_path, group_name)
+        params = dict(params.items() + kwargs.items())
         _handlers = dict(self.handlers.items() + _handlers.items())
-        opts      = self.kwargs
+        opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)
 
@@ -151,26 +158,28 @@ class ContentRepo(object):
         def _handler_ok(response, **kwargs):
 
             result = {
-                'status' : 'success',
+                'status': 'success',
                 'message': 'Group {0}/{1} was created'.format(group_path, group_name)
             }
 
             return result
 
-        params    = {
-            'createGroup'     : '',
-            'authorizableId'  : group_name,
-            'profile/giveName': group_name,
+        params = {
+            'createGroup': '',
+            'authorizableId': group_name,
+            'profile/givenName': group_name,
             'intermediatePath': group_path
         }
+
         _handlers = {
             200: _handler_ok
         }
-        method    = 'post'
-        url       = '{0}/libs/granite/security/post/authorizables'.format(self.url)
-        params    = dict(params.items() + kwargs.items())
+
+        method = 'post'
+        url = '{0}/libs/granite/security/post/authorizables'.format(self.url)
+        params = dict(params.items() + kwargs.items())
         _handlers = dict(self.handlers.items() + _handlers.items())
-        opts      = self.kwargs
+        opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)
 
@@ -180,24 +189,26 @@ class ContentRepo(object):
         def _handler_ok(response, **kwargs):
 
             result = {
-                'status' : 'success',
+                'status': 'success',
                 'message': 'Password of user {0} was changed successfully'.format(user_path)
             }
 
             return result
 
-        params    = {
+        params = {
             ':currentPassword': old_password,
-            'rep:password'    : new_password
+            'rep:password': new_password
         }
+
         _handlers = {
             200: _handler_ok
         }
-        method    = 'post'
-        url       = '{0}/home/users/{1}.rw.html'.format(self.url, user_path)
-        params    = dict(params.items() + kwargs.items())
+
+        method = 'post'
+        url = '{0}/home/users/{1}.rw.html'.format(self.url, user_path)
+        params = dict(params.items() + kwargs.items())
         _handlers = dict(self.handlers.items() + _handlers.items())
-        opts      = self.kwargs
+        opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)
 
@@ -207,23 +218,25 @@ class ContentRepo(object):
         def _handler_ok(response, **kwargs):
 
             result = {
-                'status' : 'success',
+                'status': 'success',
                 'message': 'Permission of user {0} was set'.format(user_name)
             }
 
             return result
 
-        params    = {
+        params = {
             'authorizableId': user_name
         }
+
         _handlers = {
             200: _handler_ok
         }
-        method    = 'post'
-        url       = '{0}/.cqactions.html'.format(self.url)
-        params    = dict(params.items() + kwargs.items())
+
+        method = 'post'
+        url = '{0}/.cqactions.html'.format(self.url)
+        params = dict(params.items() + kwargs.items())
         _handlers = dict(self.handlers.items() + _handlers.items())
-        opts      = self.kwargs
+        opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)
 
@@ -233,21 +246,23 @@ class ContentRepo(object):
         def _handler_ok(response, **kwargs):
 
             result = {
-                'status' : 'success',
+                'status': 'success',
                 'message': '{0} agent {1} was set'.format(run_mode, agent_name)
             }
 
             return result
 
-        params    = {
+        params = {
         }
+
         _handlers = {
             200: _handler_ok
         }
-        method    = 'post'
-        url       = '{0}/etc/replication/agents.{1}/{2}'.format(self.url, run_mode, agent_name)
-        params    = dict(params.items() + kwargs.items())
+
+        method = 'post'
+        url = '{0}/etc/replication/agents.{1}/{2}'.format(self.url, run_mode, agent_name)
+        params = dict(params.items() + kwargs.items())
         _handlers = dict(self.handlers.items() + _handlers.items())
-        opts      = self.kwargs
+        opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)

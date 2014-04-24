@@ -15,7 +15,7 @@ class TestPyAem(unittest.TestCase):
 
     def test_init_ssl_debug(self):
 
-        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502, use_ssl = True, debug = True)
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502, use_ssl=True, debug=True)
         self.assertTrue(hasattr(aem, 'content_repo'))
         self.assertTrue(hasattr(aem, 'package_manager'))
         self.assertTrue(hasattr(aem, 'web_console'))

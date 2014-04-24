@@ -6,7 +6,7 @@ class TestContentRepo(unittest.TestCase):
 
     def test_init(self):
 
-        contentrepo = pyaem.contentrepo.ContentRepo('http://localhost:4502/.cqactions.html', foo = 'bar')
+        contentrepo = pyaem.contentrepo.ContentRepo('http://localhost:4502/.cqactions.html', foo='bar')
 
         self.assertEqual(contentrepo.url, 'http://localhost:4502/.cqactions.html')
         self.assertEqual(contentrepo.kwargs['foo'], 'bar')

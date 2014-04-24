@@ -22,7 +22,7 @@ class TestHandlers(unittest.TestCase):
 
         response = {
             'http_code': 405,
-            'body'     : '<html><body><p>some error message</p></body></html>'
+            'body': '<html><body><p>some error message</p></body></html>'
         }
 
         try:
@@ -37,7 +37,7 @@ class TestHandlers(unittest.TestCase):
 
         response = {
             'http_code': 500,
-            'body'     : 'some unexpected server error'
+            'body': 'some unexpected server error'
         }
 
         try:

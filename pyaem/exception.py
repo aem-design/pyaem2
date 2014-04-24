@@ -5,6 +5,6 @@ class PyAemException(Exception):
 
         super(PyAemException, self).__init__(message)
 
-        self.code    = code
+        self.code = code
         self.message = message
         

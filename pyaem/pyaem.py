@@ -8,11 +8,11 @@ class PyAem(object):
     def __init__(self, username, password, host, port, use_ssl=False, debug=False):
 
         protocol = 'http' if use_ssl == False else 'https'
-        url      = '{0}://{1}:{2}@{3}:{4}'.format(protocol, username, password, host, port)
+        url = '{0}://{1}:{2}@{3}:{4}'.format(protocol, username, password, host, port)
 
-        self.content_repo    = contentrepo.ContentRepo(url, debug=debug)
+        self.content_repo = contentrepo.ContentRepo(url, debug=debug)
         self.package_manager = packagemanager.PackageManager(url, debug=debug)
-        self.web_console     = webconsole.WebConsole(url, debug=debug)
+        self.web_console = webconsole.WebConsole(url, debug=debug)
 
 
     # content repo methods

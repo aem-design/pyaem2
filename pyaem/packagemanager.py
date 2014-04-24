@@ -31,53 +31,53 @@ class PackageManager(object):
 
     def create_package(self, group_name, package_name, package_version, **kwargs):
 
-        params   = {
+        params    = {
             'cmd'           : 'create',
             'groupName'     : group_name,
             'packageName'   : package_name,
             'packageVersion': package_version,
             '_charset_'     : 'utf-8'
         }
-        method   = 'post'
-        url      = '{0}/crx/packmgr/service/.json/etc/packages/{1}'.format(self.url, package_name)
-        params   = dict(params.items() + kwargs.items())
-        handlers = self.handlers
-        opts     = self.kwargs
+        method    = 'post'
+        url       = '{0}/crx/packmgr/service/.json/etc/packages/{1}'.format(self.url, package_name)
+        params    = dict(params.items() + kwargs.items())
+        _handlers = self.handlers
+        opts      = self.kwargs
 
-        return bag.request(method, url, params, handlers, **opts)
+        return bag.request(method, url, params, _handlers, **opts)
 
 
     def update_package(self, group_name, package_name, package_version, **kwargs):
 
-        params   = {
+        params    = {
             'groupName'  : group_name,
             'packageName': package_name,
             'version'    : package_version,
             'path'       : '/etc/packages/{0}/{1}-{2}.zip'.format(group_name, package_name, package_version),
             '_charset_'  : 'utf-8'
         }
-        method   = 'get'
-        url      = '{0}/crx/packmgr/update.jsp'.format(self.url)
-        params   = dict(params.items() + kwargs.items())
-        handlers = self.handlers
-        opts     = self.kwargs
+        method    = 'get'
+        url       = '{0}/crx/packmgr/update.jsp'.format(self.url)
+        params    = dict(params.items() + kwargs.items())
+        _handlers = self.handlers
+        opts      = self.kwargs
 
-        return bag.request(method, url, params, handlers, **opts)
+        return bag.request(method, url, params, _handlers, **opts)
 
 
     def build_package(self, group_name, package_name, package_version, **kwargs):
 
-        params   = {
+        params    = {
             'cmd': 'build'
         }
-        method   = 'post'
-        url      = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(
+        method    = 'post'
+        url       = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(
             self.url, group_name, package_name, package_version)
-        params   = dict(params.items() + kwargs.items())
-        handlers = self.handlers
-        opts     = self.kwargs
+        params    = dict(params.items() + kwargs.items())
+        _handlers = self.handlers
+        opts      = self.kwargs
 
-        return bag.request(method, url, params, handlers, **opts)
+        return bag.request(method, url, params, _handlers, **opts)
 
 
     def download_package(self, group_name, package_name, package_version, file_path, **kwargs):
@@ -97,7 +97,6 @@ class PackageManager(object):
         opts      = {
             'file': '{0}/{1}-{2}.zip'.format(file_path, package_name, package_version)
         }
-        method    = 'get'
         url       = '{0}/etc/packages/{1}/{2}-{3}.zip'.format(self.url, group_name, package_name, package_version)
         params    = kwargs
         _handlers = dict(self.handlers.items() + _handlers.items())
@@ -140,29 +139,29 @@ class PackageManager(object):
 
     def install_package(self, group_name, package_name, package_version, **kwargs):
 
-        params   = {
+        params    = {
             'cmd': 'install'
         }
-        method   = 'post'
-        url      = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(
+        method    = 'post'
+        url       = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(
             self.url, group_name, package_name, package_version)
-        params   = dict(params.items() + kwargs.items())
-        handlers = self.handlers
-        opts     = self.kwargs
+        params    = dict(params.items() + kwargs.items())
+        _handlers = self.handlers
+        opts      = self.kwargs
 
-        return bag.request(method, url, params, handlers, **opts)
+        return bag.request(method, url, params, _handlers, **opts)
 
 
     def replicate_package(self, group_name, package_name, package_version, **kwargs):
 
-        params   = {
+        params    = {
             'cmd': 'replicate'
         }
-        method   = 'post'
-        url      = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(
+        method    = 'post'
+        url       = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(
             self.url, group_name, package_name, package_version)
-        params   = dict(params.items() + kwargs.items())
-        handlers = self.handlers
-        opts     = self.kwargs
+        params    = dict(params.items() + kwargs.items())
+        _handlers = self.handlers
+        opts      = self.kwargs
 
-        return bag.request(method, url, params, handlers, **opts)
+        return bag.request(method, url, params, _handlers, **opts)

@@ -62,7 +62,7 @@ class PyAem(object):
 
 
     def build_package(self, group_name, package_name, package_version, **kwargs):
-         return self.package_manager.build_package(group_name, package_name, package_version, **kwargs)
+        return self.package_manager.build_package(group_name, package_name, package_version, **kwargs)
 
 
     def download_package(self, group_name, package_name, package_version, file_path, **kwargs):
@@ -75,6 +75,7 @@ class PyAem(object):
 
     def install_package(self, group_name, package_name, package_version, **kwargs):
         return self.package_manager.install_package(group_name, package_name, package_version, **kwargs)
+
 
     def replicate_package(self, group_name, package_name, package_version, **kwargs):
         return self.package_manager.replicate_package(group_name, package_name, package_version, **kwargs)

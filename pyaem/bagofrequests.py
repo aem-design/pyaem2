@@ -38,11 +38,11 @@ def download_file(url, params, handlers, **kwargs):
     curl    = pycurl.Curl()
     body_io = cStringIO.StringIO()
     url     = '{0}?{1}'.format(url, urllib.urlencode(params))
-    file    = open(kwargs['file'], 'wb')
+    data    = open(kwargs['file'], 'wb')
 
     curl.setopt(pycurl.URL, url)
     curl.setopt(pycurl.FOLLOWLOCATION, 1)
-    curl.setopt(pycurl.WRITEDATA, file)
+    curl.setopt(pycurl.WRITEDATA, data)
     curl.setopt(pycurl.WRITEFUNCTION, body_io.write)
 
     curl.perform()
@@ -53,7 +53,7 @@ def download_file(url, params, handlers, **kwargs):
     }
 
     curl.close()
-    file.close()
+    data.close()
 
     if response['http_code'] in handlers:
         return handlers[response['http_code']](response, **kwargs)

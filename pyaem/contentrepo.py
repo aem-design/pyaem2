@@ -3,6 +3,8 @@ from BeautifulSoup import BeautifulSoup
 from . import handlers
 import re
 
+HEX_MASSAGE = [(re.compile('&#x([^;]+);'), lambda m: '&#%d;' % int(m.group(1), 16))]
+
 class ContentRepo(object):
 
 
@@ -43,9 +45,6 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            HEX_MASSAGE = [(re.compile('&#x([^;]+);'), lambda m: '&#%d;' % int(m.group(1), 16))]
-
-            code   = response['http_code']
             soup   = BeautifulSoup(response['body'],
                 convertEntities = BeautifulSoup.HTML_ENTITIES,
                 markupMassage   = HEX_MASSAGE

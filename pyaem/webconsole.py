@@ -1,5 +1,5 @@
-import bagofrequests as bag
-import handlers
+from . import bagofrequests as bag
+from . import handlers
 import pycurl
 
 class WebConsole(object):

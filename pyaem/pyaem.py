@@ -1,6 +1,6 @@
-import contentrepo
-import packagemanager
-import webconsole
+from . import contentrepo
+from . import packagemanager
+from . import webconsole
 
 class PyAem(object):
 

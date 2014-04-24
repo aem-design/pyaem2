@@ -1,5 +1,5 @@
 from BeautifulSoup import BeautifulSoup
-import exception
+from . import exception
 
 def auth_fail(response, **kwargs):
 

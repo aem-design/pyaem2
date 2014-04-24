@@ -1,7 +1,6 @@
-import bagofrequests as bag
+from . import bagofrequests as bag
 from BeautifulSoup import BeautifulSoup
-import handlers
-import json
+from . import handlers
 import re
 
 class ContentRepo(object):

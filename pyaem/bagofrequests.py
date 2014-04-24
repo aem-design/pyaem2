@@ -1,5 +1,5 @@
 import cStringIO
-from handlers import unexpected as handle_unexpected
+from .handlers import unexpected as handle_unexpected
 import pycurl
 import urllib
 

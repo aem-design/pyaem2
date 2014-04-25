@@ -1,11 +1,17 @@
 [MESSAGES CONTROL]
 # C0111 missing-docstring: will be re-enabled later as part of documentation effort
+# E1121 too-many-function-args: would like to increase the max to 7, but there is no way to set it
+# R0201 no-self-use: allow unused self for unittest methods
+# R0904 too-many-public-methods: pylint complains about test classes inheriting many public methods from unittest.TestCase
 # W0142 star-args: **kwargs is used on purpose to allow unstructured optional parameters
 # W0613 unused-argument: response and kwargs are common handler callback signature
-disable=C0111,W0142,W0613
+disable=C0111,E1121,R0201,R0904,W0142,W0613
 
 [FORMAT]
 max-line-length=120
 
 [SIMILARITIES]
 min-similarity-lines=7
+
+[DESIGN]
+max-args=7

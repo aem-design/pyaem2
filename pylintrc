@@ -1,9 +1,11 @@
 [MESSAGES CONTROL]
-
 # C0111 missing-docstring: will be re-enabled later as part of documentation effort
 # W0142 star-args: **kwargs is used on purpose to allow unstructured optional parameters
-disable=C0111,W0142
+# W0613 unused-argument: response and kwargs are common handler callback signature
+disable=C0111,W0142,W0613
 
 [FORMAT]
-
 max-line-length=120
+
+[SIMILARITIES]
+min-similarity-lines=7

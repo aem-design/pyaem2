@@ -1,4 +1,4 @@
-build: clean test coverage
+build: clean lint test coverage
 
 clean:
 	rm -rf .coverage
@@ -10,8 +10,7 @@ deps:
 	pip install -r requirements-dev.txt --use-mirrors
 
 lint:
-	pylint pyaem
-	pylint test
+	pylint --rcfile=.pylintrc pyaem test
 
 test:
 	python setup.py test

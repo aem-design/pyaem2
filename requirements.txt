@@ -1,1 +1,2 @@
 BeautifulSoup==3.2.1
+pycurl==7.19.3.1

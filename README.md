@@ -17,8 +17,8 @@ NOTE: This package is still a work in progress, not yet published to PyPI.
 
 To use master:
 
-# Add https://github.com/cliffano/pyaem/archive/master.zip to your requirements.txt file
-# Run pip install --requirement requirements.txt 
+* Add https://github.com/cliffano/pyaem/archive/master.zip to your requirements.txt file
+* Run pip install --requirement requirements.txt 
 
 And later on when pyaem is published to PyPI:
 

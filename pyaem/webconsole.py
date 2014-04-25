@@ -13,6 +13,7 @@ class WebConsole(object):
                 'status': 'failure',
                 'message': 'Bundle {0} not found'.format(kwargs['bundle_name'])
             }
+
             return result
 
         self.url = url
@@ -26,11 +27,13 @@ class WebConsole(object):
 
     def start_bundle(self, bundle_name, **kwargs):
 
-        def _handler_ok(response, **kwargs):
+        def _handler_ok_start(response, **kwargs):
+
             result = {
                 'status': 'success',
                 'message': 'Bundle {0} was successfully started'.format(kwargs['bundle_name'])
             }
+
             return result
 
         params = {
@@ -38,7 +41,7 @@ class WebConsole(object):
         }
 
         _handlers = {
-            200: _handler_ok
+            200: _handler_ok_start
         }
 
         opts = {
@@ -56,11 +59,13 @@ class WebConsole(object):
 
     def stop_bundle(self, bundle_name, **kwargs):
 
-        def _handler_ok(response, **kwargs):
+        def _handler_ok_stop(response, **kwargs):
+
             result = {
                 'status': 'success',
                 'message': 'Bundle {0} was successfully stopped'.format(kwargs['bundle_name'])
             }
+
             return result
 
         params = {
@@ -68,7 +73,7 @@ class WebConsole(object):
         }
 
         _handlers = {
-            200: _handler_ok
+            200: _handler_ok_stop
         }
 
         opts = {
@@ -86,11 +91,13 @@ class WebConsole(object):
 
     def install_bundle(self, bundle_name, bundle_version, **kwargs):
 
-        def _handler_ok(response, **kwargs):
+        def _handler_ok_install(response, **kwargs):
+
             result = {
                 'status': 'success',
                 'message': 'Bundle {0} was successfully installed'.format(kwargs['bundle_name'])
             }
+
             return result
 
         file_name = '{0}-{1}.zip'.format(bundle_name, bundle_version)
@@ -101,7 +108,7 @@ class WebConsole(object):
         }
 
         _handlers = {
-            200: _handler_ok
+            200: _handler_ok_install
         }
 
         opts = {

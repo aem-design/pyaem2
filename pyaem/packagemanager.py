@@ -85,7 +85,7 @@ class PackageManager(object):
 
     def download_package(self, group_name, package_name, package_version, file_path, **kwargs):
 
-        def _handler_ok(response, **kwargs):
+        def _handler_ok_download(response, **kwargs):
 
             result = {
                 'status': 'success',
@@ -95,7 +95,7 @@ class PackageManager(object):
             return result
 
         _handlers = {
-            200: _handler_ok
+            200: _handler_ok_download
         }
 
         opts = {
@@ -112,7 +112,7 @@ class PackageManager(object):
 
     def upload_package(self, group_name, package_name, package_version, file_path, **kwargs):
 
-        def _handler_ok(response, **kwargs):
+        def _handler_ok_upload(response, **kwargs):
 
             data = json.loads(response['body'])
 
@@ -131,7 +131,7 @@ class PackageManager(object):
         }
 
         _handlers = {
-            200: _handler_ok
+            200: _handler_ok_upload
         }
 
         opts = {

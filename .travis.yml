@@ -3,6 +3,6 @@ python:
   - 2.6
   - 2.7
 before_install: 
-  - make deps
+  - make deps-dev
 script: 
   - make build

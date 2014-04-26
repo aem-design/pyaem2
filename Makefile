@@ -6,8 +6,8 @@ clean:
 	rm -f pyaem/*.pyc
 	rm -f test/*.pyc
 
-deps:
-	pip install -r requirements-dev.txt --use-mirrors
+deps-dev:
+	pip install -r requirements-dev.txt
 
 lint:
 	pylint --rcfile=.pylintrc pyaem test
@@ -18,5 +18,6 @@ test:
 coverage:
 	coverage run setup.py test
 	coverage report -m
+	coverage html
 
 .PHONY: clean lint test coverage all

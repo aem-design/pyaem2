@@ -1,2 +1,2 @@
 [run]
-include = test/*
+include = pyaem/*

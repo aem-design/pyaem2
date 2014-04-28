@@ -57,7 +57,12 @@ class TestPackageManager(unittest.TestCase):
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/.cqactions.html/crx/packmgr/service/.json/etc/packages/mypackage',
-            {'packageName': 'mypackage', 'cmd': 'create', 'groupName': 'mygroup', '_charset_': 'utf-8', 'packageVersion': '1.0-SNAPSHOT', 'foo': 'bar'},
+            {'packageName': 'mypackage',
+             'cmd': 'create',
+             'groupName': 'mygroup',
+             '_charset_': 'utf-8',
+             'packageVersion': '1.0-SNAPSHOT',
+             'foo': 'bar'},
             HandlersMatcher([200, 401, 405]))
 
 

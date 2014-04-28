@@ -6,6 +6,9 @@ clean:
 	rm -f pyaem/*.pyc
 	rm -f test/*.pyc
 
+deps:
+	pip install -r requirements.txt
+
 deps-dev:
 	pip install -r requirements-dev.txt
 

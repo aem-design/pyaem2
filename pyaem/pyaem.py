@@ -81,6 +81,10 @@ class PyAem(object):
         return self.package_manager.replicate_package(group_name, package_name, package_version, **kwargs)
 
 
+    def delete_package(self, group_name, package_name, package_version, **kwargs):
+        return self.package_manager.delete_package(group_name, package_name, package_version, **kwargs)
+
+
     # web console methods
 
 

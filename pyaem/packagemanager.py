@@ -176,3 +176,19 @@ class PackageManager(object):
         opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)
+
+
+    def delete_package(self, group_name, package_name, package_version, **kwargs):
+
+        params = {
+            'cmd': 'delete'
+        }
+
+        method = 'post'
+        url = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(
+            self.url, group_name, package_name, package_version)
+        params = dict(params.items() + kwargs.items())
+        _handlers = self.handlers
+        opts = self.kwargs
+
+        return bag.request(method, url, params, _handlers, **opts)

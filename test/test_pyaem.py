@@ -165,6 +165,15 @@ class TestPyAem(unittest.TestCase):
         aem.package_manager.replicate_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
+    def test_delete_package(self):
+
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager.delete_package = MagicMock()
+
+        aem.delete_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager.delete_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
+
+
     # web console methods
 
 

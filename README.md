@@ -64,6 +64,8 @@ Package Management
     aem.install_package('mygroup', 'mypackage', 1.2.3)
 
     aem.replicate_package('mygroup', 'mypackage', 1.2.3)
+
+    aem.delete_package('mygroup', 'mypackage', 1.2.3)
     
 Bundle Management
 

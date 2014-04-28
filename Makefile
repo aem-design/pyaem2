@@ -1,4 +1,4 @@
-build: clean lint test coverage
+build: clean lint test coverage coverage-publish
 
 clean:
 	rm -rf .coverage
@@ -23,4 +23,7 @@ coverage:
 	coverage report -m
 	coverage html
 
-.PHONY: clean lint test coverage all
+coverage-publish: coverage
+	coveralls
+
+.PHONY: build clean lint test coverage coverage-publish

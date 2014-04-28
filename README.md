@@ -1,6 +1,8 @@
 <img align="right" src="https://raw.github.com/cliffano/pyaem/master/avatar.jpg" alt="Avatar"/>
 
 [![Build Status](https://secure.travis-ci.org/cliffano/pyaem.png?branch=master)](http://travis-ci.org/cliffano/pyaem)
+[![Coverage Status](https://coveralls.io/repos/cliffano/pyaem/badge.png?branch=master)](https://coveralls.io/r/cliffano/pyaem?branch=master)
+[![Published Version](https://badge.fury.io/py/pyaem.svg)](http://badge.fury.io/py/coveralls)
 <br/>
 
 PyAEM

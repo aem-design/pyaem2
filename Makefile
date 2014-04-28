@@ -1,4 +1,4 @@
-build: clean lint test coverage coverage-publish
+build: clean lint test coverage
 
 clean:
 	rm -rf .coverage

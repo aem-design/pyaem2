@@ -6,3 +6,5 @@ before_install:
   - make deps-dev
 script: 
   - make build
+after_success:
+  - make coverage-publish

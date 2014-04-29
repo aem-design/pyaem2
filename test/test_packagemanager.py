@@ -2,15 +2,7 @@ from mock import MagicMock
 import pyaem
 from pyaem import bagofrequests as bag
 import unittest
-
-class HandlersMatcher(object):
-
-    def __init__(self, handler_keys):
-        self.handler_keys = handler_keys
-
-    def __eq__(self, handlers):
-        return handlers.keys() == self.handler_keys
-
+from .util import HandlersMatcher
 
 class TestPackageManager(unittest.TestCase):
 
@@ -99,17 +91,11 @@ class TestPackageManager(unittest.TestCase):
     def test_download_package(self):
 
         _self = self
-        class DownloadPackageHandlerMatcher(object):
-
-            def __init__(self, handler_keys):
-                self.handler_keys = handler_keys
-
+        class DownloadPackageHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 result = handlers[200]({}, file='/tmp/somepath/mypackage-1.2.3.zip')
                 _self.assertEquals(result['status'], 'success')
                 _self.assertEquals(result['message'], '/tmp/somepath/mypackage-1.2.3.zip was successfully downloaded')
-
                 return handlers.keys() == self.handler_keys
 
         bag.download_file = MagicMock()
@@ -125,19 +111,13 @@ class TestPackageManager(unittest.TestCase):
     def test_upload_package(self):
 
         _self = self
-        class UploadPackageHandlerMatcher(object):
-
-            def __init__(self, handler_keys):
-                self.handler_keys = handler_keys
-
+        class UploadPackageHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 result = handlers[200](
                     {'body': '{"success": true, "msg": "some message"}'},
                     file='/tmp/somepath/mypackage-1.2.3.zip')
                 _self.assertEquals(result['status'], 'success')
                 _self.assertEquals(result['message'], 'some message')
-
                 return handlers.keys() == self.handler_keys
 
         bag.upload_file = MagicMock()

@@ -108,7 +108,7 @@ class TestPackageManager(unittest.TestCase):
             file='/tmp/somepath/mypackage-1.2.3.zip')
 
 
-    def test_upload_package(self):
+    def test_upload_package_success(self):
 
         _self = self
         class UploadPackageHandlerMatcher(HandlersMatcher):
@@ -117,6 +117,30 @@ class TestPackageManager(unittest.TestCase):
                     {'body': '{"success": true, "msg": "some message"}'},
                     file='/tmp/somepath/mypackage-1.2.3.zip')
                 _self.assertEquals(result['status'], 'success')
+                _self.assertEquals(result['message'], 'some message')
+                return handlers.keys() == self.handler_keys
+
+        bag.upload_file = MagicMock()
+        packagemanager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
+        packagemanager.upload_package('mygroup', 'mypackage', '1.2.3', '/tmp/somepath', foo='bar')
+        bag.upload_file.assert_called_once_with(
+            'http://localhost:4502/.cqactions.html/crx/packmgr/service/.json/',
+            {'cmd': 'upload',
+             'foo': 'bar',
+             'package': (10, '/tmp/somepath/mypackage-1.2.3.zip')},
+            UploadPackageHandlerMatcher([200, 401, 405]),
+            file_name='mypackage-1.2.3.zip')
+
+
+    def test_upload_package_failure(self):
+
+        _self = self
+        class UploadPackageHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+                result = handlers[200](
+                    {'body': '{"success": false, "msg": "some message"}'},
+                    file='/tmp/somepath/mypackage-1.2.3.zip')
+                _self.assertEquals(result['status'], 'failure')
                 _self.assertEquals(result['message'], 'some message')
                 return handlers.keys() == self.handler_keys
 

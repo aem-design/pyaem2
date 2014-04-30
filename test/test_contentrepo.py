@@ -20,14 +20,28 @@ class TestContentRepo(unittest.TestCase):
 
     def test_create_path(self):
 
+        _self = self
+        class CreatePathHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                result = handlers[200](None, path='content/somepath')
+                _self.assertEquals(result['status'], 'success')
+                _self.assertEquals(result['message'], 'Path content/somepath already existed')
+
+                result = handlers[201](None, path='content/somepath')
+                _self.assertEquals(result['status'], 'success')
+                _self.assertEquals(result['message'], 'Path content/somepath was created')
+
+                return handlers.keys() == self.handler_keys
+
         bag.request = MagicMock()
         content_repo = pyaem.contentrepo.ContentRepo('http://localhost:4502/.cqactions.html')
-        content_repo.create_path('/content/somepath', foo='bar')
+        content_repo.create_path('content/somepath', foo='bar')
         bag.request.assert_called_once_with(
             'post',
-            'http://localhost:4502/.cqactions.html//content/somepath',
+            'http://localhost:4502/.cqactions.html/content/somepath',
             {'foo': 'bar'},
-            HandlersMatcher([200, 401, 405]))
+            CreatePathHandlerMatcher([200, 401, 405, 201]))
 
 
     def test_change_password(self):

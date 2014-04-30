@@ -66,6 +66,27 @@ class TestContentRepo(unittest.TestCase):
             ChangePasswordHandlerMatcher([200, 401, 405]))
 
 
+    def test_set_permission(self):
+
+        _self = self
+        class SetPermissionHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+                result = handlers[200](None)
+                _self.assertEquals(result['status'], 'success')
+                _self.assertEquals(result['message'], 'Permission of user someuser was set')
+                return handlers.keys() == self.handler_keys
+
+        bag.request = MagicMock()
+        content_repo = pyaem.contentrepo.ContentRepo('http://localhost:4502/.cqactions.html')
+        content_repo.set_permission('someuser', foo='bar')
+        bag.request.assert_called_once_with(
+            'post',
+            'http://localhost:4502/.cqactions.html/.cqactions.html',
+            {'authorizableId': 'someuser',
+             'foo': 'bar'},
+            SetPermissionHandlerMatcher([200, 401, 405]))
+
+
 if __name__ == '__main__':
     unittest.main()
     

@@ -9,20 +9,20 @@ class TestWebConsole(unittest.TestCase):
 
     def test_init(self):
 
-        webconsole = pyaem.webconsole.WebConsole('http://localhost:4502/.cqactions.html', foo='bar')
+        web_console = pyaem.webconsole.WebConsole('http://localhost:4502/.cqactions.html', foo='bar')
 
-        self.assertEqual(webconsole.url, 'http://localhost:4502/.cqactions.html')
-        self.assertEqual(webconsole.kwargs['foo'], 'bar')
+        self.assertEqual(web_console.url, 'http://localhost:4502/.cqactions.html')
+        self.assertEqual(web_console.kwargs['foo'], 'bar')
 
-        self.assertTrue(401 in webconsole.handlers)
-        self.assertTrue(404 in webconsole.handlers)
-        self.assertTrue(405 in webconsole.handlers)
+        self.assertTrue(401 in web_console.handlers)
+        self.assertTrue(404 in web_console.handlers)
+        self.assertTrue(405 in web_console.handlers)
 
 
     def test_init_bundler_not_found(self):
 
-        webconsole = pyaem.webconsole.WebConsole('http://localhost:4502/.cqactions.html', foo='bar')
-        handler = webconsole.handlers[404]
+        web_console = pyaem.webconsole.WebConsole('http://localhost:4502/.cqactions.html', foo='bar')
+        handler = web_console.handlers[404]
         response = None
         result = handler(response, bundle_name='some_bundle_name')
 
@@ -41,8 +41,8 @@ class TestWebConsole(unittest.TestCase):
                 return handlers.keys() == self.handler_keys
 
         bag.request = MagicMock()
-        webconsole = pyaem.webconsole.WebConsole('http://localhost:4502/.cqactions.html')
-        webconsole.start_bundle('mybundle', foo='bar')
+        web_console = pyaem.webconsole.WebConsole('http://localhost:4502/.cqactions.html')
+        web_console.start_bundle('mybundle', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/.cqactions.html/system/console/bundles/mybundle',
@@ -63,8 +63,8 @@ class TestWebConsole(unittest.TestCase):
                 return handlers.keys() == self.handler_keys
 
         bag.request = MagicMock()
-        webconsole = pyaem.webconsole.WebConsole('http://localhost:4502/.cqactions.html')
-        webconsole.stop_bundle('mybundle', foo='bar')
+        web_console = pyaem.webconsole.WebConsole('http://localhost:4502/.cqactions.html')
+        web_console.stop_bundle('mybundle', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/.cqactions.html/system/console/bundles/mybundle',
@@ -85,8 +85,8 @@ class TestWebConsole(unittest.TestCase):
                 return handlers.keys() == self.handler_keys
 
         bag.upload_file = MagicMock()
-        webconsole = pyaem.webconsole.WebConsole('http://localhost:4502/.cqactions.html')
-        webconsole.install_bundle('mybundle', '1.2.3', foo='bar')
+        web_console = pyaem.webconsole.WebConsole('http://localhost:4502/.cqactions.html')
+        web_console.install_bundle('mybundle', '1.2.3', foo='bar')
         bag.upload_file.assert_called_once_with(
             'http://localhost:4502/.cqactions.html/system/console/bundles',
             {'action': 'install',

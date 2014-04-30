@@ -9,20 +9,20 @@ class TestPackageManager(unittest.TestCase):
 
     def test_init(self):
 
-        packagemanager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html', foo='bar')
+        package_manager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html', foo='bar')
 
-        self.assertEqual(packagemanager.url, 'http://localhost:4502/.cqactions.html')
-        self.assertEqual(packagemanager.kwargs['foo'], 'bar')
+        self.assertEqual(package_manager.url, 'http://localhost:4502/.cqactions.html')
+        self.assertEqual(package_manager.kwargs['foo'], 'bar')
 
-        self.assertTrue(200 in packagemanager.handlers)
-        self.assertTrue(401 in packagemanager.handlers)
-        self.assertTrue(405 in packagemanager.handlers)
+        self.assertTrue(200 in package_manager.handlers)
+        self.assertTrue(401 in package_manager.handlers)
+        self.assertTrue(405 in package_manager.handlers)
 
 
     def test_init_ok_success(self):
 
-        packagemanager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html', foo='bar')
-        handler = packagemanager.handlers[200]
+        package_manager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html', foo='bar')
+        handler = package_manager.handlers[200]
         response = {'body': '{ "success": true, "msg": "some message" }'}
         result = handler(response)
 
@@ -32,8 +32,8 @@ class TestPackageManager(unittest.TestCase):
 
     def test_init_ok_failure(self):
 
-        packagemanager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html', foo='bar')
-        handler = packagemanager.handlers[200]
+        package_manager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html', foo='bar')
+        handler = package_manager.handlers[200]
         response = {'body': '{ "success": false, "msg": "some message" }'}
         result = handler(response)
 
@@ -44,8 +44,8 @@ class TestPackageManager(unittest.TestCase):
     def test_create_package(self):
 
         bag.request = MagicMock()
-        packagemanager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
-        packagemanager.create_package('mygroup', 'mypackage', '1.2.3', foo='bar')
+        package_manager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
+        package_manager.create_package('mygroup', 'mypackage', '1.2.3', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/.cqactions.html/crx/packmgr/service/.json/etc/packages/mypackage',
@@ -61,8 +61,8 @@ class TestPackageManager(unittest.TestCase):
     def test_update_package(self):
 
         bag.request = MagicMock()
-        packagemanager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
-        packagemanager.update_package('mygroup', 'mypackage', '1.2.3', foo='bar')
+        package_manager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
+        package_manager.update_package('mygroup', 'mypackage', '1.2.3', foo='bar')
         bag.request.assert_called_once_with(
             'get',
             'http://localhost:4502/.cqactions.html/crx/packmgr/update.jsp',
@@ -78,8 +78,8 @@ class TestPackageManager(unittest.TestCase):
     def test_build_package(self):
 
         bag.request = MagicMock()
-        packagemanager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
-        packagemanager.build_package('mygroup', 'mypackage', '1.2.3', foo='bar')
+        package_manager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
+        package_manager.build_package('mygroup', 'mypackage', '1.2.3', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/.cqactions.html/crx/packmgr/service/.json/etc/packages/mygroup/mypackage-1.2.3.zip',
@@ -99,8 +99,8 @@ class TestPackageManager(unittest.TestCase):
                 return handlers.keys() == self.handler_keys
 
         bag.download_file = MagicMock()
-        packagemanager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
-        packagemanager.download_package('mygroup', 'mypackage', '1.2.3', '/tmp/somepath', foo='bar')
+        package_manager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
+        package_manager.download_package('mygroup', 'mypackage', '1.2.3', '/tmp/somepath', foo='bar')
         bag.download_file.assert_called_once_with(
             'http://localhost:4502/.cqactions.html/etc/packages/mygroup/mypackage-1.2.3.zip',
             {'foo': 'bar'},
@@ -121,8 +121,8 @@ class TestPackageManager(unittest.TestCase):
                 return handlers.keys() == self.handler_keys
 
         bag.upload_file = MagicMock()
-        packagemanager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
-        packagemanager.upload_package('mygroup', 'mypackage', '1.2.3', '/tmp/somepath', foo='bar')
+        package_manager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
+        package_manager.upload_package('mygroup', 'mypackage', '1.2.3', '/tmp/somepath', foo='bar')
         bag.upload_file.assert_called_once_with(
             'http://localhost:4502/.cqactions.html/crx/packmgr/service/.json/',
             {'cmd': 'upload',
@@ -145,8 +145,8 @@ class TestPackageManager(unittest.TestCase):
                 return handlers.keys() == self.handler_keys
 
         bag.upload_file = MagicMock()
-        packagemanager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
-        packagemanager.upload_package('mygroup', 'mypackage', '1.2.3', '/tmp/somepath', foo='bar')
+        package_manager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
+        package_manager.upload_package('mygroup', 'mypackage', '1.2.3', '/tmp/somepath', foo='bar')
         bag.upload_file.assert_called_once_with(
             'http://localhost:4502/.cqactions.html/crx/packmgr/service/.json/',
             {'cmd': 'upload',
@@ -159,8 +159,8 @@ class TestPackageManager(unittest.TestCase):
     def test_install_package(self):
 
         bag.request = MagicMock()
-        packagemanager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
-        packagemanager.install_package('mygroup', 'mypackage', '1.2.3', foo='bar')
+        package_manager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
+        package_manager.install_package('mygroup', 'mypackage', '1.2.3', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/.cqactions.html/crx/packmgr/service/.json/etc/packages/mygroup/mypackage-1.2.3.zip',
@@ -172,8 +172,8 @@ class TestPackageManager(unittest.TestCase):
     def test_replicate_package(self):
 
         bag.request = MagicMock()
-        packagemanager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
-        packagemanager.replicate_package('mygroup', 'mypackage', '1.2.3', foo='bar')
+        package_manager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
+        package_manager.replicate_package('mygroup', 'mypackage', '1.2.3', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/.cqactions.html/crx/packmgr/service/.json/etc/packages/mygroup/mypackage-1.2.3.zip',
@@ -185,8 +185,8 @@ class TestPackageManager(unittest.TestCase):
     def test_delete_package(self):
 
         bag.request = MagicMock()
-        packagemanager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
-        packagemanager.delete_package('mygroup', 'mypackage', '1.2.3', foo='bar')
+        package_manager = pyaem.packagemanager.PackageManager('http://localhost:4502/.cqactions.html')
+        package_manager.delete_package('mygroup', 'mypackage', '1.2.3', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/.cqactions.html/crx/packmgr/service/.json/etc/packages/mygroup/mypackage-1.2.3.zip',

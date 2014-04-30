@@ -20,7 +20,7 @@ class ContentRepo(object):
 
     def create_path(self, path, **kwargs):
 
-        def _handler_existed(response, **kwargs):
+        def _handler_ok_existed(response, **kwargs):
 
             result = {
                 'status': 'success',
@@ -29,7 +29,7 @@ class ContentRepo(object):
 
             return result
 
-        def _handler_created(response, **kwargs):
+        def _handler_ok_created(response, **kwargs):
 
             result = {
                 'status': 'success',
@@ -39,8 +39,8 @@ class ContentRepo(object):
             return result
 
         _handlers = {
-            200: _handler_existed,
-            201: _handler_created
+            200: _handler_ok_existed,
+            201: _handler_ok_created
         }
 
         method = 'post'

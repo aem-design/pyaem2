@@ -19,7 +19,7 @@ class TestWebConsole(unittest.TestCase):
         self.assertTrue(405 in web_console.handlers)
 
 
-    def test_init_bundler_not_found(self):
+    def test_init_bundle_not_found(self):
 
         web_console = pyaem.webconsole.WebConsole('http://localhost:4502/.cqactions.html', foo='bar')
         handler = web_console.handlers[404]

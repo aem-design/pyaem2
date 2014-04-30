@@ -7,15 +7,18 @@ from .util import HandlersMatcher
 class TestContentRepo(unittest.TestCase):
 
 
+    def setUp(self):
+
+        self.content_repo = pyaem.contentrepo.ContentRepo('http://localhost:4502', debug=True)
+        bag.request = MagicMock()
+
     def test_init(self):
 
-        content_repo = pyaem.contentrepo.ContentRepo('http://localhost:4502/.cqactions.html', foo='bar')
+        self.assertEqual(self.content_repo.url, 'http://localhost:4502')
+        self.assertEqual(self.content_repo.kwargs['debug'], True)
 
-        self.assertEqual(content_repo.url, 'http://localhost:4502/.cqactions.html')
-        self.assertEqual(content_repo.kwargs['foo'], 'bar')
-
-        self.assertTrue(401 in content_repo.handlers)
-        self.assertTrue(405 in content_repo.handlers)
+        self.assertTrue(401 in self.content_repo.handlers)
+        self.assertTrue(405 in self.content_repo.handlers)
 
 
     def test_create_path(self):
@@ -34,14 +37,13 @@ class TestContentRepo(unittest.TestCase):
 
                 return handlers.keys() == self.handler_keys
 
-        bag.request = MagicMock()
-        content_repo = pyaem.contentrepo.ContentRepo('http://localhost:4502/.cqactions.html')
-        content_repo.create_path('content/somepath', foo='bar')
+        self.content_repo.create_path('content/somepath', foo='bar')
         bag.request.assert_called_once_with(
             'post',
-            'http://localhost:4502/.cqactions.html/content/somepath',
+            'http://localhost:4502/content/somepath',
             {'foo': 'bar'},
-            CreatePathHandlerMatcher([200, 401, 405, 201]))
+            CreatePathHandlerMatcher([200, 401, 405, 201]),
+            debug=True)
 
 
     def test_change_password(self):
@@ -54,16 +56,15 @@ class TestContentRepo(unittest.TestCase):
                 _self.assertEquals(result['message'], 'Password of user home/users/someuser was changed successfully')
                 return handlers.keys() == self.handler_keys
 
-        bag.request = MagicMock()
-        content_repo = pyaem.contentrepo.ContentRepo('http://localhost:4502/.cqactions.html')
-        content_repo.change_password('home/users', 'someuser', 'someoldpassword', 'somenewpassword', foo='bar')
+        self.content_repo.change_password('home/users', 'someuser', 'someoldpassword', 'somenewpassword', foo='bar')
         bag.request.assert_called_once_with(
             'post',
-            'http://localhost:4502/.cqactions.html/home/users/someuser.rw.html',
+            'http://localhost:4502/home/users/someuser.rw.html',
             {':currentPassword': 'someoldpassword',
              'rep:password': 'somenewpassword',
              'foo': 'bar'},
-            ChangePasswordHandlerMatcher([200, 401, 405]))
+            ChangePasswordHandlerMatcher([200, 401, 405]),
+            debug=True)
 
 
     def test_set_permission(self):
@@ -76,15 +77,14 @@ class TestContentRepo(unittest.TestCase):
                 _self.assertEquals(result['message'], 'Permission of user someuser was set')
                 return handlers.keys() == self.handler_keys
 
-        bag.request = MagicMock()
-        content_repo = pyaem.contentrepo.ContentRepo('http://localhost:4502/.cqactions.html')
-        content_repo.set_permission('someuser', foo='bar')
+        self.content_repo.set_permission('someuser', foo='bar')
         bag.request.assert_called_once_with(
             'post',
-            'http://localhost:4502/.cqactions.html/.cqactions.html',
+            'http://localhost:4502/.cqactions.html',
             {'authorizableId': 'someuser',
              'foo': 'bar'},
-            SetPermissionHandlerMatcher([200, 401, 405]))
+            SetPermissionHandlerMatcher([200, 401, 405]),
+            debug=True)
 
 
 if __name__ == '__main__':

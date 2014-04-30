@@ -7,22 +7,26 @@ from .util import HandlersMatcher
 class TestWebConsole(unittest.TestCase):
 
 
+    def setUp(self):
+
+        self.web_console = pyaem.webconsole.WebConsole('http://localhost:4502', debug=True)
+        bag.request = MagicMock()
+        bag.upload_file = MagicMock()
+
+
     def test_init(self):
 
-        web_console = pyaem.webconsole.WebConsole('http://localhost:4502/.cqactions.html', foo='bar')
+        self.assertEqual(self.web_console.url, 'http://localhost:4502')
+        self.assertEqual(self.web_console.kwargs['debug'], True)
 
-        self.assertEqual(web_console.url, 'http://localhost:4502/.cqactions.html')
-        self.assertEqual(web_console.kwargs['foo'], 'bar')
-
-        self.assertTrue(401 in web_console.handlers)
-        self.assertTrue(404 in web_console.handlers)
-        self.assertTrue(405 in web_console.handlers)
+        self.assertTrue(401 in self.web_console.handlers)
+        self.assertTrue(404 in self.web_console.handlers)
+        self.assertTrue(405 in self.web_console.handlers)
 
 
     def test_init_bundle_not_found(self):
 
-        web_console = pyaem.webconsole.WebConsole('http://localhost:4502/.cqactions.html', foo='bar')
-        handler = web_console.handlers[404]
+        handler = self.web_console.handlers[404]
         response = None
         result = handler(response, bundle_name='some_bundle_name')
 
@@ -40,16 +44,15 @@ class TestWebConsole(unittest.TestCase):
                 _self.assertEquals(result['message'], 'Bundle mybundle was successfully started')
                 return handlers.keys() == self.handler_keys
 
-        bag.request = MagicMock()
-        web_console = pyaem.webconsole.WebConsole('http://localhost:4502/.cqactions.html')
-        web_console.start_bundle('mybundle', foo='bar')
+        self.web_console.start_bundle('mybundle', foo='bar')
         bag.request.assert_called_once_with(
             'post',
-            'http://localhost:4502/.cqactions.html/system/console/bundles/mybundle',
+            'http://localhost:4502/system/console/bundles/mybundle',
             {'action': 'start',
              'foo': 'bar'},
             StartBundleHandlerMatcher([200, 401, 404, 405]),
-            bundle_name='mybundle')
+            bundle_name='mybundle',
+            debug=True)
 
 
     def test_stop_bundle(self):
@@ -62,16 +65,15 @@ class TestWebConsole(unittest.TestCase):
                 _self.assertEquals(result['message'], 'Bundle mybundle was successfully stopped')
                 return handlers.keys() == self.handler_keys
 
-        bag.request = MagicMock()
-        web_console = pyaem.webconsole.WebConsole('http://localhost:4502/.cqactions.html')
-        web_console.stop_bundle('mybundle', foo='bar')
+        self.web_console.stop_bundle('mybundle', foo='bar')
         bag.request.assert_called_once_with(
             'post',
-            'http://localhost:4502/.cqactions.html/system/console/bundles/mybundle',
+            'http://localhost:4502/system/console/bundles/mybundle',
             {'action': 'stop',
              'foo': 'bar'},
             StopBundleHandlerMatcher([200, 401, 404, 405]),
-            bundle_name='mybundle')
+            bundle_name='mybundle',
+            debug=True)
 
 
     def test_install_bundle(self):
@@ -84,16 +86,15 @@ class TestWebConsole(unittest.TestCase):
                 _self.assertEquals(result['message'], 'Bundle mybundle was successfully installed')
                 return handlers.keys() == self.handler_keys
 
-        bag.upload_file = MagicMock()
-        web_console = pyaem.webconsole.WebConsole('http://localhost:4502/.cqactions.html')
-        web_console.install_bundle('mybundle', '1.2.3', foo='bar')
+        self.web_console.install_bundle('mybundle', '1.2.3', foo='bar')
         bag.upload_file.assert_called_once_with(
-            'http://localhost:4502/.cqactions.html/system/console/bundles',
+            'http://localhost:4502/system/console/bundles',
             {'action': 'install',
              'bundlefile': (10, 'mybundle-1.2.3.zip'),
              'foo': 'bar'},
             InstallBundleHandlerMatcher([200, 401, 404, 405]),
-            bundle_name='mybundle')
+            bundle_name='mybundle',
+            debug=True)
 
 
 if __name__ == '__main__':

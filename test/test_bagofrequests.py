@@ -26,13 +26,13 @@ class TestBagOfRequests(unittest.TestCase):
 
         method = 'post'
         url = 'http://localhost:4502/.cqactions.html'
-        params = {'foo1': 'bar1', 'foo2': 'bar2'}
+        params = {'foo1': 'bar1', 'foo2': ['bar2a', 'bar2b']}
         handlers = {200: _handler_dummy}
 
         result = pyaem.bagofrequests.request(method, url, params, handlers)
 
         curl.setopt.assert_any_call(pycurl.POST, 1)
-        curl.setopt.assert_any_call(pycurl.POSTFIELDS, 'foo1=bar1&foo2=bar2')
+        curl.setopt.assert_any_call(pycurl.POSTFIELDS, 'foo1=bar1&foo2=bar2a&foo2=bar2b')
         curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
 
@@ -67,12 +67,12 @@ class TestBagOfRequests(unittest.TestCase):
 
         method = 'get'
         url = 'http://localhost:4502/.cqactions.html'
-        params = {'foo1': 'bar1', 'foo2': 'bar2'}
+        params = {'foo1': 'bar1', 'foo2': ['bar2a', 'bar2b']}
         handlers = {200: _handler_dummy}
 
         result = pyaem.bagofrequests.request(method, url, params, handlers)
 
-        curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2')
+        curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2a&foo2=bar2b')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
 
         # 3 calls including the one with pycurl.WRITEFUNCTION
@@ -137,12 +137,12 @@ class TestBagOfRequests(unittest.TestCase):
         pycurl.Curl = MagicMock(return_value=curl)
 
         url = 'http://localhost:4502/.cqactions.html'
-        params = {'foo1': 'bar1', 'foo2': 'bar2'}
+        params = {'foo1': 'bar1', 'foo2': ['bar2a', 'bar2b']}
         handlers = {200: _handler_dummy}
 
         result = pyaem.bagofrequests.download_file(url, params, handlers, file='/tmp/somefile')
 
-        curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2')
+        curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2a&foo2=bar2b')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
 
         # 4 calls including the one with pycurl.WRITEDATA and pycurl.WRITEFUNCTION

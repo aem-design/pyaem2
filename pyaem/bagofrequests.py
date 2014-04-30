@@ -10,9 +10,9 @@ def request(method, url, params, handlers, **kwargs):
 
     if method == 'post':
         curl.setopt(pycurl.POST, 1)
-        curl.setopt(pycurl.POSTFIELDS, urllib.urlencode(params))
+        curl.setopt(pycurl.POSTFIELDS, urllib.urlencode(params, True))
     else:
-        url = '{0}?{1}'.format(url, urllib.urlencode(params))
+        url = '{0}?{1}'.format(url, urllib.urlencode(params, True))
 
     curl.setopt(pycurl.URL, url)
     curl.setopt(pycurl.FOLLOWLOCATION, 1)
@@ -37,7 +37,7 @@ def download_file(url, params, handlers, **kwargs):
 
     curl = pycurl.Curl()
     body_io = cStringIO.StringIO()
-    url = '{0}?{1}'.format(url, urllib.urlencode(params))
+    url = '{0}?{1}'.format(url, urllib.urlencode(params, True))
     data = open(kwargs['file'], 'wb')
 
     curl.setopt(pycurl.URL, url)

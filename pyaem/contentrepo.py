@@ -184,13 +184,13 @@ class ContentRepo(object):
         return bag.request(method, url, params, _handlers, **opts)
 
 
-    def change_password(self, user_path, old_password, new_password, **kwargs):
+    def change_password(self, user_path, user_name, old_password, new_password, **kwargs):
 
         def _handler_ok(response, **kwargs):
 
             result = {
                 'status': 'success',
-                'message': 'Password of user {0} was changed successfully'.format(user_path)
+                'message': 'Password of user {0}/{1} was changed successfully'.format(user_path, user_name)
             }
 
             return result
@@ -205,7 +205,7 @@ class ContentRepo(object):
         }
 
         method = 'post'
-        url = '{0}/home/users/{1}.rw.html'.format(self.url, user_path)
+        url = '{0}/{1}/{2}.rw.html'.format(self.url, user_path, user_name)
         params = dict(params.items() + kwargs.items())
         _handlers = dict(self.handlers.items() + _handlers.items())
         opts = self.kwargs

@@ -30,6 +30,28 @@ class TestContentRepo(unittest.TestCase):
             HandlersMatcher([200, 401, 405]))
 
 
+    def test_change_password(self):
+
+        _self = self
+        class ChangePasswordHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+                result = handlers[200](None)
+                _self.assertEquals(result['status'], 'success')
+                _self.assertEquals(result['message'], 'Password of user home/users/someuser was changed successfully')
+                return handlers.keys() == self.handler_keys
+
+        bag.request = MagicMock()
+        content_repo = pyaem.contentrepo.ContentRepo('http://localhost:4502/.cqactions.html')
+        content_repo.change_password('home/users', 'someuser', 'someoldpassword', 'somenewpassword', foo='bar')
+        bag.request.assert_called_once_with(
+            'post',
+            'http://localhost:4502/.cqactions.html/home/users/someuser.rw.html',
+            {':currentPassword': 'someoldpassword',
+             'rep:password': 'somenewpassword',
+             'foo': 'bar'},
+            ChangePasswordHandlerMatcher([200, 401, 405]))
+
+
 if __name__ == '__main__':
     unittest.main()
     

@@ -97,6 +97,15 @@ class TestPyAem(unittest.TestCase):
         aem.content_repo.set_agent.assert_called_once_with('someagentname', 'somerunmode')
 
 
+    def test_delete_agent(self):
+
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.content_repo.delete_agent = MagicMock()
+
+        aem.delete_agent('someagentname', 'somerunmode')
+        aem.content_repo.delete_agent.assert_called_once_with('someagentname', 'somerunmode')
+
+
     # package manager methods
 
 

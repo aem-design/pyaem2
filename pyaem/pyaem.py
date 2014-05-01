@@ -50,6 +50,10 @@ class PyAem(object):
         return self.content_repo.set_agent(agent_name, run_mode, **kwargs)
 
 
+    def delete_agent(self, agent_name, run_mode, **kwargs):
+        return self.content_repo.delete_agent(agent_name, run_mode, **kwargs)
+
+
     # package manager methods
 
 

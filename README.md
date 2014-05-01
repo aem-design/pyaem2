@@ -51,6 +51,8 @@ Content Management
 
     aem.set_agent('myagent', 'runmode')
 
+    aem.delete_agent('myagent', 'runmode')
+
 Package Management
 
     aem.create_package('mygroup', 'mypackage', 1.2.3)

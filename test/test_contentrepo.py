@@ -87,6 +87,25 @@ class TestContentRepo(unittest.TestCase):
             debug=True)
 
 
+    def test_delete_agent(self):
+
+        _self = self
+        class DeleteAgentHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+                result = handlers[200](None)
+                _self.assertEquals(result['status'], 'success')
+                _self.assertEquals(result['message'], 'author agent someagent was deleted')
+                return handlers.keys() == self.handler_keys
+
+        self.content_repo.delete_agent('someagent', 'author', foo='bar')
+        bag.request.assert_called_once_with(
+            'delete',
+            'http://localhost:4502/etc/replication/agents.author/someagent',
+            {'foo': 'bar'},
+            DeleteAgentHandlerMatcher([200, 401, 405]),
+            debug=True)
+
+
 if __name__ == '__main__':
     unittest.main()
     

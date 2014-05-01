@@ -92,9 +92,15 @@ class TestContentRepo(unittest.TestCase):
         _self = self
         class DeleteAgentHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
+
                 result = handlers[200](None)
                 _self.assertEquals(result['status'], 'success')
                 _self.assertEquals(result['message'], 'author agent someagent was deleted')
+
+                result = handlers[404](None)
+                _self.assertEquals(result['status'], 'warning')
+                _self.assertEquals(result['message'], 'author agent someagent not found')
+
                 return handlers.keys() == self.handler_keys
 
         self.content_repo.delete_agent('someagent', 'author', foo='bar')
@@ -102,7 +108,7 @@ class TestContentRepo(unittest.TestCase):
             'delete',
             'http://localhost:4502/etc/replication/agents.author/someagent',
             {'foo': 'bar'},
-            DeleteAgentHandlerMatcher([200, 401, 405]),
+            DeleteAgentHandlerMatcher([200, 401, 404, 405]),
             debug=True)
 
 

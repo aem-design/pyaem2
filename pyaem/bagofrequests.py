@@ -8,11 +8,14 @@ def request(method, url, params, handlers, **kwargs):
     curl = pycurl.Curl()
     body_io = cStringIO.StringIO()
 
-    if method == 'post':
+    # TODO: add put method handling
+    if method == 'get':
+        url = '{0}?{1}'.format(url, urllib.urlencode(params, True))
+    elif method == 'post':
         curl.setopt(pycurl.POST, 1)
         curl.setopt(pycurl.POSTFIELDS, urllib.urlencode(params, True))
     else:
-        url = '{0}?{1}'.format(url, urllib.urlencode(params, True))
+        curl.setopt(pycurl.CUSTOMREQUEST, method)
 
     curl.setopt(pycurl.URL, url)
     curl.setopt(pycurl.FOLLOWLOCATION, 1)

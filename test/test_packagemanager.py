@@ -31,8 +31,9 @@ class TestPackageManager(unittest.TestCase):
         response = {'body': '{ "success": true, "msg": "some message" }'}
         result = handler(response)
 
-        self.assertEquals(result['status'], 'success')
-        self.assertEquals(result['message'], 'some message')
+        self.assertEquals(result.is_success(), True)
+        self.assertEquals(result.message, 'some message')
+        self.assertEquals(result.response, response)
 
 
     def test_init_ok_failure(self):
@@ -41,8 +42,9 @@ class TestPackageManager(unittest.TestCase):
         response = {'body': '{ "success": false, "msg": "some message" }'}
         result = handler(response)
 
-        self.assertEquals(result['status'], 'failure')
-        self.assertEquals(result['message'], 'some message')
+        self.assertEquals(result.is_failure(), True)
+        self.assertEquals(result.message, 'some message')
+        self.assertEquals(result.response, response)
 
 
     def test_create_package(self):
@@ -95,9 +97,10 @@ class TestPackageManager(unittest.TestCase):
         class DownloadPackageHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
 
-                result = handlers[200]({}, file='/tmp/somepath/mypackage-1.2.3.zip')
-                _self.assertEquals(result['status'], 'success')
-                _self.assertEquals(result['message'], '/tmp/somepath/mypackage-1.2.3.zip was successfully downloaded')
+                result = handlers[200](None, file='/tmp/somepath/mypackage-1.2.3.zip')
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, '/tmp/somepath/mypackage-1.2.3.zip was successfully downloaded')
+                _self.assertEquals(result.response, None)
 
                 return super(DownloadPackageHandlerMatcher, self).__eq__(handlers)
 
@@ -116,17 +119,17 @@ class TestPackageManager(unittest.TestCase):
         class UploadPackageHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
 
-                result = handlers[200](
-                    {'body': '{"success": true, "msg": "some message"}'},
-                    file='/tmp/somepath/mypackage-1.2.3.zip')
-                _self.assertEquals(result['status'], 'success')
-                _self.assertEquals(result['message'], 'some message')
+                response = {'body': '{"success": true, "msg": "some message"}'}
+                result = handlers[200](response, file='/tmp/somepath/mypackage-1.2.3.zip')
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'some message')
+                _self.assertEquals(result.response, response)
 
-                result = handlers[200](
-                    {'body': '{"success": false, "msg": "some message"}'},
-                    file='/tmp/somepath/mypackage-1.2.3.zip')
-                _self.assertEquals(result['status'], 'failure')
-                _self.assertEquals(result['message'], 'some message')
+                response = {'body': '{"success": false, "msg": "some message"}'}
+                result = handlers[200](response, file='/tmp/somepath/mypackage-1.2.3.zip')
+                _self.assertEquals(result.is_failure(), True)
+                _self.assertEquals(result.message, 'some message')
+                _self.assertEquals(result.response, response)
 
                 return super(UploadPackageHandlerMatcher, self).__eq__(handlers)
 

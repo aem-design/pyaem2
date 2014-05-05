@@ -2,6 +2,7 @@ from . import bagofrequests as bag
 from BeautifulSoup import BeautifulSoup
 from . import handlers
 import re
+from . import result as res
 
 HEX_MASSAGE = [(re.compile('&#x([^;]+);'), lambda m: '&#%d;' % int(m.group(1), 16))]
 
@@ -22,20 +23,16 @@ class ContentRepo(object):
 
         def _handler_ok_existed(response, **kwargs):
 
-            result = {
-                'status': 'success',
-                'message': 'Path {0} already existed'.format(path)
-            }
-
+            message = 'Path {0} already existed'.format(path)
+            result = res.PyAemResult(response)
+            result.success(message)
             return result
 
         def _handler_ok_created(response, **kwargs):
 
-            result = {
-                'status': 'success',
-                'message': 'Path {0} was created'.format(path)
-            }
-
+            message = 'Path {0} created'.format(path)
+            result = res.PyAemResult(response)
+            result.success(message)
             return result
 
         _handlers = {
@@ -62,17 +59,13 @@ class ContentRepo(object):
             )
             errors = soup.findAll(attrs={'class': 'error'})
 
+            result = res.PyAemResult(response)
             if len(errors) == 0:
-                result = {
-                    'status': 'success',
-                    'message': 'Path was successfully activated'
-                }
+                message = 'Path {0} activated'.format(path)
+                result.success(message)
             else:
-                result = {
-                    'status': 'failure',
-                    'message': errors[0].string
-                }
-
+                message = errors[0].string
+                result.failure(message)
             return result
 
         params = {
@@ -97,11 +90,9 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            result = {
-                'status': 'success',
-                'message': 'User {0}/{1} created'.format(user_path, user_name)
-            }
-
+            message = 'User {0}/{1} created'.format(user_path, user_name)
+            result = res.PyAemResult(response)
+            result.success(message)
             return result
 
         def _handler_exist_or_error(response, **kwargs):

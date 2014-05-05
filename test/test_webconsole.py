@@ -30,8 +30,9 @@ class TestWebConsole(unittest.TestCase):
         response = None
         result = handler(response, bundle_name='some_bundle_name')
 
-        self.assertEquals(result['status'], 'failure')
-        self.assertEquals(result['message'], 'Bundle some_bundle_name not found')
+        self.assertEquals(result.is_failure(), True)
+        self.assertEquals(result.message, 'Bundle some_bundle_name not found')
+        self.assertEquals(result.response, response)
 
 
     def test_start_bundle(self):
@@ -40,9 +41,11 @@ class TestWebConsole(unittest.TestCase):
         class StartBundleHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
 
-                result = handlers[200]({}, bundle_name='mybundle')
-                _self.assertEquals(result['status'], 'success')
-                _self.assertEquals(result['message'], 'Bundle mybundle was successfully started')
+                response = None
+                result = handlers[200](response, bundle_name='mybundle')
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Bundle mybundle was successfully started')
+                _self.assertEquals(result.response, response)
 
                 return super(StartBundleHandlerMatcher, self).__eq__(handlers)
 
@@ -63,9 +66,11 @@ class TestWebConsole(unittest.TestCase):
         class StopBundleHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
 
-                result = handlers[200]({}, bundle_name='mybundle')
-                _self.assertEquals(result['status'], 'success')
-                _self.assertEquals(result['message'], 'Bundle mybundle was successfully stopped')
+                response = None
+                result = handlers[200](response, bundle_name='mybundle')
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Bundle mybundle was successfully stopped')
+                _self.assertEquals(result.response, response)
 
                 return super(StopBundleHandlerMatcher, self).__eq__(handlers)
 
@@ -86,9 +91,11 @@ class TestWebConsole(unittest.TestCase):
         class InstallBundleHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
 
-                result = handlers[200]({}, bundle_name='mybundle')
-                _self.assertEquals(result['status'], 'success')
-                _self.assertEquals(result['message'], 'Bundle mybundle was successfully installed')
+                response = None
+                result = handlers[200](response, bundle_name='mybundle')
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Bundle mybundle was successfully installed')
+                _self.assertEquals(result.response, response)
 
                 return super(InstallBundleHandlerMatcher, self).__eq__(handlers)
 

@@ -2,6 +2,7 @@ from . import bagofrequests as bag
 from . import handlers
 import json
 import pycurl
+from . import result as res
 
 class PackageManager(object):
 
@@ -12,11 +13,12 @@ class PackageManager(object):
 
             data = json.loads(response['body'])
             message = data['msg']
+            result = res.PyAemResult(response)
 
-            result = {
-                'status': 'success' if data['success'] == True else 'failure',
-                'message': message
-            }
+            if data['success'] == True:
+                result.success(message)
+            else:
+                result.failure(message)
 
             return result
 
@@ -87,10 +89,10 @@ class PackageManager(object):
 
         def _handler_ok_download(response, **kwargs):
 
-            result = {
-                'status': 'success',
-                'message': '{0} was successfully downloaded'.format(kwargs['file'])
-            }
+            message = '{0} was successfully downloaded'.format(kwargs['file'])
+
+            result = res.PyAemResult(response)
+            result.success(message)
 
             return result
 
@@ -115,11 +117,13 @@ class PackageManager(object):
         def _handler_ok_upload(response, **kwargs):
 
             data = json.loads(response['body'])
+            message = data['msg']
+            result = res.PyAemResult(response)
 
-            result = {
-                'status': 'success' if data['success'] == True else 'failure',
-                'message': data['msg']
-            }
+            if data['success'] == True:
+                result.success(message)
+            else:
+                result.failure(message)
 
             return result
 

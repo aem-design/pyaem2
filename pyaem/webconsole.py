@@ -1,6 +1,7 @@
 from . import bagofrequests as bag
 from . import handlers
 import pycurl
+from . import result as res
 
 class WebConsole(object):
 
@@ -9,11 +10,9 @@ class WebConsole(object):
 
         def _handler_bundle_not_found(response, **kwargs):
 
-            result = {
-                'status': 'failure',
-                'message': 'Bundle {0} not found'.format(kwargs['bundle_name'])
-            }
-
+            message = 'Bundle {0} not found'.format(kwargs['bundle_name'])
+            result = res.PyAemResult(response)
+            result.failure(message)
             return result
 
         self.url = url
@@ -29,11 +28,9 @@ class WebConsole(object):
 
         def _handler_ok_start(response, **kwargs):
 
-            result = {
-                'status': 'success',
-                'message': 'Bundle {0} was successfully started'.format(kwargs['bundle_name'])
-            }
-
+            message = 'Bundle {0} was successfully started'.format(kwargs['bundle_name'])
+            result = res.PyAemResult(response)
+            result.success(message)
             return result
 
         params = {
@@ -61,11 +58,9 @@ class WebConsole(object):
 
         def _handler_ok_stop(response, **kwargs):
 
-            result = {
-                'status': 'success',
-                'message': 'Bundle {0} was successfully stopped'.format(kwargs['bundle_name'])
-            }
-
+            message = 'Bundle {0} was successfully stopped'.format(kwargs['bundle_name'])
+            result = res.PyAemResult(response)
+            result.success(message)
             return result
 
         params = {
@@ -93,11 +88,9 @@ class WebConsole(object):
 
         def _handler_ok_install(response, **kwargs):
 
-            result = {
-                'status': 'success',
-                'message': 'Bundle {0} was successfully installed'.format(kwargs['bundle_name'])
-            }
-
+            message = 'Bundle {0} was successfully installed'.format(kwargs['bundle_name'])
+            result = res.PyAemResult(response)
+            result.success(message)
             return result
 
         file_name = '{0}-{1}.zip'.format(bundle_name, bundle_version)

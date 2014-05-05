@@ -27,13 +27,17 @@ class TestContentRepo(unittest.TestCase):
         class CreatePathHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
 
-                result = handlers[200](None, path='content/somepath')
-                _self.assertEquals(result['status'], 'success')
-                _self.assertEquals(result['message'], 'Path content/somepath already existed')
+                response = None
+                result = handlers[200](response, path='content/somepath')
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Path content/somepath already existed')
+                _self.assertEquals(result.response, response)
 
-                result = handlers[201](None, path='content/somepath')
-                _self.assertEquals(result['status'], 'success')
-                _self.assertEquals(result['message'], 'Path content/somepath was created')
+                response = None
+                result = handlers[201](response, path='content/somepath')
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Path content/somepath created')
+                _self.assertEquals(result.response, response)
 
                 return super(CreatePathHandlerMatcher, self).__eq__(handlers)
 
@@ -42,7 +46,38 @@ class TestContentRepo(unittest.TestCase):
             'post',
             'http://localhost:4502/content/somepath',
             {'foo': 'bar'},
-            CreatePathHandlerMatcher([200, 401, 405, 201]),
+            CreatePathHandlerMatcher([200, 201, 401, 405]),
+            debug=True)
+
+
+    def test_activate_path(self):
+
+        _self = self
+        class ActivatePathHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                response = {'body': ''}
+                result = handlers[200](response, path='content/somepath')
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Path content/somepath activated')
+                _self.assertEquals(result.response, response)
+
+                response = {'body': '<div class="error">some error</div>'}
+                result = handlers[200](response, path='content/somepath')
+                _self.assertEquals(result.is_failure(), True)
+                _self.assertEquals(result.message, 'some error')
+                _self.assertEquals(result.response, response)
+
+                return super(ActivatePathHandlerMatcher, self).__eq__(handlers)
+
+        self.content_repo.activate_path('content/somepath', foo='bar')
+        bag.request.assert_called_once_with(
+            'post',
+            'http://localhost:4502/etc/replication/treeactivation.html',
+            {'cmd': 'activate',
+             'path': 'content/somepath',
+             'foo': 'bar'},
+            ActivatePathHandlerMatcher([200, 401, 405]),
             debug=True)
 
 
@@ -52,9 +87,11 @@ class TestContentRepo(unittest.TestCase):
         class CreateUserHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
 
-                result = handlers[201](None)
-                _self.assertEquals(result['status'], 'success')
-                _self.assertEquals(result['message'], 'User home/users/someuser created')
+                response = None
+                result = handlers[201](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'User home/users/someuser created')
+                _self.assertEquals(result.response, response)
 
                 result = handlers[500]({'body':
                     '<td><div id="Message">org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +

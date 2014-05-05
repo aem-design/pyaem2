@@ -191,7 +191,7 @@ class ContentRepo(object):
                     'status': 'success',
                     'message': 'Group {0}/{1} already exists'.format(group_path, group_name)
                 }
-                
+
             else:
                 result = {
                     'status': 'failure',

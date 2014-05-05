@@ -4,4 +4,4 @@ class HandlersMatcher(object):
         self.handler_keys = handler_keys
 
     def __eq__(self, handlers):
-        return handlers.keys() == self.handler_keys
+        return handlers.keys().sort() == self.handler_keys.sort()

@@ -99,18 +99,34 @@ class ContentRepo(object):
 
             result = {
                 'status': 'success',
-                'message': 'User {0}/{1} was created'.format(user_path, user_name)
+                'message': 'User {0}/{1} created'.format(user_path, user_name)
             }
 
             return result
 
         def _handler_exist_or_error(response, **kwargs):
 
-            result = {
-                'status': 'success',
-                'message': 'User {0}/{1} already exists or there is an unexpected error - check AEM log'
-                    .format(user_path, user_name)
-            }
+            soup = BeautifulSoup(response['body'],
+                convertEntities=BeautifulSoup.HTML_ENTITIES,
+                markupMassage=HEX_MASSAGE
+            )
+            message_elem = soup.find('div', {'id': 'Message'})
+            if message_elem != None:
+                message = message_elem.contents[0]
+
+            if message == ('org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
+                'User or Group for \'{0}\' already exists'.format(user_name)):
+
+                result = {
+                    'status': 'success',
+                    'message': 'User {0}/{1} already exists'.format(user_path, user_name)
+                }
+
+            else:
+                result = {
+                    'status': 'failure',
+                    'message': message
+                }
 
             return result
 

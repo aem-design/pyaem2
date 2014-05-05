@@ -87,7 +87,7 @@ class TestContentRepo(unittest.TestCase):
         class CreateGroupHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
 
-                result = handlers[200](None)
+                result = handlers[201](None)
                 _self.assertEquals(result['status'], 'success')
                 _self.assertEquals(result['message'], 'Group home/groups/somegroup created')
 
@@ -112,7 +112,7 @@ class TestContentRepo(unittest.TestCase):
              'authorizableId': 'somegroup',
              'createGroup': '',
              'foo': 'bar'},
-            CreateGroupHandlerMatcher([200, 401, 405, 500]),
+            CreateGroupHandlerMatcher([201, 401, 405, 500]),
             debug=True)
 
 

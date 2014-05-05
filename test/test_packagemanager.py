@@ -94,10 +94,12 @@ class TestPackageManager(unittest.TestCase):
         _self = self
         class DownloadPackageHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
+
                 result = handlers[200]({}, file='/tmp/somepath/mypackage-1.2.3.zip')
                 _self.assertEquals(result['status'], 'success')
                 _self.assertEquals(result['message'], '/tmp/somepath/mypackage-1.2.3.zip was successfully downloaded')
-                return handlers.keys() == self.handler_keys
+
+                return super(DownloadPackageHandlerMatcher, self).__eq__(handlers)
 
         self.package_manager.download_package('mygroup', 'mypackage', '1.2.3', '/tmp/somepath', foo='bar')
         bag.download_file.assert_called_once_with(
@@ -126,7 +128,7 @@ class TestPackageManager(unittest.TestCase):
                 _self.assertEquals(result['status'], 'failure')
                 _self.assertEquals(result['message'], 'some message')
 
-                return handlers.keys() == self.handler_keys
+                return super(UploadPackageHandlerMatcher, self).__eq__(handlers)
 
         self.package_manager.upload_package('mygroup', 'mypackage', '1.2.3', '/tmp/somepath', foo='bar')
         bag.upload_file.assert_called_once_with(

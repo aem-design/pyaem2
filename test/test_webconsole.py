@@ -39,10 +39,12 @@ class TestWebConsole(unittest.TestCase):
         _self = self
         class StartBundleHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
+
                 result = handlers[200]({}, bundle_name='mybundle')
                 _self.assertEquals(result['status'], 'success')
                 _self.assertEquals(result['message'], 'Bundle mybundle was successfully started')
-                return handlers.keys() == self.handler_keys
+
+                return super(StartBundleHandlerMatcher, self).__eq__(handlers)
 
         self.web_console.start_bundle('mybundle', foo='bar')
         bag.request.assert_called_once_with(
@@ -60,10 +62,12 @@ class TestWebConsole(unittest.TestCase):
         _self = self
         class StopBundleHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
+
                 result = handlers[200]({}, bundle_name='mybundle')
                 _self.assertEquals(result['status'], 'success')
                 _self.assertEquals(result['message'], 'Bundle mybundle was successfully stopped')
-                return handlers.keys() == self.handler_keys
+
+                return super(StopBundleHandlerMatcher, self).__eq__(handlers)
 
         self.web_console.stop_bundle('mybundle', foo='bar')
         bag.request.assert_called_once_with(
@@ -81,10 +85,12 @@ class TestWebConsole(unittest.TestCase):
         _self = self
         class InstallBundleHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
+
                 result = handlers[200]({}, bundle_name='mybundle')
                 _self.assertEquals(result['status'], 'success')
                 _self.assertEquals(result['message'], 'Bundle mybundle was successfully installed')
-                return handlers.keys() == self.handler_keys
+
+                return super(InstallBundleHandlerMatcher, self).__eq__(handlers)
 
         self.web_console.install_bundle('mybundle', '1.2.3', foo='bar')
         bag.upload_file.assert_called_once_with(

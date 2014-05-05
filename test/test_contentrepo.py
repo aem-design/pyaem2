@@ -35,7 +35,7 @@ class TestContentRepo(unittest.TestCase):
                 _self.assertEquals(result['status'], 'success')
                 _self.assertEquals(result['message'], 'Path content/somepath was created')
 
-                return handlers.keys() == self.handler_keys
+                return super(CreatePathHandlerMatcher, self).__eq__(handlers)
 
         self.content_repo.create_path('content/somepath', foo='bar')
         bag.request.assert_called_once_with(
@@ -51,10 +51,12 @@ class TestContentRepo(unittest.TestCase):
         _self = self
         class ChangePasswordHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
+
                 result = handlers[200](None)
                 _self.assertEquals(result['status'], 'success')
                 _self.assertEquals(result['message'], 'Password of user home/users/someuser was changed successfully')
-                return handlers.keys() == self.handler_keys
+
+                return super(ChangePasswordHandlerMatcher, self).__eq__(handlers)
 
         self.content_repo.change_password('home/users', 'someuser', 'someoldpassword', 'somenewpassword', foo='bar')
         bag.request.assert_called_once_with(
@@ -72,10 +74,12 @@ class TestContentRepo(unittest.TestCase):
         _self = self
         class SetPermissionHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
+
                 result = handlers[200](None)
                 _self.assertEquals(result['status'], 'success')
                 _self.assertEquals(result['message'], 'Permission of user someuser was set')
-                return handlers.keys() == self.handler_keys
+
+                return super(SetPermissionHandlerMatcher, self).__eq__(handlers)
 
         self.content_repo.set_permission('someuser', foo='bar')
         bag.request.assert_called_once_with(

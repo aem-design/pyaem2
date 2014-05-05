@@ -169,8 +169,34 @@ class ContentRepo(object):
 
             result = {
                 'status': 'success',
-                'message': 'Group {0}/{1} was created'.format(group_path, group_name)
+                'message': 'Group {0}/{1} created'.format(group_path, group_name)
             }
+
+            return result
+
+        def _handler_exist_or_error(response, **kwargs):
+
+            soup = BeautifulSoup(response['body'],
+                convertEntities=BeautifulSoup.HTML_ENTITIES,
+                markupMassage=HEX_MASSAGE
+            )
+            message_elem = soup.find('div', {'id': 'Message'})
+            if message_elem != None:
+                message = message_elem.contents[0]
+
+            if message == ('org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
+                'User or Group for \'{0}\' already exists'.format(group_name)):
+
+                result = {
+                    'status': 'success',
+                    'message': 'Group {0}/{1} already exists'.format(group_path, group_name)
+                }
+                
+            else:
+                result = {
+                    'status': 'failure',
+                    'message': message
+                }
 
             return result
 
@@ -182,7 +208,8 @@ class ContentRepo(object):
         }
 
         _handlers = {
-            200: _handler_ok
+            200: _handler_ok,
+            500: _handler_exist_or_error
         }
 
         method = 'post'

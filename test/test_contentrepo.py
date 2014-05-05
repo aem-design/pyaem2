@@ -46,6 +46,41 @@ class TestContentRepo(unittest.TestCase):
             debug=True)
 
 
+    def test_create_group(self):
+
+        _self = self
+        class CreateGroupHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                result = handlers[200](None)
+                _self.assertEquals(result['status'], 'success')
+                _self.assertEquals(result['message'], 'Group home/groups/somegroup created')
+
+                result = handlers[500]({'body':
+                    '<td><div id="Message">org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
+                    'User or Group for \'somegroup\' already exists</div></td>'})
+                _self.assertEquals(result['status'], 'success')
+                _self.assertEquals(result['message'], 'Group home/groups/somegroup already exists')
+
+                result = handlers[500]({'body': '<td><div id="Message">some other error message</div></td>'})
+                _self.assertEquals(result['status'], 'failure')
+                _self.assertEquals(result['message'], 'some other error message')
+
+                return super(CreateGroupHandlerMatcher, self).__eq__(handlers)
+
+        self.content_repo.create_group('home/groups', 'somegroup', foo='bar')
+        bag.request.assert_called_once_with(
+            'post',
+            'http://localhost:4502/libs/granite/security/post/authorizables',
+            {'profile/givenName': 'somegroup',
+             'intermediatePath': 'home/groups',
+             'authorizableId': 'somegroup',
+             'createGroup': '',
+             'foo': 'bar'},
+            CreateGroupHandlerMatcher([200, 401, 405, 500]),
+            debug=True)
+
+
     def test_change_password(self):
 
         _self = self

@@ -101,6 +101,10 @@ class TestContentRepo(unittest.TestCase):
                 _self.assertEquals(result['status'], 'success')
                 _self.assertEquals(result['message'], 'author agent someagent was deleted')
 
+                result = handlers[404](None)
+                _self.assertEquals(result['status'], 'warning')
+                _self.assertEquals(result['message'], 'author agent someagent not found')
+
                 return super(DeleteAgentHandlerMatcher, self).__eq__(handlers)
 
         self.content_repo.delete_agent('someagent', 'author', foo='bar')

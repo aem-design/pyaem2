@@ -289,11 +289,21 @@ class ContentRepo(object):
 
             return result
 
+        def _handler_not_found(response, **kwargs):
+
+            result = {
+                'status': 'warning',
+                'message': '{0} agent {1} not found'.format(run_mode, agent_name)
+            }
+
+            return result
+
         params = {
         }
 
         _handlers = {
-            204: _handler_ok
+            204: _handler_ok,
+            404: _handler_not_found
         }
 
         method = 'delete'

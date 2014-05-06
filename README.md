@@ -86,10 +86,10 @@ Error Handling
     
         result = aem.activate_path('/content/mysite')
         
-        if result['status'] == 'success':
-        	print 'It works: {0}'.format(result['message'])
+        if result.is_success():
+        	print 'It works: {0}'.format(result.message)
         else:
-        	print 'An error occurred: {0}'.format(result['message'])
+        	print 'Failed: {0}'.format(result.message)
         	
     except pyaem.PyAemException, e:
     

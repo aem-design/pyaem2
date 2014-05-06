@@ -20,7 +20,7 @@ test:
 
 coverage:
 	coverage run setup.py test
-	coverage report -m
+	coverage report --show-missing --fail-under=100
 	coverage html
 
 coverage-publish: coverage

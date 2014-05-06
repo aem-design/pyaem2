@@ -140,7 +140,7 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            message = 'User {0} was added to group {1}/{2}'.format(user_name, group_path, group_name)
+            message = 'User {0} added to group {1}/{2}'.format(user_name, group_path, group_name)
             result = res.PyAemResult(response)
             result.success(message)
             return result

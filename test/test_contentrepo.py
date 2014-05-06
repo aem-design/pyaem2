@@ -122,6 +122,30 @@ class TestContentRepo(unittest.TestCase):
             debug=True)
 
 
+    def test_add_user_to_group(self):
+
+        _self = self
+        class AddUserToGroupHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                response = None
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'User someuser added to group home/groups/somegroup')
+                _self.assertEquals(result.response, response)
+
+                return super(AddUserToGroupHandlerMatcher, self).__eq__(handlers)
+
+        self.content_repo.add_user_to_group('someuser', 'home/groups', 'somegroup', foo='bar')
+        bag.request.assert_called_once_with(
+            'post',
+            'http://localhost:4502/home/groups/somegroup.rw.html',
+            {'addMembers': 'someuser',
+             'foo': 'bar'},
+            AddUserToGroupHandlerMatcher([200, 401, 405]),
+            debug=True)
+
+
     def test_create_group(self):
 
         _self = self
@@ -209,6 +233,29 @@ class TestContentRepo(unittest.TestCase):
             {'authorizableId': 'someuser',
              'foo': 'bar'},
             SetPermissionHandlerMatcher([200, 401, 405]),
+            debug=True)
+
+
+    def test_set_agent(self):
+
+        _self = self
+        class SetAgentHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                response = None
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'author agent someagent set')
+                _self.assertEquals(result.response, response)
+
+                return super(SetAgentHandlerMatcher, self).__eq__(handlers)
+
+        self.content_repo.set_agent('someagent', 'author', foo='bar')
+        bag.request.assert_called_once_with(
+            'post',
+            'http://localhost:4502/etc/replication/agents.author/someagent',
+            {'foo': 'bar'},
+            SetAgentHandlerMatcher([204, 402, 405]),
             debug=True)
 
 

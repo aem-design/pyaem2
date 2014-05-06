@@ -29,8 +29,8 @@ class TestContentRepo(unittest.TestCase):
 
                 response = None
                 result = handlers[200](response, path='content/somepath')
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Path content/somepath already existed')
+                _self.assertEquals(result.is_warning(), True)
+                _self.assertEquals(result.message, 'Path content/somepath already exists')
                 _self.assertEquals(result.response, response)
 
                 response = None
@@ -97,7 +97,7 @@ class TestContentRepo(unittest.TestCase):
                     '<td><div id="Message">org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
                     'User or Group for \'someuser\' already exists</div></td>'}
                 result = handlers[500](response)
-                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.is_warning(), True)
                 _self.assertEquals(result.message, 'User home/users/someuser already exists')
                 _self.assertEquals(result.response, response)
 
@@ -134,15 +134,19 @@ class TestContentRepo(unittest.TestCase):
                 _self.assertEquals(result.message, 'Group home/groups/somegroup created')
                 _self.assertEquals(result.response, response)
 
-                result = handlers[500]({'body':
+                response = {'body':
                     '<td><div id="Message">org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
-                    'User or Group for \'somegroup\' already exists</div></td>'})
-                _self.assertEquals(result['status'], 'success')
-                _self.assertEquals(result['message'], 'Group home/groups/somegroup already exists')
+                    'User or Group for \'somegroup\' already exists</div></td>'}
+                result = handlers[500](response)
+                _self.assertEquals(result.is_warning(), True)
+                _self.assertEquals(result.message, 'Group home/groups/somegroup already exists')
+                _self.assertEquals(result.response, response)
 
-                result = handlers[500]({'body': '<td><div id="Message">some other error message</div></td>'})
-                _self.assertEquals(result['status'], 'failure')
-                _self.assertEquals(result['message'], 'some other error message')
+                response = {'body': '<td><div id="Message">some other error message</div></td>'}
+                result = handlers[500](response)
+                _self.assertEquals(result.is_failure(), True)
+                _self.assertEquals(result.message, 'some other error message')
+                _self.assertEquals(result.response, response)
 
                 return super(CreateGroupHandlerMatcher, self).__eq__(handlers)
 
@@ -165,9 +169,11 @@ class TestContentRepo(unittest.TestCase):
         class ChangePasswordHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
 
-                result = handlers[200](None)
-                _self.assertEquals(result['status'], 'success')
-                _self.assertEquals(result['message'], 'Password of user home/users/someuser was changed successfully')
+                response = None
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Password of user home/users/someuser was changed successfully')
+                _self.assertEquals(result.response, response)
 
                 return super(ChangePasswordHandlerMatcher, self).__eq__(handlers)
 
@@ -188,9 +194,11 @@ class TestContentRepo(unittest.TestCase):
         class SetPermissionHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
 
-                result = handlers[200](None)
-                _self.assertEquals(result['status'], 'success')
-                _self.assertEquals(result['message'], 'Permission of user someuser was set')
+                response = None
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Permission of user someuser was set')
+                _self.assertEquals(result.response, response)
 
                 return super(SetPermissionHandlerMatcher, self).__eq__(handlers)
 
@@ -210,13 +218,17 @@ class TestContentRepo(unittest.TestCase):
         class DeleteAgentHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
 
-                result = handlers[204](None)
-                _self.assertEquals(result['status'], 'success')
-                _self.assertEquals(result['message'], 'author agent someagent was deleted')
+                response = None
+                result = handlers[204](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'author agent someagent deleted')
+                _self.assertEquals(result.response, response)
 
-                result = handlers[404](None)
-                _self.assertEquals(result['status'], 'warning')
-                _self.assertEquals(result['message'], 'author agent someagent not found')
+                response = None
+                result = handlers[404](response)
+                _self.assertEquals(result.is_warning(), True)
+                _self.assertEquals(result.message, 'author agent someagent not found')
+                _self.assertEquals(result.response, response)
 
                 return super(DeleteAgentHandlerMatcher, self).__eq__(handlers)
 

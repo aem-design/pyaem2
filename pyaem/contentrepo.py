@@ -21,14 +21,14 @@ class ContentRepo(object):
 
     def create_path(self, path, **kwargs):
 
-        def _handler_ok_existed(response, **kwargs):
+        def _handler_exist(response, **kwargs):
 
-            message = 'Path {0} already existed'.format(path)
+            message = 'Path {0} already exists'.format(path)
             result = res.PyAemResult(response)
-            result.success(message)
+            result.warning(message)
             return result
 
-        def _handler_ok_created(response, **kwargs):
+        def _handler_ok(response, **kwargs):
 
             message = 'Path {0} created'.format(path)
             result = res.PyAemResult(response)
@@ -36,8 +36,8 @@ class ContentRepo(object):
             return result
 
         _handlers = {
-            200: _handler_ok_existed,
-            201: _handler_ok_created
+            200: _handler_exist,
+            201: _handler_ok
         }
 
         method = 'post'
@@ -110,7 +110,7 @@ class ContentRepo(object):
 
             result = res.PyAemResult(response)
             if message == exist_message:
-                result.success('User {0}/{1} already exists'.format(user_path, user_name))
+                result.warning('User {0}/{1} already exists'.format(user_path, user_name))
             else:
                 result.failure(message)
             return result
@@ -181,20 +181,14 @@ class ContentRepo(object):
             if message_elem != None:
                 message = message_elem.contents[0]
 
-            if message == ('org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
-                'User or Group for \'{0}\' already exists'.format(group_name)):
+            exist_message = ('org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
+                'User or Group for \'{0}\' already exists'.format(group_name))
 
-                result = {
-                    'status': 'success',
-                    'message': 'Group {0}/{1} already exists'.format(group_path, group_name)
-                }
-
+            result = res.PyAemResult(response)
+            if message == exist_message:
+                result.warning('Group {0}/{1} already exists'.format(group_path, group_name))
             else:
-                result = {
-                    'status': 'failure',
-                    'message': message
-                }
-
+                result.failure(message)
             return result
 
         params = {
@@ -222,11 +216,9 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            result = {
-                'status': 'success',
-                'message': 'Password of user {0}/{1} was changed successfully'.format(user_path, user_name)
-            }
-
+            message = 'Password of user {0}/{1} was changed successfully'.format(user_path, user_name)
+            result = res.PyAemResult(response)
+            result.success(message)
             return result
 
         params = {
@@ -251,11 +243,9 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            result = {
-                'status': 'success',
-                'message': 'Permission of user {0} was set'.format(user_name)
-            }
-
+            message = 'Permission of user {0} was set'.format(user_name)
+            result = res.PyAemResult(response)
+            result.success(message)
             return result
 
         params = {
@@ -279,11 +269,9 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            result = {
-                'status': 'success',
-                'message': '{0} agent {1} was set'.format(run_mode, agent_name)
-            }
-
+            message = '{0} agent {1} set'.format(run_mode, agent_name)
+            result = res.PyAemResult(response)
+            result.success(message)
             return result
 
         params = {
@@ -306,20 +294,16 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            result = {
-                'status': 'success',
-                'message': '{0} agent {1} was deleted'.format(run_mode, agent_name)
-            }
-
+            message = '{0} agent {1} deleted'.format(run_mode, agent_name)
+            result = res.PyAemResult(response)
+            result.success(message)
             return result
 
         def _handler_not_found(response, **kwargs):
 
-            result = {
-                'status': 'warning',
-                'message': '{0} agent {1} not found'.format(run_mode, agent_name)
-            }
-
+            message = '{0} agent {1} not found'.format(run_mode, agent_name)
+            result = res.PyAemResult(response)
+            result.warning(message)
             return result
 
         params = {

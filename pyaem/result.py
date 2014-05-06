@@ -1,5 +1,6 @@
 SUCCESS = 'success'
 FAILURE = 'failure'
+WARNING = 'warning'
 
 class PyAemResult(object):
 
@@ -23,6 +24,12 @@ class PyAemResult(object):
         self.message = message
 
 
+    def warning(self, message):
+
+        self.status = WARNING
+        self.message = message
+
+
     def is_success(self):
 
         return self.status == SUCCESS
@@ -31,3 +38,8 @@ class PyAemResult(object):
     def is_failure(self):
 
         return self.status == FAILURE
+
+
+    def is_warning(self):
+
+        return self.status == WARNING

@@ -93,15 +93,19 @@ class TestContentRepo(unittest.TestCase):
                 _self.assertEquals(result.message, 'User home/users/someuser created')
                 _self.assertEquals(result.response, response)
 
-                result = handlers[500]({'body':
+                response = {'body':
                     '<td><div id="Message">org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
-                    'User or Group for \'someuser\' already exists</div></td>'})
-                _self.assertEquals(result['status'], 'success')
-                _self.assertEquals(result['message'], 'User home/users/someuser already exists')
+                    'User or Group for \'someuser\' already exists</div></td>'}
+                result = handlers[500](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'User home/users/someuser already exists')
+                _self.assertEquals(result.response, response)
 
-                result = handlers[500]({'body': '<td><div id="Message">some other error message</div></td>'})
-                _self.assertEquals(result['status'], 'failure')
-                _self.assertEquals(result['message'], 'some other error message')
+                response = {'body': '<td><div id="Message">some other error message</div></td>'}
+                result = handlers[500](response)
+                _self.assertEquals(result.is_failure(), True)
+                _self.assertEquals(result.message, 'some other error message')
+                _self.assertEquals(result.response, response)
 
                 return super(CreateUserHandlerMatcher, self).__eq__(handlers)
 
@@ -124,9 +128,11 @@ class TestContentRepo(unittest.TestCase):
         class CreateGroupHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
 
-                result = handlers[201](None)
-                _self.assertEquals(result['status'], 'success')
-                _self.assertEquals(result['message'], 'Group home/groups/somegroup created')
+                response = None
+                result = handlers[201](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Group home/groups/somegroup created')
+                _self.assertEquals(result.response, response)
 
                 result = handlers[500]({'body':
                     '<td><div id="Message">org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +

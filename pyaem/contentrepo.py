@@ -105,20 +105,14 @@ class ContentRepo(object):
             if message_elem != None:
                 message = message_elem.contents[0]
 
-            if message == ('org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
-                'User or Group for \'{0}\' already exists'.format(user_name)):
+            exist_message = ('org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
+                'User or Group for \'{0}\' already exists'.format(user_name))
 
-                result = {
-                    'status': 'success',
-                    'message': 'User {0}/{1} already exists'.format(user_path, user_name)
-                }
-
+            result = res.PyAemResult(response)
+            if message == exist_message:
+                result.success('User {0}/{1} already exists'.format(user_path, user_name))
             else:
-                result = {
-                    'status': 'failure',
-                    'message': message
-                }
-
+                result.failure(message)
             return result
 
         params = {
@@ -146,11 +140,9 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            result = {
-                'status': 'success',
-                'message': 'User {0} was added to group {1}/{2}'.format(user_name, group_path, group_name)
-            }
-
+            message = 'User {0} was added to group {1}/{2}'.format(user_name, group_path, group_name)
+            result = res.PyAemResult(response)
+            result.success(message)
             return result
 
         params = {
@@ -174,11 +166,9 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            result = {
-                'status': 'success',
-                'message': 'Group {0}/{1} created'.format(group_path, group_name)
-            }
-
+            message = 'Group {0}/{1} created'.format(group_path, group_name)
+            result = res.PyAemResult(response)
+            result.success(message)
             return result
 
         def _handler_exist_or_error(response, **kwargs):

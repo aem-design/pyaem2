@@ -1,5 +1,6 @@
 from . import contentrepo
 from . import packagemanager
+from . import packagemanagersync
 from . import webconsole
 
 class PyAem(object):
@@ -12,6 +13,7 @@ class PyAem(object):
 
         self.content_repo = contentrepo.ContentRepo(url, debug=debug)
         self.package_manager = packagemanager.PackageManager(url, debug=debug)
+        self.package_manager_sync = packagemanagersync.PackageManagerSync(url, debug=debug)
         self.web_console = webconsole.WebConsole(url, debug=debug)
 
 
@@ -87,6 +89,21 @@ class PyAem(object):
 
     def delete_package(self, group_name, package_name, package_version, **kwargs):
         return self.package_manager.delete_package(group_name, package_name, package_version, **kwargs)
+
+
+    # synchronous package manager methods
+
+
+    def upload_package_sync(self, group_name, package_name, package_version, file_path, **kwargs):
+        return self.package_manager_sync.upload_package(group_name, package_name, package_version, file_path, **kwargs)
+
+
+    def install_package_sync(self, group_name, package_name, package_version, **kwargs):
+        return self.package_manager_sync.install_package(group_name, package_name, package_version, **kwargs)
+
+
+    def replicate_package_sync(self, group_name, package_name, package_version, **kwargs):
+        return self.package_manager_sync.replicate_package(group_name, package_name, package_version, **kwargs)
 
 
     # web console methods

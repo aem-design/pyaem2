@@ -90,10 +90,8 @@ class PackageManager(object):
         def _handler_ok_download(response, **kwargs):
 
             message = '{0} was successfully downloaded'.format(kwargs['file'])
-
             result = res.PyAemResult(response)
             result.success(message)
-
             return result
 
         _handlers = {
@@ -114,28 +112,11 @@ class PackageManager(object):
 
     def upload_package(self, group_name, package_name, package_version, file_path, **kwargs):
 
-        def _handler_ok_upload(response, **kwargs):
-
-            data = json.loads(response['body'])
-            message = data['msg']
-            result = res.PyAemResult(response)
-
-            if data['success'] == True:
-                result.success(message)
-            else:
-                result.failure(message)
-
-            return result
-
         file_name = '{0}-{1}.zip'.format(package_name, package_version)
 
         params = {
             'cmd': 'upload',
             'package': (pycurl.FORM_FILE, '{0}/{1}'.format(file_path, file_name))
-        }
-
-        _handlers = {
-            200: _handler_ok_upload
         }
 
         opts = {
@@ -144,7 +125,7 @@ class PackageManager(object):
 
         url = '{0}/crx/packmgr/service/.json/'.format(self.url)
         params = dict(params.items() + kwargs.items())
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        _handlers = self.handlers
         opts = dict(self.kwargs.items() + opts.items())
 
         return bag.upload_file(url, params, _handlers, **opts)

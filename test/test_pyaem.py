@@ -10,6 +10,7 @@ class TestPyAem(unittest.TestCase):
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
         self.assertTrue(hasattr(aem, 'content_repo'))
         self.assertTrue(hasattr(aem, 'package_manager'))
+        self.assertTrue(hasattr(aem, 'package_manager_sync'))
         self.assertTrue(hasattr(aem, 'web_console'))
 
 
@@ -18,6 +19,7 @@ class TestPyAem(unittest.TestCase):
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502, use_ssl=True, debug=True)
         self.assertTrue(hasattr(aem, 'content_repo'))
         self.assertTrue(hasattr(aem, 'package_manager'))
+        self.assertTrue(hasattr(aem, 'package_manager_sync'))
         self.assertTrue(hasattr(aem, 'web_console'))
 
 
@@ -181,6 +183,37 @@ class TestPyAem(unittest.TestCase):
 
         aem.delete_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
         aem.package_manager.delete_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
+
+
+    # package manager methods
+
+
+    def test_upload_package_sync(self):
+
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager_sync.upload_package = MagicMock()
+
+        aem.upload_package_sync('somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
+        aem.package_manager_sync.upload_package.assert_called_once_with(
+            'somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
+
+
+    def test_install_package_sync(self):
+
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager_sync.install_package = MagicMock()
+
+        aem.install_package_sync('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager_sync.install_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
+
+
+    def test_replicate_package_sync(self):
+
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager_sync.replicate_package = MagicMock()
+
+        aem.replicate_package_sync('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager_sync.replicate_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
     # web console methods

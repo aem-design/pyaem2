@@ -12,7 +12,7 @@ disable=C0111,E1121,R0201,R0903,R0904,W0142,W0613
 max-line-length=120
 
 [SIMILARITIES]
-min-similarity-lines=7
+min-similarity-lines=15
 
 [DESIGN]
 max-args=7

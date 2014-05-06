@@ -70,6 +70,14 @@ Package Management
     aem.replicate_package('mygroup', 'mypackage', 1.2.3)
 
     aem.delete_package('mygroup', 'mypackage', 1.2.3)
+
+Package Management
+
+    aem.upload_package_sync('mygroup', 'mypackage', 1.2.3, '/mnt/ephemeral0', force = 'true')
+
+    aem.install_package_sync('mygroup', 'mypackage', 1.2.3)
+
+    aem.replicate_package_sync('mygroup', 'mypackage', 1.2.3)
     
 Bundle Management
 
@@ -98,6 +106,5 @@ Error Handling
 TODO
 ----
 
-* Improve test coverage
 * Improve code documentation
 * Generate project site

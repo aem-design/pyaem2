@@ -24,7 +24,12 @@ def request(method, url, params, handlers, **kwargs):
 
     response = {
         'http_code': curl.getinfo(pycurl.HTTP_CODE),
-        'body': body_io.getvalue()
+        'body': body_io.getvalue(),
+        'request': {
+            'method': method,
+            'url': url,
+            'params': params
+        }
     }
 
     curl.close()
@@ -51,7 +56,12 @@ def download_file(url, params, handlers, **kwargs):
 
     response = {
         'http_code': curl.getinfo(pycurl.HTTP_CODE),
-        'body': body_io.getvalue()
+        'body': body_io.getvalue(),
+        'request': {
+            'method': 'get',
+            'url': url,
+            'params': params
+        }
     }
 
     curl.close()
@@ -81,7 +91,12 @@ def upload_file(url, params, handlers, **kwargs):
 
     response = {
         'http_code': curl.getinfo(pycurl.HTTP_CODE),
-        'body': body_io.getvalue()
+        'body': body_io.getvalue(),
+        'request': {
+            'method': 'post',
+            'url': url,
+            'params': params
+        }
     }
 
     curl.close()

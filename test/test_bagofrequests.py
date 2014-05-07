@@ -1,21 +1,20 @@
 from mock import MagicMock
 import pyaem
+from pyaem import result as res
 import pycurl
 import unittest
 
 class TestBagOfRequests(unittest.TestCase):
 
 
+    def _handler_dummy(self, response, **kwargs):
+
+        result = res.PyAemResult(response)
+        result.success('some dummy message')
+        return result
+
+
     def test_request_post(self):
-
-        def _handler_dummy(response, **kwargs):
-
-            result = {
-                'status': 'success',
-                'message': 'some dummy message'
-            }
-
-            return result
 
         curl = pycurl.Curl()
         curl.setopt = MagicMock()
@@ -27,7 +26,7 @@ class TestBagOfRequests(unittest.TestCase):
         method = 'post'
         url = 'http://localhost:4502/.cqactions.html'
         params = {'foo1': 'bar1', 'foo2': ['bar2a', 'bar2b']}
-        handlers = {200: _handler_dummy}
+        handlers = {200: self._handler_dummy}
 
         result = pyaem.bagofrequests.request(method, url, params, handlers)
 
@@ -43,20 +42,14 @@ class TestBagOfRequests(unittest.TestCase):
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
         curl.close.assert_called_once_with()
 
-        self.assertEqual(result['status'], 'success')
-        self.assertEqual(result['message'], 'some dummy message')
+        self.assertEqual(result.is_success(), True)
+        self.assertEqual(result.message, 'some dummy message')
+        self.assertEqual(result.response['request']['method'], 'post')
+        self.assertEqual(result.response['request']['url'], 'http://localhost:4502/.cqactions.html')
+        self.assertEqual(result.response['request']['params'], params)
 
 
     def test_request_get(self):
-
-        def _handler_dummy(response, **kwargs):
-
-            result = {
-                'status': 'success',
-                'message': 'some dummy message'
-            }
-
-            return result
 
         curl = pycurl.Curl()
         curl.setopt = MagicMock()
@@ -68,7 +61,7 @@ class TestBagOfRequests(unittest.TestCase):
         method = 'get'
         url = 'http://localhost:4502/.cqactions.html'
         params = {'foo1': 'bar1', 'foo2': ['bar2a', 'bar2b']}
-        handlers = {200: _handler_dummy}
+        handlers = {200: self._handler_dummy}
 
         result = pyaem.bagofrequests.request(method, url, params, handlers)
 
@@ -82,20 +75,15 @@ class TestBagOfRequests(unittest.TestCase):
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
         curl.close.assert_called_once_with()
 
-        self.assertEqual(result['status'], 'success')
-        self.assertEqual(result['message'], 'some dummy message')
+        self.assertEqual(result.is_success(), True)
+        self.assertEqual(result.message, 'some dummy message')
+        self.assertEqual(result.response['request']['method'], 'get')
+        self.assertEqual(result.response['request']['url'],
+            'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2a&foo2=bar2b')
+        self.assertEqual(result.response['request']['params'], params)
 
 
     def test_request_delete(self):
-
-        def _handler_dummy(response, **kwargs):
-
-            result = {
-                'status': 'success',
-                'message': 'some dummy message'
-            }
-
-            return result
 
         curl = pycurl.Curl()
         curl.setopt = MagicMock()
@@ -107,7 +95,7 @@ class TestBagOfRequests(unittest.TestCase):
         method = 'delete'
         url = 'http://localhost:4502/.cqactions.html'
         params = {'foo1': 'bar1', 'foo2': ['bar2a', 'bar2b']}
-        handlers = {200: _handler_dummy}
+        handlers = {200: self._handler_dummy}
 
         result = pyaem.bagofrequests.request(method, url, params, handlers)
 
@@ -122,9 +110,11 @@ class TestBagOfRequests(unittest.TestCase):
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
         curl.close.assert_called_once_with()
 
-        self.assertEqual(result['status'], 'success')
-        self.assertEqual(result['message'], 'some dummy message')
-
+        self.assertEqual(result.is_success(), True)
+        self.assertEqual(result.message, 'some dummy message')
+        self.assertEqual(result.response['request']['method'], 'delete')
+        self.assertEqual(result.response['request']['url'], 'http://localhost:4502/.cqactions.html')
+        self.assertEqual(result.response['request']['params'], params)
 
     def test_request_unexpected_resp(self):
 
@@ -160,15 +150,6 @@ class TestBagOfRequests(unittest.TestCase):
 
     def test_download_file(self):
 
-        def _handler_dummy(response, **kwargs):
-
-            result = {
-                'status': 'success',
-                'message': 'some dummy message'
-            }
-
-            return result
-
         curl = pycurl.Curl()
         curl.setopt = MagicMock()
         curl.perform = MagicMock()
@@ -178,7 +159,7 @@ class TestBagOfRequests(unittest.TestCase):
 
         url = 'http://localhost:4502/.cqactions.html'
         params = {'foo1': 'bar1', 'foo2': ['bar2a', 'bar2b']}
-        handlers = {200: _handler_dummy}
+        handlers = {200: self._handler_dummy}
 
         result = pyaem.bagofrequests.download_file(url, params, handlers, file='/tmp/somefile')
 
@@ -192,9 +173,12 @@ class TestBagOfRequests(unittest.TestCase):
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
         curl.close.assert_called_once_with()
 
-        self.assertEqual(result['status'], 'success')
-        self.assertEqual(result['message'], 'some dummy message')
-
+        self.assertEqual(result.is_success(), True)
+        self.assertEqual(result.message, 'some dummy message')
+        self.assertEqual(result.response['request']['method'], 'get')
+        self.assertEqual(result.response['request']['url'],
+            'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2a&foo2=bar2b')
+        self.assertEqual(result.response['request']['params'], params)
 
     def test_download_file_unexpected(self):
 
@@ -229,15 +213,6 @@ class TestBagOfRequests(unittest.TestCase):
 
     def test_upload_file(self):
 
-        def _handler_dummy(response, **kwargs):
-
-            result = {
-                'status': 'success',
-                'message': 'some dummy message'
-            }
-
-            return result
-
         curl = pycurl.Curl()
         curl.setopt = MagicMock()
         curl.perform = MagicMock()
@@ -247,7 +222,7 @@ class TestBagOfRequests(unittest.TestCase):
 
         url = 'http://localhost:4502/.cqactions.html'
         params = {'foo1': 'bar1', 'foo2': 'bar2'}
-        handlers = {200: _handler_dummy}
+        handlers = {200: self._handler_dummy}
 
         result = pyaem.bagofrequests.upload_file(url, params, handlers, file='/tmp/somefile')
 
@@ -263,8 +238,11 @@ class TestBagOfRequests(unittest.TestCase):
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
         curl.close.assert_called_once_with()
 
-        self.assertEqual(result['status'], 'success')
-        self.assertEqual(result['message'], 'some dummy message')
+        self.assertEqual(result.is_success(), True)
+        self.assertEqual(result.message, 'some dummy message')
+        self.assertEqual(result.response['request']['method'], 'post')
+        self.assertEqual(result.response['request']['url'], 'http://localhost:4502/.cqactions.html')
+        self.assertEqual(result.response['request']['params'], params)
 
 
     def test_upload_file_unexpected(self):

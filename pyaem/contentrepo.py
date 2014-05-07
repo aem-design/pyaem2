@@ -243,7 +243,7 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            message = 'Permissions {0} set to path {1} for user/group {2}'.format(permissions, path, user_or_group_name)
+            message = 'Permissions {0} set on path {1} for user/group {2}'.format(permissions, path, user_or_group_name)
             result = res.PyAemResult(response)
             result.success(message)
             return result

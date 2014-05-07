@@ -222,7 +222,7 @@ class TestContentRepo(unittest.TestCase):
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
                 _self.assertEquals(result.message,
-                    'Permissions read:true,modify:true set to path somepath for user/group somegroup')
+                    'Permissions read:true,modify:true set on path somepath for user/group somegroup')
                 _self.assertEquals(result.response, response)
 
                 response = {'body': '<td><div id="Message">No such node /home/groups/somegroup</div></td>'}

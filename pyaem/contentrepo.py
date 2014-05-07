@@ -41,7 +41,7 @@ class ContentRepo(object):
         }
 
         method = 'post'
-        url = '{0}/{1}'.format(self.url, path)
+        url = '{0}/{1}'.format(self.url, path.lstrip('/'))
         params = kwargs
         _handlers = dict(self.handlers.items() + _handlers.items())
         opts = self.kwargs
@@ -90,7 +90,7 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            message = 'User {0}/{1} created'.format(user_path, user_name)
+            message = 'User {0}/{1} created'.format(user_path.rstrip('/'), user_name)
             result = res.PyAemResult(response)
             result.success(message)
             return result
@@ -110,7 +110,7 @@ class ContentRepo(object):
 
             result = res.PyAemResult(response)
             if message == exist_message:
-                result.warning('User {0}/{1} already exists'.format(user_path, user_name))
+                result.warning('User {0}/{1} already exists'.format(user_path.rstrip('/'), user_name))
             else:
                 result.failure(message)
             return result
@@ -140,7 +140,7 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            message = 'User {0} added to group {1}/{2}'.format(user_name, group_path, group_name)
+            message = 'User {0} added to group {1}/{2}'.format(user_name, group_path.rstrip('/'), group_name)
             result = res.PyAemResult(response)
             result.success(message)
             return result
@@ -154,7 +154,7 @@ class ContentRepo(object):
         }
 
         method = 'post'
-        url = '{0}/{1}/{2}.rw.html'.format(self.url, group_path, group_name)
+        url = '{0}/{1}/{2}.rw.html'.format(self.url, group_path.strip('/'), group_name)
         params = dict(params.items() + kwargs.items())
         _handlers = dict(self.handlers.items() + _handlers.items())
         opts = self.kwargs
@@ -166,7 +166,7 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            message = 'Group {0}/{1} created'.format(group_path, group_name)
+            message = 'Group {0}/{1} created'.format(group_path.rstrip('/'), group_name)
             result = res.PyAemResult(response)
             result.success(message)
             return result
@@ -186,7 +186,7 @@ class ContentRepo(object):
 
             result = res.PyAemResult(response)
             if message == exist_message:
-                result.warning('Group {0}/{1} already exists'.format(group_path, group_name))
+                result.warning('Group {0}/{1} already exists'.format(group_path.rstrip('/'), group_name))
             else:
                 result.failure(message)
             return result
@@ -216,7 +216,7 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            message = 'Password of user {0}/{1} was changed successfully'.format(user_path, user_name)
+            message = 'User {0}/{1} password changed'.format(user_path.rstrip('/'), user_name)
             result = res.PyAemResult(response)
             result.success(message)
             return result
@@ -231,7 +231,7 @@ class ContentRepo(object):
         }
 
         method = 'post'
-        url = '{0}/{1}/{2}.rw.html'.format(self.url, user_path, user_name)
+        url = '{0}/{1}/{2}.rw.html'.format(self.url, user_path.strip('/'), user_name)
         params = dict(params.items() + kwargs.items())
         _handlers = dict(self.handlers.items() + _handlers.items())
         opts = self.kwargs

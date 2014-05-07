@@ -28,23 +28,23 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
 
                 response = None
-                result = handlers[200](response, path='content/somepath')
+                result = handlers[200](response, path='/content/somepath/')
                 _self.assertEquals(result.is_warning(), True)
-                _self.assertEquals(result.message, 'Path content/somepath already exists')
+                _self.assertEquals(result.message, 'Path /content/somepath/ already exists')
                 _self.assertEquals(result.response, response)
 
                 response = None
-                result = handlers[201](response, path='content/somepath')
+                result = handlers[201](response, path='/content/somepath/')
                 _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Path content/somepath created')
+                _self.assertEquals(result.message, 'Path /content/somepath/ created')
                 _self.assertEquals(result.response, response)
 
                 return super(CreatePathHandlerMatcher, self).__eq__(handlers)
 
-        self.content_repo.create_path('content/somepath', foo='bar')
+        self.content_repo.create_path('/content/somepath/', foo='bar')
         bag.request.assert_called_once_with(
             'post',
-            'http://localhost:4502/content/somepath',
+            'http://localhost:4502/content/somepath/',
             {'foo': 'bar'},
             CreatePathHandlerMatcher([200, 201, 401, 405]),
             debug=True)
@@ -57,25 +57,25 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
 
                 response = {'body': ''}
-                result = handlers[200](response, path='content/somepath')
+                result = handlers[200](response, path='/content/somepath/')
                 _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Path content/somepath activated')
+                _self.assertEquals(result.message, 'Path /content/somepath/ activated')
                 _self.assertEquals(result.response, response)
 
                 response = {'body': '<div class="error">some error</div>'}
-                result = handlers[200](response, path='content/somepath')
+                result = handlers[200](response, path='/content/somepath/')
                 _self.assertEquals(result.is_failure(), True)
                 _self.assertEquals(result.message, 'some error')
                 _self.assertEquals(result.response, response)
 
                 return super(ActivatePathHandlerMatcher, self).__eq__(handlers)
 
-        self.content_repo.activate_path('content/somepath', foo='bar')
+        self.content_repo.activate_path('/content/somepath/', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/etc/replication/treeactivation.html',
             {'cmd': 'activate',
-             'path': 'content/somepath',
+             'path': '/content/somepath/',
              'foo': 'bar'},
             ActivatePathHandlerMatcher([200, 401, 405]),
             debug=True)
@@ -90,7 +90,7 @@ class TestContentRepo(unittest.TestCase):
                 response = None
                 result = handlers[201](response)
                 _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'User home/users/someuser created')
+                _self.assertEquals(result.message, 'User /home/users/someuser created')
                 _self.assertEquals(result.response, response)
 
                 response = {'body':
@@ -98,7 +98,7 @@ class TestContentRepo(unittest.TestCase):
                     'User or Group for \'someuser\' already exists</div></td>'}
                 result = handlers[500](response)
                 _self.assertEquals(result.is_warning(), True)
-                _self.assertEquals(result.message, 'User home/users/someuser already exists')
+                _self.assertEquals(result.message, 'User /home/users/someuser already exists')
                 _self.assertEquals(result.response, response)
 
                 response = {'body': '<td><div id="Message">some other error message</div></td>'}
@@ -109,12 +109,12 @@ class TestContentRepo(unittest.TestCase):
 
                 return super(CreateUserHandlerMatcher, self).__eq__(handlers)
 
-        self.content_repo.create_user('home/users', 'someuser', 'somepassword', foo='bar')
+        self.content_repo.create_user('/home/users/', 'someuser', 'somepassword', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/libs/granite/security/post/authorizables',
             {'rep:password': 'somepassword',
-             'intermediatePath': 'home/users',
+             'intermediatePath': '/home/users/',
              'authorizableId': 'someuser',
              'createUser': '',
              'foo': 'bar'},
@@ -131,12 +131,12 @@ class TestContentRepo(unittest.TestCase):
                 response = None
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'User someuser added to group home/groups/somegroup')
+                _self.assertEquals(result.message, 'User someuser added to group /home/groups/somegroup')
                 _self.assertEquals(result.response, response)
 
                 return super(AddUserToGroupHandlerMatcher, self).__eq__(handlers)
 
-        self.content_repo.add_user_to_group('someuser', 'home/groups', 'somegroup', foo='bar')
+        self.content_repo.add_user_to_group('someuser', '/home/groups/', 'somegroup', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/home/groups/somegroup.rw.html',
@@ -155,7 +155,7 @@ class TestContentRepo(unittest.TestCase):
                 response = None
                 result = handlers[201](response)
                 _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Group home/groups/somegroup created')
+                _self.assertEquals(result.message, 'Group /home/groups/somegroup created')
                 _self.assertEquals(result.response, response)
 
                 response = {'body':
@@ -163,7 +163,7 @@ class TestContentRepo(unittest.TestCase):
                     'User or Group for \'somegroup\' already exists</div></td>'}
                 result = handlers[500](response)
                 _self.assertEquals(result.is_warning(), True)
-                _self.assertEquals(result.message, 'Group home/groups/somegroup already exists')
+                _self.assertEquals(result.message, 'Group /home/groups/somegroup already exists')
                 _self.assertEquals(result.response, response)
 
                 response = {'body': '<td><div id="Message">some other error message</div></td>'}
@@ -174,12 +174,12 @@ class TestContentRepo(unittest.TestCase):
 
                 return super(CreateGroupHandlerMatcher, self).__eq__(handlers)
 
-        self.content_repo.create_group('home/groups', 'somegroup', foo='bar')
+        self.content_repo.create_group('/home/groups/', 'somegroup', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/libs/granite/security/post/authorizables',
             {'profile/givenName': 'somegroup',
-             'intermediatePath': 'home/groups',
+             'intermediatePath': '/home/groups/',
              'authorizableId': 'somegroup',
              'createGroup': '',
              'foo': 'bar'},
@@ -196,12 +196,12 @@ class TestContentRepo(unittest.TestCase):
                 response = None
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Password of user home/users/someuser was changed successfully')
+                _self.assertEquals(result.message, 'User /home/users/someuser password changed')
                 _self.assertEquals(result.response, response)
 
                 return super(ChangePasswordHandlerMatcher, self).__eq__(handlers)
 
-        self.content_repo.change_password('home/users', 'someuser', 'someoldpassword', 'somenewpassword', foo='bar')
+        self.content_repo.change_password('/home/users/', 'someuser', 'someoldpassword', 'somenewpassword', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/home/users/someuser.rw.html',

@@ -7,7 +7,8 @@ class TestHandlers(unittest.TestCase):
     def test_auth_fail(self):
 
         response = {
-            'http_code': 401
+            'http_code': 401,
+            'body': 'some body'
         }
 
         try:
@@ -16,6 +17,7 @@ class TestHandlers(unittest.TestCase):
         except pyaem.PyAemException as exception:
             self.assertEqual(exception.code, 401)
             self.assertEqual(exception.message, 'Authentication failed - incorrect username and/or password')
+            self.assertEqual(exception.response, response)
 
 
     def test_method_not_allowed(self):
@@ -31,7 +33,7 @@ class TestHandlers(unittest.TestCase):
         except pyaem.PyAemException as exception:
             self.assertEqual(exception.code, 405)
             self.assertEqual(exception.message, 'some error message')
-
+            self.assertEqual(exception.response, response)
 
     def test_unexpected(self):
 
@@ -47,7 +49,7 @@ class TestHandlers(unittest.TestCase):
             self.assertEqual(exception.code, 500)
             self.assertEqual(
                 exception.message, 'Unexpected response\nhttp code: 500\nbody:\nsome unexpected server error')
-
+            self.assertEqual(exception.response, response)
 
 if __name__ == '__main__':
     unittest.main()

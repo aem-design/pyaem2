@@ -221,16 +221,18 @@ class TestContentRepo(unittest.TestCase):
                 response = None
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Permission of user someuser was set')
+                _self.assertEquals(result.message,
+                    'Permissions read:true,modify:true set to path somepath for user/group somegroup')
                 _self.assertEquals(result.response, response)
 
                 return super(SetPermissionHandlerMatcher, self).__eq__(handlers)
 
-        self.content_repo.set_permission('someuser', foo='bar')
+        self.content_repo.set_permission('somegroup', 'somepath', 'read:true,modify:true', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/.cqactions.html',
-            {'authorizableId': 'someuser',
+            {'authorizableId': 'somegroup',
+             'changelog': 'path:somepath,read:true,modify:true',
              'foo': 'bar'},
             SetPermissionHandlerMatcher([200, 401, 405]),
             debug=True)

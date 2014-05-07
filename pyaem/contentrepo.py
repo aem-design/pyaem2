@@ -239,17 +239,18 @@ class ContentRepo(object):
         return bag.request(method, url, params, _handlers, **opts)
 
 
-    def set_permission(self, user_name, **kwargs):
+    def set_permission(self, user_or_group_name, path, permissions, **kwargs):
 
         def _handler_ok(response, **kwargs):
 
-            message = 'Permission of user {0} was set'.format(user_name)
+            message = 'Permissions {0} set to path {1} for user/group {2}'.format(permissions, path, user_or_group_name)
             result = res.PyAemResult(response)
             result.success(message)
             return result
 
         params = {
-            'authorizableId': user_name
+            'authorizableId': user_or_group_name,
+            'changelog': 'path:{0},{1}'.format(path, permissions)
         }
 
         _handlers = {

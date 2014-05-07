@@ -86,8 +86,9 @@ class TestPyAem(unittest.TestCase):
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
         aem.content_repo.set_permission = MagicMock()
 
-        aem.set_permission('someusername1')
-        aem.content_repo.set_permission.assert_called_once_with('someusername1')
+        aem.set_permission('somegroup', '/content/somesite', 'read:true,modify:true')
+        aem.content_repo.set_permission.assert_called_once_with(
+            'somegroup', '/content/somesite', 'read:true,modify:true')
 
 
     def test_set_agent(self):

@@ -44,8 +44,8 @@ class PyAem(object):
         return self.content_repo.change_password(user_path, user_name, old_password, new_password, **kwargs)
 
 
-    def set_permission(self, user_name, **kwargs):
-        return self.content_repo.set_permission(user_name, **kwargs)
+    def set_permission(self, user_or_group_name, path, permissions, **kwargs):
+        return self.content_repo.set_permission(user_or_group_name, path, permissions, **kwargs)
 
 
     def set_agent(self, agent_name, run_mode, **kwargs):

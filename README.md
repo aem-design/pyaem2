@@ -90,18 +90,41 @@ Bundle Management
 Error Handling
 --------------
 
+    import pyaem
+
+    aem = pyaem.PyAem('admin', 'password', 'localhost', 4502)
+
     try:
     
         result = aem.activate_path('/content/mysite')
         
+        # check result status
         if result.is_success():
         	print 'It works: {0}'.format(result.message)
         else:
         	print 'Failed: {0}'.format(result.message)
+
+        # debug response and request details via result
+        print result.response['http_code']
+        print result.response['body']
+        print result.response['request']['method']
+        print result.response['request']['url']
+        print result.response['request']['params']
         	
     except pyaem.PyAemException, e:
     
+        # exception message
         print e.message
+
+        # exception code uses response http_code
+        print e.code
+
+        # debug response and request details via exception
+        print e.response['http_code']
+        print e.response['body']
+        print e.response['request']['method']
+        print e.response['request']['url']
+        print e.response['request']['params']
         
 TODO
 ----

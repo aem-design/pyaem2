@@ -11,7 +11,7 @@ class PackageManagerSync(object):
     def __init__(self, url, **kwargs):
 
         def _handler_ok(response, **kwargs):
-            print response['body']
+
             soup = BeautifulSoup(response['body'],
                 convertEntities=BeautifulSoup.HTML_ENTITIES
             )

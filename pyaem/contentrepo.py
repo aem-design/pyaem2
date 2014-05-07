@@ -248,13 +248,27 @@ class ContentRepo(object):
             result.success(message)
             return result
 
+        def _handler_not_found(response, **kwargs):
+
+            soup = BeautifulSoup(response['body'],
+                convertEntities=BeautifulSoup.HTML_ENTITIES,
+                markupMassage=HEX_MASSAGE
+            )
+            message_elem = soup.find('div', {'id': 'Message'})
+            message = message_elem.contents[0]
+
+            result = res.PyAemResult(response)
+            result.failure(message)
+            return result
+
         params = {
             'authorizableId': user_or_group_name,
             'changelog': 'path:{0},{1}'.format(path, permissions)
         }
 
         _handlers = {
-            200: _handler_ok
+            200: _handler_ok,
+            404: _handler_not_found
         }
 
         method = 'post'

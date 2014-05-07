@@ -225,6 +225,12 @@ class TestContentRepo(unittest.TestCase):
                     'Permissions read:true,modify:true set to path somepath for user/group somegroup')
                 _self.assertEquals(result.response, response)
 
+                response = {'body': '<td><div id="Message">No such node /home/groups/somegroup</div></td>'}
+                result = handlers[404](response)
+                _self.assertEquals(result.is_failure(), True)
+                _self.assertEquals(result.message, 'No such node /home/groups/somegroup')
+                _self.assertEquals(result.response, response)
+
                 return super(SetPermissionHandlerMatcher, self).__eq__(handlers)
 
         self.content_repo.set_permission('somegroup', 'somepath', 'read:true,modify:true', foo='bar')

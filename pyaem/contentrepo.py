@@ -280,16 +280,40 @@ class ContentRepo(object):
         return bag.request(method, url, params, _handlers, **opts)
 
 
-    def set_agent(self, agent_name, run_mode, **kwargs):
+    def create_agent(self, agent_name, agent_type, dest_username, dest_password, dest_url, run_mode, **kwargs):
 
         def _handler_ok(response, **kwargs):
 
-            message = '{0} agent {1} set'.format(run_mode, agent_name)
+            message = '{0} agent {1} created'.format(run_mode, agent_name)
             result = res.PyAemResult(response)
             result.success(message)
             return result
 
-        params = {
+        if agent_type == 'flush':
+            params = {
+                'jcr:content/cq:name': 'flush',
+                'jcr:content/protocolHTTPHeaders': ['CQ-Action:{action}', 'CQ-Handle:{path}', 'CQ-Path:{path}'],
+                'jcr:content/protocolHTTPHeaders@TypeHint': 'String[]',
+                'jcr:content/protocolHTTPMethod': 'GET',
+                'jcr:content/serializationType': 'flush',
+                'jcr:content/jcr:mixinTypes': 'cq:ReplicationStatus',
+                'jcr:content/triggerReceive': 'true',
+                'jcr:content/triggerSpecific': 'true',
+                'jcr:content/transportUri': '{0}/dispatcher/invalidate.cache'.format(dest_url.rstrip('/'))
+            }
+        else:
+            params = {
+                'jcr:content/serializationType': 'durbo',
+                'jcr:content/transportUri': '{0}/bin/receive?sling:authRequestLogin=1'.format(dest_url.rstrip('/'))
+            }
+
+        base_params = {
+            'jcr:primaryType': 'cq:Page',
+            'jcr:content/sling:resourceType': '/libs/cq/replication/components/agent',
+            'jcr:content/cq:template': '/libs/cq/replication/templates/agent',
+            'jcr:content/enabled': 'true',
+            'jcr:content/transportUser': dest_username,
+            'jcr:content/transportPassword': dest_password
         }
 
         _handlers = {
@@ -298,7 +322,7 @@ class ContentRepo(object):
 
         method = 'post'
         url = '{0}/etc/replication/agents.{1}/{2}'.format(self.url, run_mode, agent_name)
-        params = dict(params.items() + kwargs.items())
+        params = dict(base_params.items() + params.items() + kwargs.items())
         _handlers = dict(self.handlers.items() + _handlers.items())
         opts = self.kwargs
 

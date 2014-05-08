@@ -48,8 +48,9 @@ class PyAem(object):
         return self.content_repo.set_permission(user_or_group_name, path, permissions, **kwargs)
 
 
-    def set_agent(self, agent_name, run_mode, **kwargs):
-        return self.content_repo.set_agent(agent_name, run_mode, **kwargs)
+    def create_agent(self, agent_name, agent_type, dest_username, dest_password, dest_url, run_mode, **kwargs):
+        return self.content_repo.create_agent(
+            agent_name, agent_type, dest_username, dest_password, dest_url, run_mode, **kwargs)
 
 
     def delete_agent(self, agent_name, run_mode, **kwargs):

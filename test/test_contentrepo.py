@@ -244,7 +244,7 @@ class TestContentRepo(unittest.TestCase):
             debug=True)
 
 
-    def test_set_agent(self):
+    def test_create_flush_agent(self):
 
         _self = self
         class SetAgentHandlerMatcher(HandlersMatcher):
@@ -253,16 +253,64 @@ class TestContentRepo(unittest.TestCase):
                 response = None
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'author agent someagent set')
+                _self.assertEquals(result.message, 'publish agent someagent created')
                 _self.assertEquals(result.response, response)
 
                 return super(SetAgentHandlerMatcher, self).__eq__(handlers)
 
-        self.content_repo.set_agent('someagent', 'author', foo='bar')
+        self.content_repo.create_agent(
+            'someagent', 'flush', 'someuser', 'somepassword', 'http://somehost:8080', 'publish', foo='bar')
+        bag.request.assert_called_once_with(
+            'post',
+            'http://localhost:4502/etc/replication/agents.publish/someagent',
+            {'jcr:content/serializationType': 'flush',
+             'jcr:primaryType': 'cq:Page',
+             'jcr:content/transportUri': 'http://somehost:8080/dispatcher/invalidate.cache',
+             'jcr:content/enabled': 'true',
+             'jcr:content/transportUser': 'someuser',
+             'jcr:content/jcr:mixinTypes': 'cq:ReplicationStatus',
+             'jcr:content/cq:template': '/libs/cq/replication/templates/agent',
+             'jcr:content/cq:name': 'flush',
+             'jcr:content/triggerSpecific': 'true',
+             'jcr:content/protocolHTTPMethod': 'GET',
+             'jcr:content/transportPassword': 'somepassword',
+             'jcr:content/protocolHTTPHeaders@TypeHint': 'String[]',
+             'jcr:content/triggerReceive': 'true',
+             'jcr:content/protocolHTTPHeaders': ['CQ-Action:{action}', 'CQ-Handle:{path}', 'CQ-Path:{path}'],
+             'jcr:content/sling:resourceType': '/libs/cq/replication/components/agent',
+             'foo': 'bar'},
+            SetAgentHandlerMatcher([204, 402, 405]),
+            debug=True)
+
+
+    def test_create_replicate_agent(self):
+
+        _self = self
+        class SetAgentHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                response = None
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'author agent someagent created')
+                _self.assertEquals(result.response, response)
+
+                return super(SetAgentHandlerMatcher, self).__eq__(handlers)
+
+        self.content_repo.create_agent(
+            'someagent', 'replicate', 'someuser', 'somepassword', 'http://somehost:8080', 'author', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/etc/replication/agents.author/someagent',
-            {'foo': 'bar'},
+            {'jcr:content/serializationType': 'durbo',
+             'jcr:primaryType': 'cq:Page',
+             'jcr:content/transportUri': 'http://somehost:8080/bin/receive?sling:authRequestLogin=1',
+             'jcr:content/enabled': 'true',
+             'jcr:content/transportUser': 'someuser',
+             'jcr:content/cq:template': '/libs/cq/replication/templates/agent',
+             'jcr:content/transportPassword': 'somepassword',
+             'jcr:content/sling:resourceType': '/libs/cq/replication/components/agent',
+             'foo': 'bar'},
             SetAgentHandlerMatcher([204, 402, 405]),
             debug=True)
 

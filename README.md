@@ -49,9 +49,9 @@ Content Management
 
     aem.set_permission('myuser')
 
-    aem.set_agent('myagent', 'runmode')
+    aem.create_agent('myagent', 'flush', 'someuser', 'somepassword', 'http://somehost:8080', 'publish')
 
-    aem.delete_agent('myagent', 'runmode')
+    aem.delete_agent('myagent', 'publish')
 
 Package Management
 

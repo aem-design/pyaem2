@@ -91,13 +91,15 @@ class TestPyAem(unittest.TestCase):
             'somegroup', '/content/somesite', 'read:true,modify:true')
 
 
-    def test_set_agent(self):
+    def test_create_agent(self):
 
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-        aem.content_repo.set_agent = MagicMock()
+        aem.content_repo.create_agent = MagicMock()
 
-        aem.set_agent('someagentname', 'somerunmode')
-        aem.content_repo.set_agent.assert_called_once_with('someagentname', 'somerunmode')
+        aem.create_agent(
+            'someagent', 'flush', 'someuser', 'somepassword', 'http://somehost:8080', 'publish')
+        aem.content_repo.create_agent.assert_called_once_with(
+            'someagent', 'flush', 'someuser', 'somepassword', 'http://somehost:8080', 'publish')
 
 
     def test_delete_agent(self):

@@ -259,7 +259,7 @@ class TestContentRepo(unittest.TestCase):
                 return super(SetAgentHandlerMatcher, self).__eq__(handlers)
 
         self.content_repo.create_agent(
-            'someagent', 'flush', 'someuser', 'somepassword', 'http://somehost:8080', 'publish', foo='bar')
+            'someagent', 'flush', None, None, 'http://somehost:8080', 'publish', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/etc/replication/agents.publish/someagent',
@@ -267,13 +267,11 @@ class TestContentRepo(unittest.TestCase):
              'jcr:primaryType': 'cq:Page',
              'jcr:content/transportUri': 'http://somehost:8080/dispatcher/invalidate.cache',
              'jcr:content/enabled': 'true',
-             'jcr:content/transportUser': 'someuser',
              'jcr:content/jcr:mixinTypes': 'cq:ReplicationStatus',
              'jcr:content/cq:template': '/libs/cq/replication/templates/agent',
              'jcr:content/cq:name': 'flush',
              'jcr:content/triggerSpecific': 'true',
              'jcr:content/protocolHTTPMethod': 'GET',
-             'jcr:content/transportPassword': 'somepassword',
              'jcr:content/protocolHTTPHeaders@TypeHint': 'String[]',
              'jcr:content/triggerReceive': 'true',
              'jcr:content/protocolHTTPHeaders': ['CQ-Action:{action}', 'CQ-Handle:{path}', 'CQ-Path:{path}'],

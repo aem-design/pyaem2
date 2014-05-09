@@ -311,10 +311,13 @@ class ContentRepo(object):
             'jcr:primaryType': 'cq:Page',
             'jcr:content/sling:resourceType': '/libs/cq/replication/components/agent',
             'jcr:content/cq:template': '/libs/cq/replication/templates/agent',
-            'jcr:content/enabled': 'true',
-            'jcr:content/transportUser': dest_username,
-            'jcr:content/transportPassword': dest_password
+            'jcr:content/enabled': 'true'
         }
+
+        if dest_username != None:
+            base_params['jcr:content/transportUser'] = dest_username
+        if dest_password != None:
+            base_params['jcr:content/transportPassword'] = dest_password
 
         _handlers = {
             200: _handler_ok

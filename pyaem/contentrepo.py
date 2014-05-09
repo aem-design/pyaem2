@@ -282,9 +282,16 @@ class ContentRepo(object):
 
     def create_agent(self, agent_name, agent_type, dest_username, dest_password, dest_url, run_mode, **kwargs):
 
-        def _handler_ok(response, **kwargs):
+        def _handler_ok_created(response, **kwargs):
 
             message = '{0} agent {1} created'.format(run_mode, agent_name)
+            result = res.PyAemResult(response)
+            result.success(message)
+            return result
+
+        def _handler_ok_updated(response, **kwargs):
+
+            message = '{0} agent {1} updated'.format(run_mode, agent_name)
             result = res.PyAemResult(response)
             result.success(message)
             return result
@@ -308,25 +315,24 @@ class ContentRepo(object):
                 'jcr:content/transportUri': '{0}/bin/receive?sling:authRequestLogin=1'.format(dest_url.rstrip('/'))
             }
 
-        base_params = {
-            'jcr:primaryType': 'cq:Page',
-            'jcr:content/sling:resourceType': '/libs/cq/replication/components/agent',
-            'jcr:content/cq:template': '/libs/cq/replication/templates/agent',
-            'jcr:content/enabled': 'true'
-        }
+        params['jcr:primaryType'] = 'cq:Page'
+        params['jcr:content/sling:resourceType'] = '/libs/cq/replication/components/agent'
+        params['jcr:content/cq:template'] = '/libs/cq/replication/templates/agent'
+        params['jcr:content/enabled'] = 'true'
 
         if dest_username != None:
-            base_params['jcr:content/transportUser'] = dest_username
+            params['jcr:content/transportUser'] = dest_username
         if dest_password != None:
-            base_params['jcr:content/transportPassword'] = dest_password
+            params['jcr:content/transportPassword'] = dest_password
 
         _handlers = {
-            201: _handler_ok
+            200: _handler_ok_updated,
+            201: _handler_ok_created
         }
 
         method = 'post'
         url = '{0}/etc/replication/agents.{1}/{2}'.format(self.url, run_mode, agent_name)
-        params = dict(base_params.items() + params.items() + kwargs.items())
+        params = dict(params.items() + kwargs.items())
         _handlers = dict(self.handlers.items() + _handlers.items())
         opts = self.kwargs
 

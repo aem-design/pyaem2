@@ -251,6 +251,12 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
 
                 response = None
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'publish agent someagent updated')
+                _self.assertEquals(result.response, response)
+
+                response = None
                 result = handlers[201](response)
                 _self.assertEquals(result.is_success(), True)
                 _self.assertEquals(result.message, 'publish agent someagent created')
@@ -287,6 +293,12 @@ class TestContentRepo(unittest.TestCase):
         _self = self
         class SetAgentHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
+
+                response = None
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'author agent someagent updated')
+                _self.assertEquals(result.response, response)
 
                 response = None
                 result = handlers[201](response)

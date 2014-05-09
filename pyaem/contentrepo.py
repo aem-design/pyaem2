@@ -296,6 +296,7 @@ class ContentRepo(object):
                 'jcr:content/protocolHTTPHeaders@TypeHint': 'String[]',
                 'jcr:content/protocolHTTPMethod': 'GET',
                 'jcr:content/serializationType': 'flush',
+                'jcr:content/noVersioning': 'true',
                 'jcr:content/jcr:mixinTypes': 'cq:ReplicationStatus',
                 'jcr:content/triggerReceive': 'true',
                 'jcr:content/triggerSpecific': 'true',
@@ -320,7 +321,7 @@ class ContentRepo(object):
             base_params['jcr:content/transportPassword'] = dest_password
 
         _handlers = {
-            200: _handler_ok
+            201: _handler_ok
         }
 
         method = 'post'

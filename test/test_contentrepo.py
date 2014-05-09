@@ -251,7 +251,7 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
 
                 response = None
-                result = handlers[200](response)
+                result = handlers[201](response)
                 _self.assertEquals(result.is_success(), True)
                 _self.assertEquals(result.message, 'publish agent someagent created')
                 _self.assertEquals(result.response, response)
@@ -264,6 +264,7 @@ class TestContentRepo(unittest.TestCase):
             'post',
             'http://localhost:4502/etc/replication/agents.publish/someagent',
             {'jcr:content/serializationType': 'flush',
+             'jcr:content/noVersioning': 'true',
              'jcr:primaryType': 'cq:Page',
              'jcr:content/transportUri': 'http://somehost:8080/dispatcher/invalidate.cache',
              'jcr:content/enabled': 'true',
@@ -277,7 +278,7 @@ class TestContentRepo(unittest.TestCase):
              'jcr:content/protocolHTTPHeaders': ['CQ-Action:{action}', 'CQ-Handle:{path}', 'CQ-Path:{path}'],
              'jcr:content/sling:resourceType': '/libs/cq/replication/components/agent',
              'foo': 'bar'},
-            SetAgentHandlerMatcher([204, 402, 405]),
+            SetAgentHandlerMatcher([201, 204, 402, 405]),
             debug=True)
 
 
@@ -288,7 +289,7 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
 
                 response = None
-                result = handlers[200](response)
+                result = handlers[201](response)
                 _self.assertEquals(result.is_success(), True)
                 _self.assertEquals(result.message, 'author agent someagent created')
                 _self.assertEquals(result.response, response)
@@ -309,7 +310,7 @@ class TestContentRepo(unittest.TestCase):
              'jcr:content/transportPassword': 'somepassword',
              'jcr:content/sling:resourceType': '/libs/cq/replication/components/agent',
              'foo': 'bar'},
-            SetAgentHandlerMatcher([204, 402, 405]),
+            SetAgentHandlerMatcher([201, 204, 402, 405]),
             debug=True)
 
 

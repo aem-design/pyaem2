@@ -130,4 +130,3 @@ TODO
 ----
 
 * Improve code documentation
-* Generate project site

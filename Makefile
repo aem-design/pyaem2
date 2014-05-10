@@ -1,10 +1,12 @@
-build: clean lint test coverage
+build: clean lint test coverage doc
 
 clean:
+	rm -rf *egg*
 	rm -rf .coverage
 	rm -rf htmlcov
 	rm -f pyaem/*.pyc
 	rm -f test/*.pyc
+	rm -rf docs/_build/*
 
 deps:
 	pip install -r requirements.txt
@@ -26,4 +28,8 @@ coverage:
 coverage-publish: coverage
 	coveralls
 
-.PHONY: build clean lint test coverage coverage-publish
+doc:
+	sphinx-apidoc -o docs --full pyaem
+	cd docs && PYTHONPATH=../../pyaem/ make html && cd ..
+
+.PHONY: build clean lint test coverage coverage-publish doc

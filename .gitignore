@@ -1,4 +1,5 @@
 .DS_Store
+.buildinfo
 .coverage
 *.egg
 *.egg-info

@@ -29,7 +29,7 @@ coverage-publish: coverage
 	coveralls
 
 doc:
-	sphinx-apidoc -o docs --full -H pyaem -A "Cliffano Subagio" pyaem
+	sphinx-apidoc -o docs --full -H PyAEM -A "Cliffano Subagio" pyaem
 	cd docs && PYTHONPATH=../../pyaem/ make html && cd ..
 	cd docs/_build/html && tar -cvf /tmp/pyaem-doc.tar .
 

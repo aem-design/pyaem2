@@ -31,6 +31,6 @@ coverage-publish: coverage
 doc:
 	sphinx-apidoc -o docs --full -H pyaem -A "Cliffano Subagio" pyaem
 	cd docs && PYTHONPATH=../../pyaem/ make html && cd ..
-	cd docs/_builds/html && tar -cvf /tmp/pyaem-doc.tar .
+	cd docs/_build/html && tar -cvf /tmp/pyaem-doc.tar .
 
 .PHONY: build clean lint test coverage coverage-publish doc

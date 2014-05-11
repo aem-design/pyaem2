@@ -33,4 +33,12 @@ doc:
 	cd docs && PYTHONPATH=../../pyaem/ make html && cd ..
 	cd docs/_build/html && tar -cvf /tmp/pyaem-doc.tar .
 
+publish-test:
+	python setup.py register -r pypitest
+	python setup.py sdist upload -r pypitest
+
+publish:
+	python setup.py register -r pypi
+	python setup.py sdist upload -r pypi
+
 .PHONY: build clean lint test coverage coverage-publish doc

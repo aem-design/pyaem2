@@ -10,19 +10,12 @@ PyAEM
 
 PyAEM is a Python client for [Adobe Experience Manager](http://dev.day.com/docs/en/cq/current.html) (AEM) API.
 
-Tested with AEM 5.6.1
+Tested with AEM 5.6.1 on Python 2.6 and 2.7 .
+
+[API Reference](http://cliffano.github.io/pyaem/)
 
 Installation
 ------------
-
-NOTE: This package is still a work in progress, not yet published to PyPI.
-
-To use master:
-
-* Add https://github.com/cliffano/pyaem/archive/master.zip to your requirements.txt file
-* Run pip install --requirement requirements.txt 
-
-And later on when pyaem is published to PyPI:
 
     pip install pyaem
 
@@ -87,8 +80,8 @@ Bundle Management
 
     aem.install_bundle('mybundle')
 
-Error Handling
---------------
+Result And Error Handling
+-------------------------
 
     import pyaem
 
@@ -100,9 +93,9 @@ Error Handling
         
         # check result status
         if result.is_success():
-        	print 'It works: {0}'.format(result.message)
+        	print 'Success: {0}'.format(result.message)
         else:
-        	print 'Failed: {0}'.format(result.message)
+        	print 'Failure: {0}'.format(result.message)
 
         # debug response and request details via result
         print result.response['http_code']
@@ -125,8 +118,3 @@ Error Handling
         print e.response['request']['method']
         print e.response['request']['url']
         print e.response['request']['params']
-        
-TODO
-----
-
-* Improve code documentation

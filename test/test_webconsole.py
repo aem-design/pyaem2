@@ -99,11 +99,11 @@ class TestWebConsole(unittest.TestCase):
 
                 return super(InstallBundleHandlerMatcher, self).__eq__(handlers)
 
-        self.web_console.install_bundle('mybundle', '1.2.3', foo='bar')
+        self.web_console.install_bundle('mybundle', '1.2.3', '/mnt/ephemeral0/', foo='bar')
         bag.upload_file.assert_called_once_with(
             'http://localhost:4502/system/console/bundles',
             {'action': 'install',
-             'bundlefile': (10, 'mybundle-1.2.3.zip'),
+             'bundlefile': (10, '/mnt/ephemeral0/mybundle-1.2.3.zip'),
              'foo': 'bar'},
             InstallBundleHandlerMatcher([200, 401, 404, 405]),
             bundle_name='mybundle',

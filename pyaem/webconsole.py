@@ -84,7 +84,7 @@ class WebConsole(object):
         return bag.request(method, url, params, _handlers, **opts)
 
 
-    def install_bundle(self, bundle_name, bundle_version, **kwargs):
+    def install_bundle(self, bundle_name, bundle_version, file_path, **kwargs):
 
         def _handler_ok_install(response, **kwargs):
 
@@ -97,7 +97,7 @@ class WebConsole(object):
 
         params = {
             'action': 'install',
-            'bundlefile': (pycurl.FORM_FILE, file_name)
+            'bundlefile': (pycurl.FORM_FILE, '{0}/{1}'.format(file_path.rstrip('/'), file_name))
         }
 
         _handlers = {

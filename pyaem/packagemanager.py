@@ -116,7 +116,7 @@ class PackageManager(object):
 
         params = {
             'cmd': 'upload',
-            'package': (pycurl.FORM_FILE, '{0}/{1}'.format(file_path, file_name))
+            'package': (pycurl.FORM_FILE, '{0}/{1}'.format(file_path.rstrip('/'), file_name))
         }
 
         opts = {

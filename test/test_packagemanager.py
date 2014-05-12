@@ -133,7 +133,7 @@ class TestPackageManager(unittest.TestCase):
 
                 return super(UploadPackageHandlerMatcher, self).__eq__(handlers)
 
-        self.package_manager.upload_package('mygroup', 'mypackage', '1.2.3', '/tmp/somepath', foo='bar')
+        self.package_manager.upload_package('mygroup', 'mypackage', '1.2.3', '/tmp/somepath/', foo='bar')
         bag.upload_file.assert_called_once_with(
             'http://localhost:4502/crx/packmgr/service/.json/',
             {'cmd': 'upload',

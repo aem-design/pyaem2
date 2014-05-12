@@ -78,7 +78,7 @@ Bundle Management
 
     aem.stop_bundle('mybundle')
 
-    aem.install_bundle('mybundle')
+    aem.install_bundle('mybundle', 1.2.3, '/mnt/ephemeral0')
 
 Result And Error Handling
 -------------------------

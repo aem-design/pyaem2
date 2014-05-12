@@ -103,7 +103,7 @@ class TestWebConsole(unittest.TestCase):
         bag.upload_file.assert_called_once_with(
             'http://localhost:4502/system/console/bundles',
             {'action': 'install',
-             'bundlefile': (10, '/mnt/ephemeral0/mybundle-1.2.3.zip'),
+             'bundlefile': (10, '/mnt/ephemeral0/mybundle-1.2.3.jar'),
              'foo': 'bar'},
             InstallBundleHandlerMatcher([200, 401, 404, 405]),
             bundle_name='mybundle',

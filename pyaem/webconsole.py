@@ -93,7 +93,7 @@ class WebConsole(object):
             result.success(message)
             return result
 
-        file_name = '{0}-{1}.zip'.format(bundle_name, bundle_version)
+        file_name = '{0}-{1}.jar'.format(bundle_name, bundle_version)
 
         params = {
             'action': 'install',

@@ -245,8 +245,8 @@ class TestPyAem(unittest.TestCase):
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
         aem.web_console.install_bundle = MagicMock()
 
-        aem.install_bundle('somebundle', '1.2-SNAPSHOT')
-        aem.web_console.install_bundle.assert_called_once_with('somebundle', '1.2-SNAPSHOT')
+        aem.install_bundle('somebundle', '1.2-SNAPSHOT', '/mnt/ephemeral0')
+        aem.web_console.install_bundle.assert_called_once_with('somebundle', '1.2-SNAPSHOT', '/mnt/ephemeral0')
 
 
 if __name__ == '__main__':

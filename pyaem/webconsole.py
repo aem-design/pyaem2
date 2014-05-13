@@ -28,7 +28,7 @@ class WebConsole(object):
 
         def _handler_ok_start(response, **kwargs):
 
-            message = 'Bundle {0} was successfully started'.format(kwargs['bundle_name'])
+            message = 'Bundle {0} started'.format(kwargs['bundle_name'])
             result = res.PyAemResult(response)
             result.success(message)
             return result
@@ -58,7 +58,7 @@ class WebConsole(object):
 
         def _handler_ok_stop(response, **kwargs):
 
-            message = 'Bundle {0} was successfully stopped'.format(kwargs['bundle_name'])
+            message = 'Bundle {0} stopped'.format(kwargs['bundle_name'])
             result = res.PyAemResult(response)
             result.success(message)
             return result
@@ -88,7 +88,7 @@ class WebConsole(object):
 
         def _handler_ok_install(response, **kwargs):
 
-            message = 'Bundle {0} was successfully installed'.format(kwargs['bundle_name'])
+            message = 'Bundle {0} installed'.format(kwargs['bundle_name'])
             result = res.PyAemResult(response)
             result.success(message)
             return result
@@ -101,7 +101,8 @@ class WebConsole(object):
         }
 
         _handlers = {
-            200: _handler_ok_install
+            200: _handler_ok_install,
+            201: _handler_ok_install
         }
 
         opts = {

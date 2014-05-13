@@ -44,7 +44,7 @@ class TestWebConsole(unittest.TestCase):
                 response = None
                 result = handlers[200](response, bundle_name='mybundle')
                 _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Bundle mybundle was successfully started')
+                _self.assertEquals(result.message, 'Bundle mybundle started')
                 _self.assertEquals(result.response, response)
 
                 return super(StartBundleHandlerMatcher, self).__eq__(handlers)
@@ -69,7 +69,7 @@ class TestWebConsole(unittest.TestCase):
                 response = None
                 result = handlers[200](response, bundle_name='mybundle')
                 _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Bundle mybundle was successfully stopped')
+                _self.assertEquals(result.message, 'Bundle mybundle stopped')
                 _self.assertEquals(result.response, response)
 
                 return super(StopBundleHandlerMatcher, self).__eq__(handlers)
@@ -94,7 +94,13 @@ class TestWebConsole(unittest.TestCase):
                 response = None
                 result = handlers[200](response, bundle_name='mybundle')
                 _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Bundle mybundle was successfully installed')
+                _self.assertEquals(result.message, 'Bundle mybundle installed')
+                _self.assertEquals(result.response, response)
+
+                response = None
+                result = handlers[201](response, bundle_name='mybundle')
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Bundle mybundle installed')
                 _self.assertEquals(result.response, response)
 
                 return super(InstallBundleHandlerMatcher, self).__eq__(handlers)
@@ -105,7 +111,7 @@ class TestWebConsole(unittest.TestCase):
             {'action': 'install',
              'bundlefile': (10, '/mnt/ephemeral0/mybundle-1.2.3.jar'),
              'foo': 'bar'},
-            InstallBundleHandlerMatcher([200, 401, 404, 405]),
+            InstallBundleHandlerMatcher([200, 201, 401, 404, 405]),
             bundle_name='mybundle',
             debug=True)
 

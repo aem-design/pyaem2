@@ -47,6 +47,12 @@ class TestWebConsole(unittest.TestCase):
                 _self.assertEquals(result.message, 'Bundle mybundle started')
                 _self.assertEquals(result.response, response)
 
+                response = None
+                result = handlers[201](response, bundle_name='mybundle')
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Bundle mybundle started')
+                _self.assertEquals(result.response, response)
+
                 return super(StartBundleHandlerMatcher, self).__eq__(handlers)
 
         self.web_console.start_bundle('mybundle', foo='bar')
@@ -55,7 +61,7 @@ class TestWebConsole(unittest.TestCase):
             'http://localhost:4502/system/console/bundles/mybundle',
             {'action': 'start',
              'foo': 'bar'},
-            StartBundleHandlerMatcher([200, 401, 404, 405]),
+            StartBundleHandlerMatcher([200, 201, 401, 404, 405]),
             bundle_name='mybundle',
             debug=True)
 

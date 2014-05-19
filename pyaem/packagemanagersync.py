@@ -16,10 +16,7 @@ class PackageManagerSync(object):
                 convertEntities=BeautifulSoup.HTML_ENTITIES
             )
             message_elem = soup.find('textarea')
-            if message_elem != None:
-                message = message_elem.contents[0]
-
-            data = json.loads(message)
+            data = json.loads(message_elem.contents[0])
             message = data['msg']
 
             result = res.PyAemResult(response)
@@ -29,11 +26,23 @@ class PackageManagerSync(object):
                 result.failure(message)
             return result
 
+        def _handler_created(response, **kwargs):
+
+            soup = BeautifulSoup(response['body'],
+                convertEntities=BeautifulSoup.HTML_ENTITIES
+            )
+            message_elem = soup.find('div', {'id': 'Message'})
+            message = message_elem.contents[0]
+
+            result = res.PyAemResult(response)
+            result.success(message)
+            return result
+
         self.url = url
         self.kwargs = kwargs
         self.handlers = {
             200: _handler_ok,
-            201: _handler_ok,
+            201: _handler_created,
             401: handlers.auth_fail
         }
 

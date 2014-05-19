@@ -25,7 +25,7 @@ class TestPackageManagerSync(unittest.TestCase):
         self.assertTrue(401 in self.package_manager_sync.handlers)
 
 
-    def test_init_ok_success(self):
+    def test_init_ok(self):
 
         handler = self.package_manager_sync.handlers[200]
         response = {'body': '<textarea>{ "success": true, "msg": "some message" }</textarea>'}
@@ -43,6 +43,17 @@ class TestPackageManagerSync(unittest.TestCase):
         result = handler(response)
 
         self.assertEquals(result.is_failure(), True)
+        self.assertEquals(result.message, 'some message')
+        self.assertEquals(result.response, response)
+
+
+    def test_init_created(self):
+
+        handler = self.package_manager_sync.handlers[201]
+        response = {'body': '<td><div id="Message">some message</div></td>'}
+        result = handler(response)
+
+        self.assertEquals(result.is_success(), True)
         self.assertEquals(result.message, 'some message')
         self.assertEquals(result.response, response)
 

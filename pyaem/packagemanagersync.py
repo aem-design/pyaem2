@@ -33,6 +33,7 @@ class PackageManagerSync(object):
         self.kwargs = kwargs
         self.handlers = {
             200: _handler_ok,
+            201: _handler_ok,
             401: handlers.auth_fail
         }
 

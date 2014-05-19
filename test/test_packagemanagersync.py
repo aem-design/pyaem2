@@ -21,6 +21,7 @@ class TestPackageManagerSync(unittest.TestCase):
         self.assertEqual(self.package_manager_sync.kwargs['debug'], True)
 
         self.assertTrue(200 in self.package_manager_sync.handlers)
+        self.assertTrue(201 in self.package_manager_sync.handlers)
         self.assertTrue(401 in self.package_manager_sync.handlers)
 
 
@@ -54,7 +55,7 @@ class TestPackageManagerSync(unittest.TestCase):
             {'cmd': 'upload',
              'foo': 'bar',
              'package': (10, '/tmp/somepath/mypackage-1.2.3.zip')},
-            HandlersMatcher([200, 401]),
+            HandlersMatcher([200, 201, 401]),
             file_name='mypackage-1.2.3.zip',
             debug=True)
 
@@ -67,7 +68,7 @@ class TestPackageManagerSync(unittest.TestCase):
             'http://localhost:4502/crx/packmgr/service/script.html/etc/packages/mygroup/mypackage-1.2.3.zip',
             {'cmd': 'install',
              'foo': 'bar'},
-            HandlersMatcher([200, 401]),
+            HandlersMatcher([200, 201, 401]),
             debug=True)
 
 
@@ -79,7 +80,7 @@ class TestPackageManagerSync(unittest.TestCase):
             'http://localhost:4502/crx/packmgr/service/script.html/etc/packages/mygroup/mypackage-1.2.3.zip',
             {'cmd': 'replicate',
              'foo': 'bar'},
-            HandlersMatcher([200, 401]),
+            HandlersMatcher([200, 201, 401]),
             debug=True)
 
 

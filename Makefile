@@ -1,4 +1,4 @@
-build: clean lint test coverage doc
+build: clean lint test coverage
 
 clean:
 	rm -rf *egg*
@@ -6,7 +6,7 @@ clean:
 	rm -rf htmlcov
 	rm -f pyaem/*.pyc
 	rm -f test/*.pyc
-	rm -rf docs/_build/*
+	rm -rf docs/*
 
 deps:
 	pip install -r requirements.txt
@@ -30,7 +30,9 @@ coverage-publish: coverage
 
 doc:
 	sphinx-apidoc -o docs --full -H PyAEM -A "Cliffano Subagio" pyaem
-	cd docs && PYTHONPATH=../../pyaem/ make html && cd ..
+	mkdir -p docs/_themes && cd docs/_themes/ && git clone https://github.com/armstrong/armstrong_sphinx armstrong
+	echo "html_theme = 'armstrong'\nhtml_theme_path = ['_themes', ]" >> docs/conf.py
+	cd docs && PYTHONPATH=../../pyaem/ make html
 	cd docs/_build/html && tar -cvf /tmp/pyaem-doc.tar .
 
 publish-test:

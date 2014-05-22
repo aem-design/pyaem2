@@ -177,3 +177,34 @@ class PackageManager(object):
         opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)
+
+
+    def has_package(self, group_name, package_name, package_version, **kwargs):
+
+        def _handler_exist(response, **kwargs):
+
+            message = 'Package {0}/{1}-{2} exists'.format(group_name, package_name, package_version)
+            result = res.PyAemResult(response)
+            result.success(message)
+            return result
+
+        def _handler_not_exist(response, **kwargs):
+
+            message = 'Package {0}/{1}-{2} does not exist'.format(group_name, package_name, package_version)
+            result = res.PyAemResult(response)
+            result.failure(message)
+            return result
+
+        _handlers = {
+            200: _handler_exist,
+            404: _handler_not_exist
+        }
+
+        method = 'head'
+        url = '{0}/etc/packages/{1}/{2}-{3}.zip'.format(
+            self.url, group_name, package_name, package_version)
+        params = kwargs
+        _handlers = dict(self.handlers.items() + _handlers.items())
+        opts = self.kwargs
+
+        return bag.request(method, url, params, _handlers, **opts)

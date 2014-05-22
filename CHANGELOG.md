@@ -1,5 +1,5 @@
 ### 0.9.2-pre
-*
+* Add packagemanager#has_package
 
 ### 0.9.1
 * Add file_path arg to webconsole#install_bundle to allow custom bundle file location

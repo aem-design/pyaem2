@@ -92,6 +92,10 @@ class PyAem(object):
         return self.package_manager.delete_package(group_name, package_name, package_version, **kwargs)
 
 
+    def has_package(self, group_name, package_name, package_version, **kwargs):
+        return self.package_manager.has_package(group_name, package_name, package_version, **kwargs)
+
+
     # synchronous package manager methods
 
 

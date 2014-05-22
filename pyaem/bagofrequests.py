@@ -28,6 +28,9 @@ def request(method, url, params, handlers, **kwargs):
         curl.setopt(pycurl.POSTFIELDS, urllib.urlencode(params, True))
     elif method == 'delete':
         curl.setopt(pycurl.CUSTOMREQUEST, method)
+    elif method == 'head':
+        curl.setopt(pycurl.HEADER, True)
+        curl.setopt(pycurl.NOBODY, True)
     else:
         url = '{0}?{1}'.format(url, urllib.urlencode(params, True))
 

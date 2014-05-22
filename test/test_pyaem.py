@@ -188,7 +188,16 @@ class TestPyAem(unittest.TestCase):
         aem.package_manager.delete_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
-    # package manager methods
+    def test_has_package(self):
+
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager.has_package = MagicMock()
+
+        aem.has_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager.has_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
+
+
+    # package manager sync methods
 
 
     def test_upload_package_sync(self):

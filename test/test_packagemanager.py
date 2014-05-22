@@ -180,6 +180,33 @@ class TestPackageManager(unittest.TestCase):
             debug=True)
 
 
+    def test_has_package(self):
+
+        _self = self
+        class HasPackageHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                result = handlers[200](None)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Package mygroup/mypackage-1.2.3 exists')
+                _self.assertEquals(result.response, None)
+
+                result = handlers[404](None)
+                _self.assertEquals(result.is_failure(), True)
+                _self.assertEquals(result.message, 'Package mygroup/mypackage-1.2.3 does not exist')
+                _self.assertEquals(result.response, None)
+
+                return super(HasPackageHandlerMatcher, self).__eq__(handlers)
+
+        self.package_manager.has_package('mygroup', 'mypackage', '1.2.3', foo='bar')
+        bag.request.assert_called_once_with(
+            'head',
+            'http://localhost:4502/etc/packages/mygroup/mypackage-1.2.3.zip',
+            {'foo': 'bar'},
+            HasPackageHandlerMatcher([200, 401, 404, 405]),
+            debug=True)
+
+
 if __name__ == '__main__':
     unittest.main()
     

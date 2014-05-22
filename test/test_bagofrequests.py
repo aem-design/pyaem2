@@ -103,7 +103,7 @@ class TestBagOfRequests(unittest.TestCase):
         curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
 
-        # 3 calls including the one with pycurl.WRITEFUNCTION
+        # 4 calls including the one with pycurl.WRITEFUNCTION
         self.assertEqual(curl.setopt.call_count, 4)
 
         curl.perform.assert_called_once_with()
@@ -115,6 +115,42 @@ class TestBagOfRequests(unittest.TestCase):
         self.assertEqual(result.response['request']['method'], 'delete')
         self.assertEqual(result.response['request']['url'], 'http://localhost:4502/.cqactions.html')
         self.assertEqual(result.response['request']['params'], params)
+
+
+    def test_request_head(self):
+
+        curl = pycurl.Curl()
+        curl.setopt = MagicMock()
+        curl.perform = MagicMock()
+        curl.getinfo = MagicMock(return_value=200)
+        curl.close = MagicMock()
+        pycurl.Curl = MagicMock(return_value=curl)
+
+        method = 'head'
+        url = 'http://localhost:4502/.cqactions.html'
+        params = {'foo1': 'bar1', 'foo2': ['bar2a', 'bar2b']}
+        handlers = {200: self._handler_dummy}
+
+        result = pyaem.bagofrequests.request(method, url, params, handlers)
+
+        curl.setopt.assert_any_call(pycurl.HEADER, True)
+        curl.setopt.assert_any_call(pycurl.NOBODY, True)
+        curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html')
+        curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
+
+        # 5 calls including the one with pycurl.WRITEFUNCTION
+        self.assertEqual(curl.setopt.call_count, 5)
+
+        curl.perform.assert_called_once_with()
+        curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
+        curl.close.assert_called_once_with()
+
+        self.assertEqual(result.is_success(), True)
+        self.assertEqual(result.message, 'some dummy message')
+        self.assertEqual(result.response['request']['method'], 'head')
+        self.assertEqual(result.response['request']['url'], 'http://localhost:4502/.cqactions.html')
+        self.assertEqual(result.response['request']['params'], params)
+
 
     def test_request_unexpected_resp(self):
 

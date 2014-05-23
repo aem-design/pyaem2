@@ -36,7 +36,7 @@ class Sling(object):
         }
 
         method = 'get'
-        url = '{0}/sling/login'.format(self.url)
+        url = '{0}/system/sling/login'.format(self.url)
         params = kwargs
         _handlers = dict(self.handlers.items() + _handlers.items())
         opts = self.kwargs

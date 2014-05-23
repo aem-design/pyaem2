@@ -44,7 +44,7 @@ class TestSling(unittest.TestCase):
         self.sling.is_valid_login(foo='bar')
         bag.request.assert_called_once_with(
             'get',
-            'http://localhost:4502/sling/login',
+            'http://localhost:4502/system/sling/login',
             {'foo': 'bar'},
             IsValidLoginHandlerMatcher([200, 401]),
             debug=True)

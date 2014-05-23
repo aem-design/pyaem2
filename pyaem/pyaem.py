@@ -1,6 +1,7 @@
 from . import contentrepo
 from . import packagemanager
 from . import packagemanagersync
+from . import sling
 from . import webconsole
 
 class PyAem(object):
@@ -14,6 +15,7 @@ class PyAem(object):
         self.content_repo = contentrepo.ContentRepo(url, debug=debug)
         self.package_manager = packagemanager.PackageManager(url, debug=debug)
         self.package_manager_sync = packagemanagersync.PackageManagerSync(url, debug=debug)
+        self.sling = sling.Sling(url, debug=debug)
         self.web_console = webconsole.WebConsole(url, debug=debug)
 
 
@@ -111,6 +113,13 @@ class PyAem(object):
         return self.package_manager_sync.replicate_package(group_name, package_name, package_version, **kwargs)
 
 
+    # sling methods
+
+
+    def login(self, **kwargs):
+        return self.sling.login(**kwargs)
+
+
     # web console methods
 
 
@@ -124,3 +133,4 @@ class PyAem(object):
 
     def install_bundle(self, bundle_name, bundle_version, file_path, **kwargs):
         return self.web_console.install_bundle(bundle_name, bundle_version, file_path, **kwargs)
+

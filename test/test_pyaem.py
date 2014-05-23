@@ -258,6 +258,18 @@ class TestPyAem(unittest.TestCase):
         aem.web_console.install_bundle.assert_called_once_with('somebundle', '1.2-SNAPSHOT', '/mnt/ephemeral0')
 
 
+    # sling methods
+
+
+    def test_login(self):
+
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.sling.login = MagicMock()
+
+        aem.login()
+        aem.sling.login.assert_called_once_with()
+
+
 if __name__ == '__main__':
     unittest.main()
     

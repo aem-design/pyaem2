@@ -261,13 +261,13 @@ class TestPyAem(unittest.TestCase):
     # sling methods
 
 
-    def test_login(self):
+    def test_is_valid_login(self):
 
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-        aem.sling.login = MagicMock()
+        aem.sling.is_valid_login = MagicMock()
 
-        aem.login()
-        aem.sling.login.assert_called_once_with()
+        aem.is_valid_login()
+        aem.sling.is_valid_login.assert_called_once_with()
 
 
 if __name__ == '__main__':

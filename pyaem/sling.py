@@ -14,17 +14,25 @@ class Sling(object):
         }
 
 
-    def login(self, **kwargs):
+    def is_valid_login(self, **kwargs):
 
-        def _handler_ok(response, **kwargs):
+        def _handler_valid(response, **kwargs):
 
-            message = 'Login successfully'
+            message = 'Login is valid'
+            result = res.PyAemResult(response)
+            result.success(message)
+            return result
+
+        def _handler_invalid(response, **kwargs):
+
+            message = 'Login is invalid'
             result = res.PyAemResult(response)
             result.success(message)
             return result
 
         _handlers = {
-            200: _handler_ok
+            200: _handler_valid,
+            401: _handler_invalid
         }
 
         method = 'get'

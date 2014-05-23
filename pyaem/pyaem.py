@@ -116,8 +116,8 @@ class PyAem(object):
     # sling methods
 
 
-    def login(self, **kwargs):
-        return self.sling.login(**kwargs)
+    def is_valid_login(self, **kwargs):
+        return self.sling.is_valid_login(**kwargs)
 
 
     # web console methods

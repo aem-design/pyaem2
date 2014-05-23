@@ -1,7 +1,7 @@
 ### 0.9.2-pre
 * Add packagemanager#has_package
 * Add FRESH_CONNECT to all requests to ensure no cached connection is used
-* Add sling#login
+* Add sling#is_valid_login
 
 ### 0.9.1
 * Add file_path arg to webconsole#install_bundle to allow custom bundle file location

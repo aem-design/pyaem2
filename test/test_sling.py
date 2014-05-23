@@ -21,24 +21,30 @@ class TestSling(unittest.TestCase):
         self.assertTrue(401 in self.sling.handlers)
 
 
-    def test_login(self):
+    def test_is_valid_login(self):
 
         _self = self
-        class LoginHandlerMatcher(HandlersMatcher):
+        class IsValidLoginHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
 
                 response = None
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Login successfully')
+                _self.assertEquals(result.message, 'Login is valid')
                 _self.assertEquals(result.response, response)
 
-                return super(LoginHandlerMatcher, self).__eq__(handlers)
+                response = None
+                result = handlers[401](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Login is invalid')
+                _self.assertEquals(result.response, response)
 
-        self.sling.login(foo='bar')
+                return super(IsValidLoginHandlerMatcher, self).__eq__(handlers)
+
+        self.sling.is_valid_login(foo='bar')
         bag.request.assert_called_once_with(
             'get',
             'http://localhost:4502/sling/login',
             {'foo': 'bar'},
-            LoginHandlerMatcher([200, 401]),
+            IsValidLoginHandlerMatcher([200, 401]),
             debug=True)

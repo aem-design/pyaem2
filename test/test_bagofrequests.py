@@ -34,9 +34,10 @@ class TestBagOfRequests(unittest.TestCase):
         curl.setopt.assert_any_call(pycurl.POSTFIELDS, 'foo1=bar1&foo2=bar2a&foo2=bar2b')
         curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
+        curl.setopt.assert_any_call(pycurl.FRESH_CONNECT, 1)
 
-        # 5 calls including the one with pycurl.WRITEFUNCTION
-        self.assertEqual(curl.setopt.call_count, 5)
+        # 6 calls including the one with pycurl.WRITEFUNCTION
+        self.assertEqual(curl.setopt.call_count, 6)
 
         curl.perform.assert_called_once_with()
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
@@ -67,9 +68,10 @@ class TestBagOfRequests(unittest.TestCase):
 
         curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2a&foo2=bar2b')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
+        curl.setopt.assert_any_call(pycurl.FRESH_CONNECT, 1)
 
-        # 3 calls including the one with pycurl.WRITEFUNCTION
-        self.assertEqual(curl.setopt.call_count, 3)
+        # 4 calls including the one with pycurl.WRITEFUNCTION
+        self.assertEqual(curl.setopt.call_count, 4)
 
         curl.perform.assert_called_once_with()
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
@@ -102,9 +104,10 @@ class TestBagOfRequests(unittest.TestCase):
         curl.setopt.assert_any_call(pycurl.CUSTOMREQUEST, 'delete')
         curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
+        curl.setopt.assert_any_call(pycurl.FRESH_CONNECT, 1)
 
-        # 4 calls including the one with pycurl.WRITEFUNCTION
-        self.assertEqual(curl.setopt.call_count, 4)
+        # 5 calls including the one with pycurl.WRITEFUNCTION
+        self.assertEqual(curl.setopt.call_count, 5)
 
         curl.perform.assert_called_once_with()
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
@@ -137,9 +140,10 @@ class TestBagOfRequests(unittest.TestCase):
         curl.setopt.assert_any_call(pycurl.NOBODY, True)
         curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
+        curl.setopt.assert_any_call(pycurl.FRESH_CONNECT, 1)
 
-        # 5 calls including the one with pycurl.WRITEFUNCTION
-        self.assertEqual(curl.setopt.call_count, 5)
+        # 6 calls including the one with pycurl.WRITEFUNCTION
+        self.assertEqual(curl.setopt.call_count, 6)
 
         curl.perform.assert_called_once_with()
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
@@ -175,9 +179,10 @@ class TestBagOfRequests(unittest.TestCase):
 
         curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
+        curl.setopt.assert_any_call(pycurl.FRESH_CONNECT, 1)
 
-        # 3 calls including the one with pycurl.WRITEFUNCTION
-        self.assertEqual(curl.setopt.call_count, 3)
+        # 4 calls including the one with pycurl.WRITEFUNCTION
+        self.assertEqual(curl.setopt.call_count, 4)
 
         curl.perform.assert_called_once_with()
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
@@ -201,9 +206,10 @@ class TestBagOfRequests(unittest.TestCase):
 
         curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2a&foo2=bar2b')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
+        curl.setopt.assert_any_call(pycurl.FRESH_CONNECT, 1)
 
-        # 4 calls including the one with pycurl.WRITEDATA and pycurl.WRITEFUNCTION
-        self.assertEqual(curl.setopt.call_count, 4)
+        # 5 calls including the one with pycurl.WRITEDATA and pycurl.WRITEFUNCTION
+        self.assertEqual(curl.setopt.call_count, 5)
 
         curl.perform.assert_called_once_with()
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
@@ -238,9 +244,10 @@ class TestBagOfRequests(unittest.TestCase):
 
         curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
+        curl.setopt.assert_any_call(pycurl.FRESH_CONNECT, 1)
 
-        # 4 calls including the one with pycurl.WRITEDATA and pycurl.WRITEFUNCTION
-        self.assertEqual(curl.setopt.call_count, 4)
+        # 5 calls including the one with pycurl.WRITEDATA and pycurl.WRITEFUNCTION
+        self.assertEqual(curl.setopt.call_count, 5)
 
         curl.perform.assert_called_once_with()
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
@@ -266,9 +273,10 @@ class TestBagOfRequests(unittest.TestCase):
         curl.setopt.assert_any_call(pycurl.HTTPPOST, [('foo1', 'bar1'), ('foo2', 'bar2')])
         curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
+        curl.setopt.assert_any_call(pycurl.FRESH_CONNECT, 1)
 
-        # 5 calls including the one with pycurl.WRITEFUNCTION
-        self.assertEqual(curl.setopt.call_count, 5)
+        # 6 calls including the one with pycurl.WRITEFUNCTION
+        self.assertEqual(curl.setopt.call_count, 6)
 
         curl.perform.assert_called_once_with()
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
@@ -305,9 +313,10 @@ class TestBagOfRequests(unittest.TestCase):
         curl.setopt.assert_any_call(pycurl.HTTPPOST, [('foo1', 'bar1'), ('foo2', 'bar2')])
         curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
+        curl.setopt.assert_any_call(pycurl.FRESH_CONNECT, 1)
 
-        # 5 calls including the one with pycurl.WRITEFUNCTION
-        self.assertEqual(curl.setopt.call_count, 5)
+        # 6 calls including the one with pycurl.WRITEFUNCTION
+        self.assertEqual(curl.setopt.call_count, 6)
 
         curl.perform.assert_called_once_with()
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)

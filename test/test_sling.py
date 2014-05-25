@@ -35,7 +35,7 @@ class TestSling(unittest.TestCase):
 
                 response = None
                 result = handlers[401](response)
-                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.is_failure(), True)
                 _self.assertEquals(result.message, 'Login is invalid')
                 _self.assertEquals(result.response, response)
 

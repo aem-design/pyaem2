@@ -27,7 +27,7 @@ class Sling(object):
 
             message = 'Login is invalid'
             result = res.PyAemResult(response)
-            result.success(message)
+            result.failure(message)
             return result
 
         _handlers = {

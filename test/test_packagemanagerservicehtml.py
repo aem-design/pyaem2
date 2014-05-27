@@ -4,12 +4,13 @@ from pyaem import bagofrequests as bag
 import unittest
 from .util import HandlersMatcher
 
-class TestPackageManagerSync(unittest.TestCase):
+class TestPackageManagerServiceHtml(unittest.TestCase):
 
 
     def setUp(self):
 
-        self.package_manager_sync = pyaem.packagemanagersync.PackageManagerSync('http://localhost:4502', debug=True)
+        self.package_manager_sync = pyaem.packagemanagerservicehtml.PackageManagerServiceHtml(
+            'http://localhost:4502', debug=True)
         bag.request = MagicMock()
         bag.download_file = MagicMock()
         bag.upload_file = MagicMock()

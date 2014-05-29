@@ -1,6 +1,7 @@
 from . import contentrepo
 from . import packagemanager
-from . import packagemanagersync
+from . import packagemanagerservicejson
+from . import packagemanagerservicehtml
 from . import sling
 from . import webconsole
 
@@ -14,7 +15,8 @@ class PyAem(object):
 
         self.content_repo = contentrepo.ContentRepo(url, debug=debug)
         self.package_manager = packagemanager.PackageManager(url, debug=debug)
-        self.package_manager_sync = packagemanagersync.PackageManagerSync(url, debug=debug)
+        self.package_manager_service_json = packagemanagerservicejson.PackageManagerServiceJson(url, debug=debug)
+        self.package_manager_service_html = packagemanagerservicehtml.PackageManagerServiceHtml(url, debug=debug)
         self.sling = sling.Sling(url, debug=debug)
         self.web_console = webconsole.WebConsole(url, debug=debug)
 
@@ -62,55 +64,56 @@ class PyAem(object):
     # package manager methods
 
 
-    def create_package(self, group_name, package_name, package_version, **kwargs):
-        return self.package_manager.create_package(group_name, package_name, package_version, **kwargs)
-
-
     def update_package(self, group_name, package_name, package_version, **kwargs):
         return self.package_manager.update_package(group_name, package_name, package_version, **kwargs)
-
-
-    def build_package(self, group_name, package_name, package_version, **kwargs):
-        return self.package_manager.build_package(group_name, package_name, package_version, **kwargs)
 
 
     def download_package(self, group_name, package_name, package_version, file_path, **kwargs):
         return self.package_manager.download_package(group_name, package_name, package_version, file_path, **kwargs)
 
 
+    # package manager service/.json methods
+
+
+    def create_package(self, group_name, package_name, package_version, **kwargs):
+        return self.package_manager_service_json.create_package(group_name, package_name, package_version, **kwargs)
+
+
+    def build_package(self, group_name, package_name, package_version, **kwargs):
+        return self.package_manager_service_json.build_package(group_name, package_name, package_version, **kwargs)
+
+
     def upload_package(self, group_name, package_name, package_version, file_path, **kwargs):
-        return self.package_manager.upload_package(group_name, package_name, package_version, file_path, **kwargs)
+        return self.package_manager_service_json.upload_package(
+            group_name, package_name, package_version, file_path, **kwargs)
 
 
     def install_package(self, group_name, package_name, package_version, **kwargs):
-        return self.package_manager.install_package(group_name, package_name, package_version, **kwargs)
+        return self.package_manager_service_json.install_package(group_name, package_name, package_version, **kwargs)
 
 
     def replicate_package(self, group_name, package_name, package_version, **kwargs):
-        return self.package_manager.replicate_package(group_name, package_name, package_version, **kwargs)
+        return self.package_manager_service_json.replicate_package(group_name, package_name, package_version, **kwargs)
 
 
     def delete_package(self, group_name, package_name, package_version, **kwargs):
-        return self.package_manager.delete_package(group_name, package_name, package_version, **kwargs)
+        return self.package_manager_service_json.delete_package(group_name, package_name, package_version, **kwargs)
 
 
-    def has_package(self, group_name, package_name, package_version, **kwargs):
-        return self.package_manager.has_package(group_name, package_name, package_version, **kwargs)
-
-
-    # synchronous package manager methods
+    # package manager service/script.html methods
 
 
     def upload_package_sync(self, group_name, package_name, package_version, file_path, **kwargs):
-        return self.package_manager_sync.upload_package(group_name, package_name, package_version, file_path, **kwargs)
+        return self.package_manager_service_html.upload_package(
+            group_name, package_name, package_version, file_path, **kwargs)
 
 
     def install_package_sync(self, group_name, package_name, package_version, **kwargs):
-        return self.package_manager_sync.install_package(group_name, package_name, package_version, **kwargs)
+        return self.package_manager_service_html.install_package(group_name, package_name, package_version, **kwargs)
 
 
     def replicate_package_sync(self, group_name, package_name, package_version, **kwargs):
-        return self.package_manager_sync.replicate_package(group_name, package_name, package_version, **kwargs)
+        return self.package_manager_service_html.replicate_package(group_name, package_name, package_version, **kwargs)
 
 
     # sling methods

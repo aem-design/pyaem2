@@ -10,7 +10,8 @@ class TestPyAem(unittest.TestCase):
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
         self.assertTrue(hasattr(aem, 'content_repo'))
         self.assertTrue(hasattr(aem, 'package_manager'))
-        self.assertTrue(hasattr(aem, 'package_manager_sync'))
+        self.assertTrue(hasattr(aem, 'package_manager_service_json'))
+        self.assertTrue(hasattr(aem, 'package_manager_service_html'))
         self.assertTrue(hasattr(aem, 'web_console'))
 
 
@@ -19,7 +20,8 @@ class TestPyAem(unittest.TestCase):
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502, use_ssl=True, debug=True)
         self.assertTrue(hasattr(aem, 'content_repo'))
         self.assertTrue(hasattr(aem, 'package_manager'))
-        self.assertTrue(hasattr(aem, 'package_manager_sync'))
+        self.assertTrue(hasattr(aem, 'package_manager_service_json'))
+        self.assertTrue(hasattr(aem, 'package_manager_service_html'))
         self.assertTrue(hasattr(aem, 'web_console'))
 
 
@@ -114,15 +116,6 @@ class TestPyAem(unittest.TestCase):
     # package manager methods
 
 
-    def test_create_package(self):
-
-        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-        aem.package_manager.create_package = MagicMock()
-
-        aem.create_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
-        aem.package_manager.create_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
-
-
     def test_update_package(self):
 
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
@@ -130,15 +123,6 @@ class TestPyAem(unittest.TestCase):
 
         aem.update_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
         aem.package_manager.update_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
-
-
-    def test_build_package(self):
-
-        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-        aem.package_manager.build_package = MagicMock()
-
-        aem.build_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
-        aem.package_manager.build_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
     def test_download_package(self):
@@ -151,81 +135,100 @@ class TestPyAem(unittest.TestCase):
             'somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
 
 
+    # package manager service/.json methods
+
+
+    def test_create_package(self):
+
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager_service_json.create_package = MagicMock()
+
+        aem.create_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager_service_json.create_package.assert_called_once_with(
+            'somegroup', 'somepackage', '1.2-SNAPSHOT')
+
+
+    def test_build_package(self):
+
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager_service_json.build_package = MagicMock()
+
+        aem.build_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager_service_json.build_package.assert_called_once_with(
+            'somegroup', 'somepackage', '1.2-SNAPSHOT')
+
+
     def test_upload_package(self):
 
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-        aem.package_manager.upload_package = MagicMock()
+        aem.package_manager_service_json.upload_package = MagicMock()
 
         aem.upload_package('somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
-        aem.package_manager.upload_package.assert_called_once_with(
+        aem.package_manager_service_json.upload_package.assert_called_once_with(
             'somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
 
 
     def test_install_package(self):
 
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-        aem.package_manager.install_package = MagicMock()
+        aem.package_manager_service_json.install_package = MagicMock()
 
         aem.install_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
-        aem.package_manager.install_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager_service_json.install_package.assert_called_once_with(
+            'somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
     def test_replicate_package(self):
 
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-        aem.package_manager.replicate_package = MagicMock()
+        aem.package_manager_service_json.replicate_package = MagicMock()
 
         aem.replicate_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
-        aem.package_manager.replicate_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager_service_json.replicate_package.assert_called_once_with(
+            'somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
     def test_delete_package(self):
 
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-        aem.package_manager.delete_package = MagicMock()
+        aem.package_manager_service_json.delete_package = MagicMock()
 
         aem.delete_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
-        aem.package_manager.delete_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager_service_json.delete_package.assert_called_once_with(
+            'somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
-    def test_has_package(self):
-
-        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-        aem.package_manager.has_package = MagicMock()
-
-        aem.has_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
-        aem.package_manager.has_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
+    # package manager service/script.html methods
 
 
-    # package manager sync methods
-
-
-    def test_upload_package_sync(self):
+    def test_upload_pkg_service_html(self):
 
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-        aem.package_manager_sync.upload_package = MagicMock()
+        aem.package_manager_service_html.upload_package = MagicMock()
 
         aem.upload_package_sync('somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
-        aem.package_manager_sync.upload_package.assert_called_once_with(
+        aem.package_manager_service_html.upload_package.assert_called_once_with(
             'somegroup', 'somepackage', '1.2-SNAPSHOT', '/some/path/')
 
 
-    def test_install_package_sync(self):
+    def test_install_pkg_service_html(self):
 
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-        aem.package_manager_sync.install_package = MagicMock()
+        aem.package_manager_service_html.install_package = MagicMock()
 
         aem.install_package_sync('somegroup', 'somepackage', '1.2-SNAPSHOT')
-        aem.package_manager_sync.install_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager_service_html.install_package.assert_called_once_with(
+            'somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
-    def test_replicate_package_sync(self):
+    def test_replicate_pkg_service_html(self):
 
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
-        aem.package_manager_sync.replicate_package = MagicMock()
+        aem.package_manager_service_html.replicate_package = MagicMock()
 
         aem.replicate_package_sync('somegroup', 'somepackage', '1.2-SNAPSHOT')
-        aem.package_manager_sync.replicate_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager_service_html.replicate_package.assert_called_once_with(
+            'somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
     # web console methods

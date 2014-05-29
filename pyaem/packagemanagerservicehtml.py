@@ -5,7 +5,7 @@ import json
 import pycurl
 from . import result as res
 
-class PackageManagerSync(object):
+class PackageManagerServiceHtml(object):
 
 
     def __init__(self, url, **kwargs):

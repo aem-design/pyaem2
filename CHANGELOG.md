@@ -3,6 +3,8 @@
 * Add FRESH_CONNECT to all requests to ensure no cached connection is used
 * Add sling#is_valid_login
 * Add debug field to PyAemResult
+* Rename packagemanagersync to packagemanagerservicehtml
+* Move non update/download package methods from packagemanager to packagemanagerservicejson
 
 ### 0.9.1
 * Add file_path arg to webconsole#install_bundle to allow custom bundle file location

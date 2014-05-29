@@ -103,7 +103,10 @@ Result And Error Handling
         print result.response['request']['method']
         print result.response['request']['url']
         print result.response['request']['params']
-        	
+
+        # debug all response and request details in a single string
+        print result.debug()
+ 
     except pyaem.PyAemException, e:
     
         # exception message

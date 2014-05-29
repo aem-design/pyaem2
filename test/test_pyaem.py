@@ -10,8 +10,9 @@ class TestPyAem(unittest.TestCase):
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
         self.assertTrue(hasattr(aem, 'content_repo'))
         self.assertTrue(hasattr(aem, 'package_manager'))
-        self.assertTrue(hasattr(aem, 'package_manager_service_json'))
         self.assertTrue(hasattr(aem, 'package_manager_service_html'))
+        self.assertTrue(hasattr(aem, 'package_manager_service_json'))
+        self.assertTrue(hasattr(aem, 'package_manager_service_jsp'))
         self.assertTrue(hasattr(aem, 'web_console'))
 
 
@@ -20,8 +21,9 @@ class TestPyAem(unittest.TestCase):
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502, use_ssl=True, debug=True)
         self.assertTrue(hasattr(aem, 'content_repo'))
         self.assertTrue(hasattr(aem, 'package_manager'))
-        self.assertTrue(hasattr(aem, 'package_manager_service_json'))
         self.assertTrue(hasattr(aem, 'package_manager_service_html'))
+        self.assertTrue(hasattr(aem, 'package_manager_service_json'))
+        self.assertTrue(hasattr(aem, 'package_manager_service_jsp'))
         self.assertTrue(hasattr(aem, 'web_console'))
 
 
@@ -195,6 +197,19 @@ class TestPyAem(unittest.TestCase):
 
         aem.delete_package('somegroup', 'somepackage', '1.2-SNAPSHOT')
         aem.package_manager_service_json.delete_package.assert_called_once_with(
+            'somegroup', 'somepackage', '1.2-SNAPSHOT')
+
+
+    # package manager service.jsp methods
+
+
+    def test_is_package_uploaded(self):
+
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager_service_jsp.is_package_uploaded = MagicMock()
+
+        aem.is_package_uploaded('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager_service_jsp.is_package_uploaded.assert_called_once_with(
             'somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 

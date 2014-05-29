@@ -1,7 +1,8 @@
 from . import contentrepo
 from . import packagemanager
-from . import packagemanagerservicejson
 from . import packagemanagerservicehtml
+from . import packagemanagerservicejson
+from . import packagemanagerservicejsp
 from . import sling
 from . import webconsole
 
@@ -15,8 +16,9 @@ class PyAem(object):
 
         self.content_repo = contentrepo.ContentRepo(url, debug=debug)
         self.package_manager = packagemanager.PackageManager(url, debug=debug)
-        self.package_manager_service_json = packagemanagerservicejson.PackageManagerServiceJson(url, debug=debug)
         self.package_manager_service_html = packagemanagerservicehtml.PackageManagerServiceHtml(url, debug=debug)
+        self.package_manager_service_json = packagemanagerservicejson.PackageManagerServiceJson(url, debug=debug)
+        self.package_manager_service_jsp = packagemanagerservicejsp.PackageManagerServiceJsp(url, debug=debug)
         self.sling = sling.Sling(url, debug=debug)
         self.web_console = webconsole.WebConsole(url, debug=debug)
 
@@ -98,6 +100,14 @@ class PyAem(object):
 
     def delete_package(self, group_name, package_name, package_version, **kwargs):
         return self.package_manager_service_json.delete_package(group_name, package_name, package_version, **kwargs)
+
+
+    # package manager service.jsp methods
+
+
+    def is_package_uploaded(self, group_name, package_name, package_version, **kwargs):
+        return self.package_manager_service_jsp.is_package_uploaded(
+            group_name, package_name, package_version, **kwargs)
 
 
     # package manager service/script.html methods

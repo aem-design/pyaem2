@@ -110,6 +110,11 @@ class PyAem(object):
             group_name, package_name, package_version, **kwargs)
 
 
+    def is_package_installed(self, group_name, package_name, package_version, **kwargs):
+        return self.package_manager_service_jsp.is_package_installed(
+            group_name, package_name, package_version, **kwargs)
+
+
     # package manager service/script.html methods
 
 

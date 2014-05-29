@@ -213,6 +213,16 @@ class TestPyAem(unittest.TestCase):
             'somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
+    def test_is_package_installed(self):
+
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.package_manager_service_jsp.is_package_installed = MagicMock()
+
+        aem.is_package_installed('somegroup', 'somepackage', '1.2-SNAPSHOT')
+        aem.package_manager_service_jsp.is_package_installed.assert_called_once_with(
+            'somegroup', 'somepackage', '1.2-SNAPSHOT')
+
+
     # package manager service/script.html methods
 
 

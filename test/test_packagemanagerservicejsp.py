@@ -86,6 +86,74 @@ class TestPackageManagerServiceJsp(unittest.TestCase):
             debug=True)
 
 
+    def test_is_package_installed(self):
+
+        _self = self
+        class IsPackageInstalledHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                # non-ok status
+                response = {'body': '<crx><response><status code="500">notok</status></response></crx>'}
+                result = handlers[200](response)
+                _self.assertEquals(result.is_failure(), True)
+                _self.assertEquals(result.message,
+                    'Unable to retrieve package list. Command status code 500 and status value notok')
+                _self.assertEquals(result.response, response)
+
+                # one matching package
+                response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
+                    '<package><group>mygroup</group><name>mypackage</name><version>1.2.3</version>' +
+                    '<lastUnpackedBy>admin</lastUnpackedBy></package>' +
+                    '</packages></data></response></crx>'}
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Package mygroup/mypackage-1.2.3 is installed')
+                _self.assertEquals(result.response, response)
+
+                # two packages with one matching
+                response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
+                    '<package><group>yourgroup</group><name>yourpackage</name><version>4.5.6</version>' +
+                    '<lastUnpackedBy>admin</lastUnpackedBy></package>' +
+                    '<package><group>mygroup</group><name>mypackage</name><version>1.2.3</version>' +
+                    '<lastUnpackedBy>admin</lastUnpackedBy></package>' +
+                    '</packages></data></response></crx>'}
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Package mygroup/mypackage-1.2.3 is installed')
+                _self.assertEquals(result.response, response)
+
+                # two packages with none matching
+                response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
+                    '<package><group>yourgroup</group><name>yourpackage</name><version>4.5.6</version>' +
+                    '<lastUnpackedBy>null</lastUnpackedBy></package>' +
+                    '<package><group>mygroup</group><name>mypackage</name><version>1.2.3</version>' +
+                    '<lastUnpackedBy>null</lastUnpackedBy></package>' +
+                    '</packages></data></response></crx>'}
+                result = handlers[200](response)
+                _self.assertEquals(result.is_failure(), True)
+                _self.assertEquals(result.message, 'Package mygroup/mypackage-1.2.3 is not installed')
+                _self.assertEquals(result.response, response)
+
+                # no package
+                response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
+                    '</packages></data></response></crx>'}
+                result = handlers[200](response)
+                _self.assertEquals(result.is_failure(), True)
+                _self.assertEquals(result.message, 'Package mygroup/mypackage-1.2.3 is not installed')
+                _self.assertEquals(result.response, response)
+
+                return super(IsPackageInstalledHandlerMatcher, self).__eq__(handlers)
+
+        self.package_manager.is_package_installed('mygroup', 'mypackage', '1.2.3', foo='bar')
+        bag.request.assert_called_once_with(
+            'get',
+            'http://localhost:4502/crx/packmgr/service.jsp',
+            {'cmd': 'ls',
+             'foo': 'bar'},
+            IsPackageInstalledHandlerMatcher([200, 401]),
+            debug=True)
+
+
 if __name__ == '__main__':
     unittest.main()
     

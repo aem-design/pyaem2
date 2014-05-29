@@ -6,6 +6,7 @@
 * Move non update/download package methods from packagemanager to packagemanagerservicejson
 * Add pyaemresult#debug
 * Add packagemanagerservicejsp#is_package_uploaded
+* Add packagemanagerservicejsp#is_package_installed
 
 ### 0.9.1
 * Add file_path arg to webconsole#install_bundle to allow custom bundle file location

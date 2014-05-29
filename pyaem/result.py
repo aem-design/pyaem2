@@ -43,3 +43,22 @@ class PyAemResult(object):
     def is_warning(self):
 
         return self.status == WARNING
+
+
+    def debug(self):
+
+        data = {
+            'Request method': self.response['request']['method'],
+            'Request URL': self.response['request']['url'],
+            'Request parameters': self.response['request']['params'],
+            'Response code': self.response['http_code'],
+            'Response body': self.response['body'],
+            'Result status': self.status,
+            'Result message': self.message
+        }
+
+        debug = ''
+        for key in data.keys():
+            debug += '{0}: {1}\n'.format(key, data[key])
+
+        return debug

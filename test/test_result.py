@@ -50,6 +50,31 @@ class TestResult(unittest.TestCase):
         self.assertEqual(self.result.is_failure(), True)
 
 
+    def test_debug(self):
+
+        response = {
+            'request': {
+                'method': 'get',
+                'url': 'http://localhost:4502',
+                'params': {'foo': 'bar'}
+            },
+            'http_code': 200,
+            'body': '<html>some html here</html>'
+        }
+
+        result = pyaem.PyAemResult(response)
+        result.success('some message')
+
+        self.assertEqual(result.debug(),
+            'Response body: <html>some html here</html>\n' +
+            'Request parameters: {\'foo\': \'bar\'}\n' +
+            'Result status: success\n' +
+            'Result message: some message\n' +
+            'Request URL: http://localhost:4502\n' +
+            'Request method: get\n' +
+            'Response code: 200\n')
+
+
 if __name__ == '__main__':
     unittest.main()
     

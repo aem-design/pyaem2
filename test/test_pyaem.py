@@ -115,6 +115,15 @@ class TestPyAem(unittest.TestCase):
         aem.content_repo.delete_agent.assert_called_once_with('someagentname', 'somerunmode')
 
 
+    def test_set_property(self):
+
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.content_repo.set_property = MagicMock()
+
+        aem.set_property('/content/mysite', 'sling:target', '/welcome.html')
+        aem.content_repo.set_property.assert_called_once_with('/content/mysite', 'sling:target', '/welcome.html')
+
+
     # package manager methods
 
 

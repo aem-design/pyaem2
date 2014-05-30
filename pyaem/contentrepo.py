@@ -370,3 +370,29 @@ class ContentRepo(object):
         opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)
+
+
+    def set_property(self, path, property_name, property_value, **kwargs):
+
+        def _handler_ok(response, **kwargs):
+
+            message = 'Set property {0}={1} on path {2}'.format(property_name, property_value, path)
+            result = res.PyAemResult(response)
+            result.success(message)
+            return result
+
+        params = {
+            property_name: property_value
+        }
+
+        _handlers = {
+            200: _handler_ok
+        }
+
+        method = 'post'
+        url = '{0}/{1}'.format(self.url, path.lstrip('/'))
+        params = dict(params.items() + kwargs.items())
+        _handlers = dict(self.handlers.items() + _handlers.items())
+        opts = self.kwargs
+
+        return bag.request(method, url, params, _handlers, **opts)

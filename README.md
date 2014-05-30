@@ -46,6 +46,8 @@ Content Management
 
     aem.delete_agent('myagent', 'publish')
 
+    aem.set_property('/content/mysite', 'sling:target', '/welcome.html')
+
 Package Management
 
     aem.create_package('mygroup', 'mypackage', 1.2.3)

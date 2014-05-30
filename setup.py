@@ -22,7 +22,7 @@ setup(
     author='Cliffano Subagio',
     tests_require=['mock', 'pytest'],
     install_requires=['BeautifulSoup>=3.2.1',
-                    'pycurl>=7.19.3.1'
+                    'pycurl>=7.19.0.0'
                     ],
     cmdclass={'test': PyTest},
     author_email='cliffano@gmail.com',

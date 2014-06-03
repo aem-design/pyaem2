@@ -386,7 +386,8 @@ class ContentRepo(object):
         }
 
         _handlers = {
-            200: _handler_ok
+            200: _handler_ok,
+            201: _handler_ok
         }
 
         method = 'post'

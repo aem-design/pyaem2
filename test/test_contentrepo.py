@@ -367,6 +367,12 @@ class TestContentRepo(unittest.TestCase):
                 _self.assertEquals(result.message, 'Set property sling:target=/welcome.html on path /content/mysite')
                 _self.assertEquals(result.response, response)
 
+                response = None
+                result = handlers[201](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Set property sling:target=/welcome.html on path /content/mysite')
+                _self.assertEquals(result.response, response)
+
                 return super(SetPropertyHandlerMatcher, self).__eq__(handlers)
 
         self.content_repo.set_property('/content/mysite', 'sling:target', '/welcome.html', foo='bar')
@@ -374,7 +380,7 @@ class TestContentRepo(unittest.TestCase):
             'post',
             'http://localhost:4502/content/mysite',
             {'sling:target': '/welcome.html', 'foo': 'bar'},
-            SetPropertyHandlerMatcher([200, 405]),
+            SetPropertyHandlerMatcher([200, 201, 405]),
             debug=True)
 
 

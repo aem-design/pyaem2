@@ -34,12 +34,20 @@ class PyAem(object):
         return self.content_repo.activate_path(path, **kwargs)
 
 
+    def does_user_exist(self, user_path, user_name, **kwargs):
+        return self.content_repo.does_user_exist(user_path, user_name, **kwargs)
+
+
     def create_user(self, user_path, user_name, password, **kwargs):
         return self.content_repo.create_user(user_path, user_name, password, **kwargs)
 
 
     def add_user_to_group(self, user_name, group_path, group_name, **kwargs):
         return self.content_repo.add_user_to_group(user_name, group_path, group_name, **kwargs)
+
+
+    def does_group_exist(self, group_path, group_name, **kwargs):
+        return self.content_repo.does_group_exist(group_path, group_name, **kwargs)
 
 
     def create_group(self, group_path, group_name, **kwargs):

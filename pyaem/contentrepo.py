@@ -86,6 +86,12 @@ class ContentRepo(object):
         return bag.request(method, url, params, _handlers, **opts)
 
 
+    def does_user_exist(self, user_path, user_name, **kwargs):
+
+        node_path = '{0}/{1}'.format(user_path.rstrip('/'), user_name.lstrip('/'))
+        return self._does_node_exist(node_path, 'User', **kwargs)
+
+
     def create_user(self, user_path, user_name, password, **kwargs):
 
         def _handler_ok(response, **kwargs):
@@ -160,6 +166,12 @@ class ContentRepo(object):
         opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)
+
+
+    def does_group_exist(self, group_path, group_name, **kwargs):
+
+        node_path = '{0}/{1}'.format(group_path.rstrip('/'), group_name.lstrip('/'))
+        return self._does_node_exist(node_path, 'Group', **kwargs)
 
 
     def create_group(self, group_path, group_name, **kwargs):
@@ -393,6 +405,36 @@ class ContentRepo(object):
         method = 'post'
         url = '{0}/{1}'.format(self.url, path.lstrip('/'))
         params = dict(params.items() + kwargs.items())
+        _handlers = dict(self.handlers.items() + _handlers.items())
+        opts = self.kwargs
+
+        return bag.request(method, url, params, _handlers, **opts)
+
+
+    def _does_node_exist(self, node_path, node_desc, **kwargs):
+
+        def _handler_ok(response, **kwargs):
+
+            message = '{0} {1} exists'.format(node_desc, node_path)
+            result = res.PyAemResult(response)
+            result.success(message)
+            return result
+
+        def _handler_not_found(response, **kwargs):
+
+            message = '{0} {1} does not exist'.format(node_desc, node_path)
+            result = res.PyAemResult(response)
+            result.failure(message)
+            return result
+
+        _handlers = {
+            200: _handler_ok,
+            404: _handler_not_found
+        }
+
+        method = 'get'
+        url = '{0}/{1}'.format(self.url, node_path.lstrip('/'))
+        params = kwargs
         _handlers = dict(self.handlers.items() + _handlers.items())
         opts = self.kwargs
 

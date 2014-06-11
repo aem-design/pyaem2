@@ -12,6 +12,7 @@ class TestContentRepo(unittest.TestCase):
         self.content_repo = pyaem.contentrepo.ContentRepo('http://localhost:4502', debug=True)
         bag.request = MagicMock()
 
+
     def test_init(self):
 
         self.assertEqual(self.content_repo.url, 'http://localhost:4502')
@@ -81,6 +82,35 @@ class TestContentRepo(unittest.TestCase):
             debug=True)
 
 
+    def test_does_user_exist(self):
+
+        _self = self
+        class DoesUserExistHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                response = None
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'User /home/users/someuser exists')
+                _self.assertEquals(result.response, response)
+
+                response = None
+                result = handlers[404](response)
+                _self.assertEquals(result.is_failure(), True)
+                _self.assertEquals(result.message, 'User /home/users/someuser does not exist')
+                _self.assertEquals(result.response, response)
+
+                return super(DoesUserExistHandlerMatcher, self).__eq__(handlers)
+
+        self.content_repo.does_user_exist('/home/users/', 'someuser', foo='bar')
+        bag.request.assert_called_once_with(
+            'get',
+            'http://localhost:4502/home/users/someuser',
+            {'foo': 'bar'},
+            DoesUserExistHandlerMatcher([200, 401, 405]),
+            debug=True)
+
+
     def test_create_user(self):
 
         _self = self
@@ -143,6 +173,35 @@ class TestContentRepo(unittest.TestCase):
             {'addMembers': 'someuser',
              'foo': 'bar'},
             AddUserToGroupHandlerMatcher([200, 401, 405]),
+            debug=True)
+
+
+    def test_does_group_exist(self):
+
+        _self = self
+        class DoesGroupExistHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                response = None
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Group /home/groups/somegroup exists')
+                _self.assertEquals(result.response, response)
+
+                response = None
+                result = handlers[404](response)
+                _self.assertEquals(result.is_failure(), True)
+                _self.assertEquals(result.message, 'Group /home/groups/somegroup does not exist')
+                _self.assertEquals(result.response, response)
+
+                return super(DoesGroupExistHandlerMatcher, self).__eq__(handlers)
+
+        self.content_repo.does_group_exist('/home/groups/', 'somegroup', foo='bar')
+        bag.request.assert_called_once_with(
+            'get',
+            'http://localhost:4502/home/groups/somegroup',
+            {'foo': 'bar'},
+            DoesGroupExistHandlerMatcher([200, 401, 405]),
             debug=True)
 
 

@@ -48,6 +48,15 @@ class TestPyAem(unittest.TestCase):
         aem.content_repo.activate_path.assert_called_once_with('/content/somepath')
 
 
+    def test_does_user_exist(self):
+
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.content_repo.does_user_exist = MagicMock()
+
+        aem.does_user_exist('/home/users/u/', 'someusername1')
+        aem.content_repo.does_user_exist.assert_called_once_with('/home/users/u/', 'someusername1')
+
+
     def test_create_user(self):
 
         aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
@@ -64,6 +73,15 @@ class TestPyAem(unittest.TestCase):
 
         aem.add_user_to_group('someusername1', '/home/groups/g/', 'somegroupname1')
         aem.content_repo.add_user_to_group.assert_called_once_with('someusername1', '/home/groups/g/', 'somegroupname1')
+
+
+    def test_does_group_exist(self):
+
+        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        aem.content_repo.does_group_exist = MagicMock()
+
+        aem.does_group_exist('/home/groups/g/', 'somegroupname1')
+        aem.content_repo.does_group_exist.assert_called_once_with('/home/groups/g/', 'somegroupname1')
 
 
     def test_create_group(self):

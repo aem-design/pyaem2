@@ -32,9 +32,13 @@ Content Management
 
     aem.activate_path('/content/mysite')
 
+    aem.does_user_exist('/home/users/m', 'myuser')
+
     aem.create_user('/home/users/m', 'myuser', 'mypassword')
 
     aem.add_user_to_group('myuser', '/home/groups/m', 'mygroup')
+
+    aem.does_group_exist('/home/groups/m', 'mygroup')
 
     aem.create_group('/home/groups/m', 'mygroup')
 

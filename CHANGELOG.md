@@ -8,6 +8,7 @@
 * Add packagemanagerservicejsp#is_package_uploaded
 * Add packagemanagerservicejsp#is_package_installed
 * Add content_repo#set_property
+* Add content_repo#does_user_exist and content_repo#does_group_exist
 
 ### 0.9.1
 * Add file_path arg to webconsole#install_bundle to allow custom bundle file location

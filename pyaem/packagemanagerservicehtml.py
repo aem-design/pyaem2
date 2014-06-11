@@ -13,10 +13,10 @@ class PackageManagerServiceHtml(object):
     * <textarea>the message</textarea> fragment when status code is 200
 
     * <div id="message">the message</div> fragment when status code is 201
-    
-    The Adobe consultant I worked with advised me that this endpoint provides a 'more synchronous' 
+
+    The Adobe consultant I worked with advised me that this endpoint provides a 'more synchronous'
     operations compared to its /crx/packmgr/service/.json counterpart.
-    
+
     Check out PackageManager, PackageManagerServiceJson, and PackageManagerServiceJsp for other
     package-related services.
     """

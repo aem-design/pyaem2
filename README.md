@@ -127,3 +127,11 @@ Result And Error Handling
         print e.response['request']['method']
         print e.response['request']['url']
         print e.response['request']['params']
+
+Development
+-----------
+
+apt-get install python-pip libcurl4-gnutls-dev python-dev
+make deps-dev
+make deps
+make build

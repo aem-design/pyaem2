@@ -69,7 +69,8 @@ class WebConsole(object):
         }
 
         _handlers = {
-            200: _handler_ok_stop
+            200: _handler_ok_stop,
+            201: _handler_ok_stop
         }
 
         opts = {

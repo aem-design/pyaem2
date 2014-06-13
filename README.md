@@ -131,7 +131,9 @@ Result And Error Handling
 Development
 -----------
 
+```
 apt-get install python-pip libcurl4-gnutls-dev python-dev
 make deps-dev
 make deps
 make build
+```

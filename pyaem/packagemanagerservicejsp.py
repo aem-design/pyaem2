@@ -33,6 +33,9 @@ class PackageManagerServiceJsp(object):
             else:
 
                 def match(package):
+                    # when version value is not specified, the version xml element will be empty <version></version>
+                    if package['version'] == None:
+                        package['version'] = ''
                     return (package['group'] == group_name and
                         package['name'] == package_name and
                         package['version'] == package_version)
@@ -91,6 +94,9 @@ class PackageManagerServiceJsp(object):
             else:
 
                 def match(package):
+                    # when version value is not specified, the version xml element will be empty <version></version>
+                    if package['version'] == None:
+                        package['version'] = ''
                     return (package['group'] == group_name and
                         package['name'] == package_name and
                         package['version'] == package_version and

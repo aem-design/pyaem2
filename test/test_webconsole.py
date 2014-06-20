@@ -78,6 +78,12 @@ class TestWebConsole(unittest.TestCase):
                 _self.assertEquals(result.message, 'Bundle mybundle stopped')
                 _self.assertEquals(result.response, response)
 
+                response = None
+                result = handlers[201](response, bundle_name='mybundle')
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Bundle mybundle stopped')
+                _self.assertEquals(result.response, response)
+
                 return super(StopBundleHandlerMatcher, self).__eq__(handlers)
 
         self.web_console.stop_bundle('mybundle', foo='bar')

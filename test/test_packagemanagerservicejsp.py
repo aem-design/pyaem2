@@ -86,6 +86,42 @@ class TestPackageManagerServiceJsp(unittest.TestCase):
             debug=True)
 
 
+    def test_is_package_uploaded_nover(self):
+
+        _self = self
+        class IsPackageUploadedHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                # one matching package
+                response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
+                    '<package><group>mygroup</group><name>mypackage</name><version></version></package>' +
+                    '</packages></data></response></crx>'}
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Package mygroup/mypackage- is uploaded')
+                _self.assertEquals(result.response, response)
+
+                # one non matching package
+                response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
+                    '<package><group>mygroup</group><name>mypackage</name><version>1.2.3</version></package>' +
+                    '</packages></data></response></crx>'}
+                result = handlers[200](response)
+                _self.assertEquals(result.is_failure(), True)
+                _self.assertEquals(result.message, 'Package mygroup/mypackage- is not uploaded')
+                _self.assertEquals(result.response, response)
+
+                return super(IsPackageUploadedHandlerMatcher, self).__eq__(handlers)
+
+        self.package_manager.is_package_uploaded('mygroup', 'mypackage', '', foo='bar')
+        bag.request.assert_called_once_with(
+            'get',
+            'http://localhost:4502/crx/packmgr/service.jsp',
+            {'cmd': 'ls',
+             'foo': 'bar'},
+            IsPackageUploadedHandlerMatcher([200, 401]),
+            debug=True)
+
+
     def test_is_package_installed(self):
 
         _self = self
@@ -145,6 +181,44 @@ class TestPackageManagerServiceJsp(unittest.TestCase):
                 return super(IsPackageInstalledHandlerMatcher, self).__eq__(handlers)
 
         self.package_manager.is_package_installed('mygroup', 'mypackage', '1.2.3', foo='bar')
+        bag.request.assert_called_once_with(
+            'get',
+            'http://localhost:4502/crx/packmgr/service.jsp',
+            {'cmd': 'ls',
+             'foo': 'bar'},
+            IsPackageInstalledHandlerMatcher([200, 401]),
+            debug=True)
+
+
+    def test_is_package_installed_nover(self):
+
+        _self = self
+        class IsPackageInstalledHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                # one matching package
+                response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
+                    '<package><group>mygroup</group><name>mypackage</name><version></version>' +
+                    '<lastUnpackedBy>admin</lastUnpackedBy></package>' +
+                    '</packages></data></response></crx>'}
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Package mygroup/mypackage- is installed')
+                _self.assertEquals(result.response, response)
+
+                # no matching package
+                response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
+                    '<package><group>mygroup</group><name>mypackage</name><version>1.2.3</version>' +
+                    '<lastUnpackedBy>admin</lastUnpackedBy></package>' +
+                    '</packages></data></response></crx>'}
+                result = handlers[200](response)
+                _self.assertEquals(result.is_failure(), True)
+                _self.assertEquals(result.message, 'Package mygroup/mypackage- is not installed')
+                _self.assertEquals(result.response, response)
+
+                return super(IsPackageInstalledHandlerMatcher, self).__eq__(handlers)
+
+        self.package_manager.is_package_installed('mygroup', 'mypackage', '', foo='bar')
         bag.request.assert_called_once_with(
             'get',
             'http://localhost:4502/crx/packmgr/service.jsp',

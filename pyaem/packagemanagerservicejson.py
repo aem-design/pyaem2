@@ -97,7 +97,11 @@ class PackageManagerServiceJson(object):
         url = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(
             self.url, group_name, package_name, package_version)
         params = dict(params.items() + kwargs.items())
-        _handlers = self.handlers
+        _handlers = {
+            201: self.handlers.get('_handler_ok')
+        }
+
+        _handlers = dict(self.handlers.items() + _handlers.items())
         opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)

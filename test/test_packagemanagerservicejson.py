@@ -115,7 +115,7 @@ class TestPackageManagerServiceJson(unittest.TestCase):
             'http://localhost:4502/crx/packmgr/service/.json/etc/packages/mygroup/mypackage-1.2.3.zip',
             {'cmd': 'install',
              'foo': 'bar'},
-            HandlersMatcher([200, 401, 405]),
+            HandlersMatcher([200, 201, 401, 405]),
             debug=True)
 
 

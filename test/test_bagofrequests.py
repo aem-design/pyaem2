@@ -208,8 +208,8 @@ class TestBagOfRequests(unittest.TestCase):
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
         curl.setopt.assert_any_call(pycurl.FRESH_CONNECT, 1)
 
-        # 5 calls including the one with pycurl.WRITEDATA and pycurl.WRITEFUNCTION
-        self.assertEqual(curl.setopt.call_count, 5)
+        # 4 calls including the one with pycurl.WRITEDATA and pycurl.WRITEFUNCTION
+        self.assertEqual(curl.setopt.call_count, 4)
 
         curl.perform.assert_called_once_with()
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
@@ -247,7 +247,7 @@ class TestBagOfRequests(unittest.TestCase):
         curl.setopt.assert_any_call(pycurl.FRESH_CONNECT, 1)
 
         # 5 calls including the one with pycurl.WRITEDATA and pycurl.WRITEFUNCTION
-        self.assertEqual(curl.setopt.call_count, 5)
+        self.assertEqual(curl.setopt.call_count, 4)
 
         curl.perform.assert_called_once_with()
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)

@@ -51,6 +51,35 @@ class TestContentRepo(unittest.TestCase):
             debug=True)
 
 
+    def test_delete_path(self):
+
+        _self = self
+        class DeletePathHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                response = None
+                result = handlers[204](response, path='/content/somepath/')
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Path /content/somepath/ deleted')
+                _self.assertEquals(result.response, response)
+
+                response = None
+                result = handlers[404](response, path='/content/somepath/')
+                _self.assertEquals(result.is_warning(), True)
+                _self.assertEquals(result.message, 'Path /content/somepath/ not found')
+                _self.assertEquals(result.response, response)
+
+                return super(DeletePathHandlerMatcher, self).__eq__(handlers)
+
+        self.content_repo.delete_path('/content/somepath/', foo='bar')
+        bag.request.assert_called_once_with(
+            'delete',
+            'http://localhost:4502/content/somepath/',
+            {'foo': 'bar'},
+            DeletePathHandlerMatcher([204, 404]),
+            debug=True)
+
+
     def test_activate_path(self):
 
         _self = self

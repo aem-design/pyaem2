@@ -49,6 +49,36 @@ class ContentRepo(object):
         return bag.request(method, url, params, _handlers, **opts)
 
 
+    def delete_path(self, path, **kwargs):
+
+        def _handler_ok(response, **kwargs):
+
+            message = 'Path {0} deleted'.format(path)
+            result = res.PyAemResult(response)
+            result.success(message)
+            return result
+
+        def _handler_not_found(response, **kwargs):
+
+            message = 'Path {0} not found'.format(path)
+            result = res.PyAemResult(response)
+            result.warning(message)
+            return result
+
+        _handlers = {
+            204: _handler_ok,
+            404: _handler_not_found
+        }
+
+        method = 'delete'
+        url = '{0}/{1}'.format(self.url, path.lstrip('/'))
+        params = kwargs
+        _handlers = dict(self.handlers.items() + _handlers.items())
+        opts = self.kwargs
+
+        return bag.request(method, url, params, _handlers, **opts)
+
+
     def activate_path(self, path, **kwargs):
 
         def _handler_ok(response, **kwargs):

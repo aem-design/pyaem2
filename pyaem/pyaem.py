@@ -30,6 +30,10 @@ class PyAem(object):
         return self.content_repo.create_path(path, **kwargs)
 
 
+    def delete_path(self, path, **kwargs):
+        return self.content_repo.delete_path(path, **kwargs)
+
+
     def activate_path(self, path, **kwargs):
         return self.content_repo.activate_path(path, **kwargs)
 

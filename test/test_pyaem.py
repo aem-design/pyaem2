@@ -42,6 +42,14 @@ class TestPyAem(unittest.TestCase):
         self.aem.content_repo.create_path.assert_called_once_with('/content/somepath')
 
 
+    def test_delete_path(self):
+
+        self.aem.content_repo.delete_path = MagicMock()
+
+        self.aem.delete_path('/content/somepath')
+        self.aem.content_repo.delete_path.assert_called_once_with('/content/somepath')
+
+
     def test_activate_path(self):
 
         self.aem.content_repo.activate_path = MagicMock()

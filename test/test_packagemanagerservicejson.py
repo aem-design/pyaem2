@@ -109,13 +109,33 @@ class TestPackageManagerServiceJson(unittest.TestCase):
 
     def test_install_package(self):
 
+        _self = self
+        class InstallPackageHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                response = {'body': '{"success": true, "msg": "some message"}'}
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'some message')
+                _self.assertEquals(result.response, response)
+
+                response = {'body': '{"success": false, "msg": "some message"}'}
+                result = handlers[201](response)
+                _self.assertEquals(result.is_failure(), True)
+                _self.assertEquals(result.message,
+                    'AEM message: some message - ' +
+                    'Installation failure, package status is uploaded but not installed')
+                _self.assertEquals(result.response, response)
+
+                return super(InstallPackageHandlerMatcher, self).__eq__(handlers)
+
         self.package_manager.install_package('mygroup', 'mypackage', '1.2.3', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/crx/packmgr/service/.json/etc/packages/mygroup/mypackage-1.2.3.zip',
             {'cmd': 'install',
              'foo': 'bar'},
-            HandlersMatcher([200, 201, 401, 405]),
+            InstallPackageHandlerMatcher([200, 201, 401, 405]),
             debug=True)
 
 

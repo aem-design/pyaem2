@@ -9,8 +9,8 @@
 * Add packagemanagerservicejsp#is_package_installed
 * Add content_repo#set_property
 * Add content_repo#does_user_exist and content_repo#does_group_exist
-* Add response code 201 handling as PackageManagerServiceJson#install_package success
 * Add content_repo#delete_path
+* Add response code 201 handling as PackageManagerService*#install_package to be marked as failure
 
 ### 0.9.1
 * Add file_path arg to webconsole#install_bundle to allow custom bundle file location

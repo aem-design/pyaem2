@@ -74,13 +74,32 @@ class TestPackageManagerServiceHtml(unittest.TestCase):
 
     def test_install_package(self):
 
+        _self = self
+        class InstallPackageHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                response = {'body': '<textarea>{ "success": true, "msg": "some message" }</textarea>'}
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'some message')
+                _self.assertEquals(result.response, response)
+
+                response = {'body': '<textarea>{ "success": true, "msg": "some message" }</textarea>'}
+                result = handlers[201](response)
+                _self.assertEquals(result.is_failure(), True)
+                _self.assertEquals(result.message,
+                    'Installation failure, package status is uploaded but not installed')
+                _self.assertEquals(result.response, response)
+
+                return super(InstallPackageHandlerMatcher, self).__eq__(handlers)
+
         self.package_manager_sync.install_package('mygroup', 'mypackage', '1.2.3', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/crx/packmgr/service/script.html/etc/packages/mygroup/mypackage-1.2.3.zip',
             {'cmd': 'install',
              'foo': 'bar'},
-            HandlersMatcher([200, 201, 401]),
+            InstallPackageHandlerMatcher([200, 201, 401]),
             debug=True)
 
 

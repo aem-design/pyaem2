@@ -84,6 +84,17 @@ class PackageManagerServiceHtml(object):
 
     def install_package(self, group_name, package_name, package_version, **kwargs):
 
+        # AEM might respond with '201 Created' after installing a package
+        # this is actually a failure since the package status is uploaded but not installed
+        def _handler_failure(response, **kwargs):
+
+            message = 'Installation failure, package status is uploaded but not installed'
+            result = res.PyAemResult(response)
+
+            result.failure(message)
+
+            return result
+
         params = {
             'cmd': 'install'
         }
@@ -92,7 +103,10 @@ class PackageManagerServiceHtml(object):
         url = '{0}/crx/packmgr/service/script.html/etc/packages/{1}/{2}-{3}.zip'.format(
             self.url, group_name, package_name, package_version)
         params = dict(params.items() + kwargs.items())
-        _handlers = self.handlers
+        _handlers = {
+            201: _handler_failure
+        }
+        _handlers = dict(self.handlers.items() + _handlers.items())
         opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)

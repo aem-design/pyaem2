@@ -89,6 +89,19 @@ class PackageManagerServiceJson(object):
 
     def install_package(self, group_name, package_name, package_version, **kwargs):
 
+        # AEM might respond with '201 Created' after installing a package
+        # this is actually a failure since the package status is uploaded but not installed
+        def _handler_failure(response, **kwargs):
+
+            data = json.loads(response['body'])
+            message = 'AEM message: {0} - Installation failure, package status is uploaded but not installed'.format(
+                data['msg'])
+            result = res.PyAemResult(response)
+
+            result.failure(message)
+
+            return result
+
         params = {
             'cmd': 'install'
         }
@@ -98,7 +111,7 @@ class PackageManagerServiceJson(object):
             self.url, group_name, package_name, package_version)
         params = dict(params.items() + kwargs.items())
         _handlers = {
-            201: self.handlers.get('_handler_ok')
+            201: _handler_failure
         }
 
         _handlers = dict(self.handlers.items() + _handlers.items())

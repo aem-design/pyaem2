@@ -11,6 +11,7 @@
 * Add content_repo#does_user_exist and content_repo#does_group_exist
 * Add content_repo#delete_path
 * Add response code 201 handling as PackageManagerService*#install_package to be marked as failure
+* Add content_repo#enable_workflow and content_repo#disable_workflow
 
 ### 0.9.1
 * Add file_path arg to webconsole#install_bundle to allow custom bundle file location

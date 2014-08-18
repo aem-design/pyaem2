@@ -472,6 +472,96 @@ class TestContentRepo(unittest.TestCase):
             debug=True)
 
 
+    def test_enable_workflow(self):
+
+        _self = self
+        class EnableWorkflowHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                response = None
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message,
+                    'Workflow /etc/workflow/models/dam/update_asset/jcr:content/model enabled')
+                _self.assertEquals(result.response, response)
+
+                return super(EnableWorkflowHandlerMatcher, self).__eq__(handlers)
+
+        self.content_repo.enable_workflow(
+            '/etc/workflow/models/dam/update_asset/jcr:content/model',
+            '/content/dam(/.*/)renditions/original',
+            '/etc/workflow/launcher/config/update_asset_mod',
+            'author',
+            foo='bar')
+        bag.request.assert_called_once_with(
+            'post',
+            'http://localhost:4502/libs/cq/workflow/launcher',
+            {
+                ':status': 'browser',
+                '_charset_': 'utf-8',
+                'condition': '',
+                'description': '',
+                'edit': '/etc/workflow/launcher/config/update_asset_mod',
+                'enabled': 'true',
+                'eventType': '16',
+                'excludeList': '',
+                'glob': '/content/dam(/.*/)renditions/original',
+                'nodetype': 'nt:file',
+                'runModes': 'author',
+                'workflow': '/etc/workflow/models/dam/update_asset/jcr:content/model',
+                'foo': 'bar'
+            },
+            EnableWorkflowHandlerMatcher([200, 201, 405]),
+            debug=True)
+
+
+    def test_disable_workflow(self):
+
+        _self = self
+        class DisableWorkflowHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                response = None
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message,
+                    'Workflow /etc/workflow/models/dam/update_asset/jcr:content/model disabled')
+                _self.assertEquals(result.response, response)
+
+                return super(DisableWorkflowHandlerMatcher, self).__eq__(handlers)
+
+        self.content_repo.disable_workflow(
+            '/etc/workflow/models/dam/update_asset/jcr:content/model',
+            '/content/dam(/.*/)renditions/original',
+            '/etc/workflow/launcher/config/update_asset_mod',
+            'author',
+            foo='bar',
+            condition='Some condition',
+            description='Work flow for nested metadata nodes',
+            excludeList='jcr:lastModified,dc:modified,dc:format,jcr:lastModifiedBy,newRendition'
+            )
+        bag.request.assert_called_once_with(
+            'post',
+            'http://localhost:4502/libs/cq/workflow/launcher',
+            {
+                ':status': 'browser',
+                '_charset_': 'utf-8',
+                'condition': 'Some condition',
+                'description': 'Work flow for nested metadata nodes',
+                'edit': '/etc/workflow/launcher/config/update_asset_mod',
+                'enabled': 'false',
+                'eventType': '16',
+                'excludeList': 'jcr:lastModified,dc:modified,dc:format,jcr:lastModifiedBy,newRendition',
+                'glob': '/content/dam(/.*/)renditions/original',
+                'nodetype': 'nt:file',
+                'runModes': 'author',
+                'workflow': '/etc/workflow/models/dam/update_asset/jcr:content/model',
+                'foo': 'bar'
+            },
+            DisableWorkflowHandlerMatcher([200, 201, 405]),
+            debug=True)
+
+
 if __name__ == '__main__':
     unittest.main()
     

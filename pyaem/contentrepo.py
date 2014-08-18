@@ -441,14 +441,14 @@ class ContentRepo(object):
         return bag.request(method, url, params, _handlers, **opts)
 
 
-    def enable_workflow(self, workflow, glob, edit, run_mode, **kwargs):
+    def enable_workflow(self, workflow, glob, edit, node_type, run_mode, **kwargs):
 
-        return self._set_workflow(workflow, glob, edit, True, run_mode, **kwargs)
+        return self._set_workflow(workflow, glob, edit, True, node_type, run_mode, **kwargs)
 
 
-    def disable_workflow(self, workflow, glob, edit, run_mode, **kwargs):
+    def disable_workflow(self, workflow, glob, edit, node_type, run_mode, **kwargs):
 
-        return self._set_workflow(workflow, glob, edit, False, run_mode, **kwargs)
+        return self._set_workflow(workflow, glob, edit, False, node_type, run_mode, **kwargs)
 
 
     def _does_node_exist(self, node_path, node_desc, **kwargs):
@@ -481,7 +481,7 @@ class ContentRepo(object):
         return bag.request(method, url, params, _handlers, **opts)
 
 
-    def _set_workflow(self, workflow, glob, edit, is_enabled, run_mode, **kwargs):
+    def _set_workflow(self, workflow, glob, edit, is_enabled, node_type, run_mode, **kwargs):
 
         def _handler_ok(response, **kwargs):
 
@@ -500,7 +500,7 @@ class ContentRepo(object):
             'eventType': '16',
             'excludeList': kwargs.get('excludeList', ''),
             'glob': glob,
-            'nodetype': 'nt:file',
+            'nodetype': node_type,
             'runModes': run_mode,
             'workflow': workflow
         }

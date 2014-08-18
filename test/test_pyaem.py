@@ -151,11 +151,13 @@ class TestPyAem(unittest.TestCase):
             '/etc/workflow/models/dam/update_asset/jcr:content/model',
             '/content/dam(/.*/)renditions/original',
             '/etc/workflow/launcher/config/update_asset_mod',
+            'nt:file',
             'author')
         self.aem.content_repo.enable_workflow.assert_called_once_with(
             '/etc/workflow/models/dam/update_asset/jcr:content/model',
             '/content/dam(/.*/)renditions/original',
             '/etc/workflow/launcher/config/update_asset_mod',
+            'nt:file',
             'author')
 
 
@@ -167,11 +169,13 @@ class TestPyAem(unittest.TestCase):
             '/etc/workflow/models/dam/update_asset/jcr:content/model',
             '/content/dam(/.*/)renditions/original',
             '/etc/workflow/launcher/config/update_asset_mod',
+            'nt:file',
             'author')
         self.aem.content_repo.disable_workflow.assert_called_once_with(
             '/etc/workflow/models/dam/update_asset/jcr:content/model',
             '/content/dam(/.*/)renditions/original',
             '/etc/workflow/launcher/config/update_asset_mod',
+            'nt:file',
             'author')
 
 

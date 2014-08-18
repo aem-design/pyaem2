@@ -79,12 +79,12 @@ class PyAem(object):
         return self.content_repo.set_property(path, property_name, property_value, **kwargs)
 
 
-    def enable_workflow(self, workflow, glob, edit, run_mode, **kwargs):
-        return self.content_repo.enable_workflow(workflow, glob, edit, run_mode, **kwargs)
+    def enable_workflow(self, workflow, glob, edit, node_type, run_mode, **kwargs):
+        return self.content_repo.enable_workflow(workflow, glob, edit, node_type, run_mode, **kwargs)
 
 
-    def disable_workflow(self, workflow, glob, edit, run_mode, **kwargs):
-        return self.content_repo.disable_workflow(workflow, glob, edit, run_mode, **kwargs)
+    def disable_workflow(self, workflow, glob, edit, node_type, run_mode, **kwargs):
+        return self.content_repo.disable_workflow(workflow, glob, edit, node_type, run_mode, **kwargs)
 
 
     # package manager methods

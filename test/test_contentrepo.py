@@ -491,6 +491,7 @@ class TestContentRepo(unittest.TestCase):
             '/etc/workflow/models/dam/update_asset/jcr:content/model',
             '/content/dam(/.*/)renditions/original',
             '/etc/workflow/launcher/config/update_asset_mod',
+            'nt:file',
             'author',
             foo='bar')
         bag.request.assert_called_once_with(
@@ -534,6 +535,7 @@ class TestContentRepo(unittest.TestCase):
             '/etc/workflow/models/dam/update_asset/jcr:content/model',
             '/content/dam(/.*/)renditions/original',
             '/etc/workflow/launcher/config/update_asset_mod',
+            'nt:file',
             'author',
             foo='bar',
             condition='Some condition',

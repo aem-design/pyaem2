@@ -90,12 +90,14 @@ Workflow Management
         '/etc/workflow/models/dam/update_asset/jcr:content/model',
         '/content/dam(/.*/)renditions/original',
         '/etc/workflow/launcher/config/update_asset_mod',
+        'nt:file',
         'author')
 
     aem.disable_workflow(
         '/etc/workflow/models/dam/update_asset/jcr:content/model',
         '/content/dam(/.*/)renditions/original',
         '/etc/workflow/launcher/config/update_asset_mod',
+        'nt:file',
         'author')
 
 Result And Error Handling

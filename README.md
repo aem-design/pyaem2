@@ -70,8 +70,6 @@ Package Management
 
     aem.delete_package('mygroup', 'mypackage', 1.2.3)
 
-Package Management
-
     aem.upload_package_sync('mygroup', 'mypackage', 1.2.3, '/mnt/ephemeral0', force = 'true')
 
     aem.install_package_sync('mygroup', 'mypackage', 1.2.3)
@@ -85,6 +83,20 @@ Bundle Management
     aem.stop_bundle('mybundle')
 
     aem.install_bundle('mybundle', 1.2.3, '/mnt/ephemeral0')
+
+Workflow Management
+
+    aem.enable_workflow(
+        '/etc/workflow/models/dam/update_asset/jcr:content/model',
+        '/content/dam(/.*/)renditions/original',
+        '/etc/workflow/launcher/config/update_asset_mod',
+        'author')
+
+    aem.disable_workflow(
+        '/etc/workflow/models/dam/update_asset/jcr:content/model',
+        '/content/dam(/.*/)renditions/original',
+        '/etc/workflow/launcher/config/update_asset_mod',
+        'author')
 
 Result And Error Handling
 -------------------------

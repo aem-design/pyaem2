@@ -24,7 +24,7 @@ class TestHandlers(unittest.TestCase):
 
         response = {
             'http_code': 405,
-            'body': '<html><body><p>some error message</p></body></html>'
+            'body': '<html><body><title>some error message</title></body></html>'
         }
 
         try:

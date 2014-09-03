@@ -141,7 +141,7 @@ def upload_file(url, params, handlers, **kwargs):
 
     response = {
         'http_code': curl.getinfo(pycurl.HTTP_CODE),
-        'body': 'Upload to {0}'.format(url),
+        'body': body_io.getvalue(),
         'request': {
             'method': 'post',
             'url': url,

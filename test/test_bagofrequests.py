@@ -309,8 +309,7 @@ class TestBagOfRequests(unittest.TestCase):
             self.fail('An exception should have been raised')
         except pyaem.PyAemException as exception:
             self.assertEqual(exception.code, 500)
-            self.assertEqual(exception.message, 'Unexpected response\nhttp code: 500\nbody:\n' +
-                'Upload to http://localhost:4502/.cqactions.html')
+            self.assertEqual(exception.message, 'Unexpected response\nhttp code: 500\nbody:\n')
 
         curl.setopt.assert_any_call(pycurl.POST, 1)
         curl.setopt.assert_any_call(pycurl.HTTPPOST, [('foo1', 'bar1'), ('foo2', 'bar2')])

@@ -208,7 +208,7 @@ class TestBagOfRequests(unittest.TestCase):
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
         curl.setopt.assert_any_call(pycurl.FRESH_CONNECT, 1)
 
-        # 4 calls including the one with pycurl.WRITEDATA and pycurl.WRITEFUNCTION
+        # 4 calls including the one with pycurl.WRITEFUNCTION
         self.assertEqual(curl.setopt.call_count, 4)
 
         curl.perform.assert_called_once_with()
@@ -240,7 +240,9 @@ class TestBagOfRequests(unittest.TestCase):
             self.fail('An exception should have been raised')
         except pyaem.PyAemException as exception:
             self.assertEqual(exception.code, 500)
-            self.assertEqual(exception.message, 'Unexpected response\nhttp code: 500\nbody:\n')
+            self.assertEqual(exception.message,
+                'Unexpected response\nhttp code: 500\nbody:\n' +
+                'Download http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2 to /tmp/somefile')
 
         curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
@@ -307,7 +309,8 @@ class TestBagOfRequests(unittest.TestCase):
             self.fail('An exception should have been raised')
         except pyaem.PyAemException as exception:
             self.assertEqual(exception.code, 500)
-            self.assertEqual(exception.message, 'Unexpected response\nhttp code: 500\nbody:\n')
+            self.assertEqual(exception.message, 'Unexpected response\nhttp code: 500\nbody:\n' +
+                'Upload to http://localhost:4502/.cqactions.html')
 
         curl.setopt.assert_any_call(pycurl.POST, 1)
         curl.setopt.assert_any_call(pycurl.HTTPPOST, [('foo1', 'bar1'), ('foo2', 'bar2')])

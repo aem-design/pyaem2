@@ -12,6 +12,7 @@
 * Add content_repo#delete_path
 * Add response code 201 handling as PackageManagerService*#install_package to be marked as failure
 * Add content_repo#enable_workflow and content_repo#disable_workflow
+* Modify bagofrequest#download_file to write file in chunks to handle large sized file memory consumption
 
 ### 0.9.1
 * Add file_path arg to webconsole#install_bundle to allow custom bundle file location

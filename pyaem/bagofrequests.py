@@ -77,22 +77,19 @@ def download_file(url, params, handlers, **kwargs):
     :raises: PyAemException
     """
     curl = pycurl.Curl()
-    body_io = cStringIO.StringIO()
     url = '{0}?{1}'.format(url, urllib.urlencode(params, True))
     data = open(kwargs['file'], 'wb')
 
     curl.setopt(pycurl.URL, url)
     curl.setopt(pycurl.FOLLOWLOCATION, 1)
     curl.setopt(pycurl.FRESH_CONNECT, 1)
-    curl.setopt(pycurl.WRITEFUNCTION, body_io.write)
+    curl.setopt(pycurl.WRITEFUNCTION, data.write)
 
     curl.perform()
 
-    data.write(body_io.getvalue())
-
     response = {
         'http_code': curl.getinfo(pycurl.HTTP_CODE),
-        'body': body_io.getvalue(),
+        'body': 'Download {0} to {1}'.format(url, kwargs['file']),
         'request': {
             'method': 'get',
             'url': url,
@@ -144,7 +141,7 @@ def upload_file(url, params, handlers, **kwargs):
 
     response = {
         'http_code': curl.getinfo(pycurl.HTTP_CODE),
-        'body': body_io.getvalue(),
+        'body': 'Upload to {0}'.format(url),
         'request': {
             'method': 'post',
             'url': url,

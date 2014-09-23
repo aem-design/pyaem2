@@ -1,5 +1,6 @@
 from mock import MagicMock
 import pyaem
+import json
 from pyaem import bagofrequests as bag
 import unittest
 from .util import HandlersMatcher
@@ -561,6 +562,47 @@ class TestContentRepo(unittest.TestCase):
                 'foo': 'bar'
             },
             DisableWorkflowHandlerMatcher([200, 201, 405]),
+            debug=True)
+
+
+    def test_get_cluster_list(self):
+
+        _self = self
+        class GetClusterListHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                cluster_list = {
+                    'masterId':'node-id-2',
+                    'nodeId':'node-id-1',
+                    'nodes':[
+                        {'OS':'Linux', 'hostname':'host-1.com', 'id':'node-id-1', 'repositoryHome':'/path/to/repo'},
+                        {'OS':'Linux', 'hostname':'host-2.com', 'id':'node-id-2', 'repositoryHome':'/path/to/repo'}
+                    ]}
+
+                response = {'body': json.dumps(cluster_list)}
+                result = handlers[200](response)
+                _self.assertEquals(result.is_success(), True)
+
+                data = json.loads(result.message)
+                _self.assertEquals(data['masterId'], 'node-id-2')
+                _self.assertEquals(data['nodeId'], 'node-id-1')
+                _self.assertEquals(len(data['nodes']), 2)
+                _self.assertEquals(data['nodes'][0]['OS'], 'Linux')
+                _self.assertEquals(data['nodes'][0]['hostname'], 'host-1.com')
+                _self.assertEquals(data['nodes'][0]['id'], 'node-id-1')
+                _self.assertEquals(data['nodes'][1]['OS'], 'Linux')
+                _self.assertEquals(data['nodes'][1]['hostname'], 'host-2.com')
+                _self.assertEquals(data['nodes'][1]['id'], 'node-id-2')
+                _self.assertEquals(result.response, response)
+
+                return super(GetClusterListHandlerMatcher, self).__eq__(handlers)
+
+        self.content_repo.get_cluster_list(foo='bar')
+        bag.request.assert_called_once_with(
+            'get',
+            'http://localhost:4502/libs/granite/cluster/content/admin/cluster.list.json',
+            {'foo': 'bar'},
+            GetClusterListHandlerMatcher([200]),
             debug=True)
 
 

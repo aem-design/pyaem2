@@ -516,3 +516,25 @@ class ContentRepo(object):
         opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)
+
+
+    def get_cluster_list(self, **kwargs):
+
+        def _handler_ok(response, **kwargs):
+
+            message = response['body']
+            result = res.PyAemResult(response)
+            result.success(message)
+            return result
+
+        _handlers = {
+            200: _handler_ok
+        }
+
+        method = 'get'
+        url = '{0}/libs/granite/cluster/content/admin/cluster.list.json'.format(self.url)
+        params = kwargs
+        _handlers = dict(self.handlers.items() + _handlers.items())
+        opts = self.kwargs
+
+        return bag.request(method, url, params, _handlers, **opts)

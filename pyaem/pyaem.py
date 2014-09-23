@@ -87,6 +87,10 @@ class PyAem(object):
         return self.content_repo.disable_workflow(workflow, glob, edit, node_type, run_mode, **kwargs)
 
 
+    def get_cluster_list(self, **kwargs):
+        return self.content_repo.get_cluster_list(**kwargs)
+
+
     # package manager methods
 
 

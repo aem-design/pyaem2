@@ -179,6 +179,14 @@ class TestPyAem(unittest.TestCase):
             'author')
 
 
+    def test_get_cluster_list(self):
+
+        self.aem.content_repo.get_cluster_list = MagicMock()
+
+        self.aem.get_cluster_list()
+        self.aem.content_repo.get_cluster_list.assert_called_once_with()
+
+
     # package manager methods
 
 

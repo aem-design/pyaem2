@@ -522,7 +522,7 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            message = response['body']
+            message = 'Cluster list retrieved'
             result = res.PyAemResult(response)
             result.success(message)
             return result

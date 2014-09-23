@@ -582,8 +582,9 @@ class TestContentRepo(unittest.TestCase):
                 response = {'body': json.dumps(cluster_list)}
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Cluster list retrieved')
 
-                data = json.loads(result.message)
+                data = json.loads(result.response['body'])
                 _self.assertEquals(data['masterId'], 'node-id-2')
                 _self.assertEquals(data['nodeId'], 'node-id-1')
                 _self.assertEquals(len(data['nodes']), 2)
@@ -593,6 +594,7 @@ class TestContentRepo(unittest.TestCase):
                 _self.assertEquals(data['nodes'][1]['OS'], 'Linux')
                 _self.assertEquals(data['nodes'][1]['hostname'], 'host-2.com')
                 _self.assertEquals(data['nodes'][1]['id'], 'node-id-2')
+
                 _self.assertEquals(result.response, response)
 
                 return super(GetClusterListHandlerMatcher, self).__eq__(handlers)

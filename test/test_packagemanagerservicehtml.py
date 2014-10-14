@@ -103,9 +103,23 @@ class TestPackageManagerServiceHtml(unittest.TestCase):
             debug=True)
 
 
+    def test_install_package_spaces(self):
+
+        self.package_manager_sync.install_package('mygroup', 'CQ 5.6.1 Security Service Pack', '1.2.3', foo='bar')
+        bag.request.assert_called_once_with(
+            'post',
+            'http://localhost:4502/crx/packmgr/service/script.html/' +
+                'etc/packages/mygroup/CQ%205.6.1%20Security%20Service%20Pack-1.2.3.zip',
+            {'cmd': 'install',
+             'foo': 'bar'},
+            HandlersMatcher([200, 201, 401]),
+            debug=True)
+
+
     def test_replicate_package(self):
 
-        self.package_manager_sync.replicate_package('mygroup', 'mypackage', '1.2.3', foo='bar')
+        self.package_manager_sync.replicate_package(
+            'mygroup', 'mypackage', '1.2.3', foo='bar')
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/crx/packmgr/service/script.html/etc/packages/mygroup/mypackage-1.2.3.zip',

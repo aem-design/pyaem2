@@ -14,6 +14,7 @@
 * Add content_repo#enable_workflow and content_repo#disable_workflow
 * Modify bagofrequest#download_file to write file in chunks to handle large sized file memory consumption
 * Add content_repo#get_cluster_list 
+* Modify install_package functions to quote package name to cater for package like 'CQ 5.6.1 Security Service Pack'
 
 ### 0.9.1
 * Add file_path arg to webconsole#install_bundle to allow custom bundle file location

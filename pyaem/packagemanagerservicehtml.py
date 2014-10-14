@@ -4,6 +4,7 @@ from . import handlers
 import json
 import pycurl
 from . import result as res
+import urllib
 
 class PackageManagerServiceHtml(object):
     """Package Manager service using /crx/packmgr/service/script.html AEM endpoint.
@@ -101,7 +102,7 @@ class PackageManagerServiceHtml(object):
 
         method = 'post'
         url = '{0}/crx/packmgr/service/script.html/etc/packages/{1}/{2}-{3}.zip'.format(
-            self.url, group_name, package_name, package_version)
+            self.url, group_name, urllib.quote(package_name), package_version)
         params = dict(params.items() + kwargs.items())
         _handlers = {
             201: _handler_failure

@@ -50,6 +50,32 @@ class TestPackageManager(unittest.TestCase):
             UpdatePackageHandlerMatcher([200, 401, 405]),
             debug=True)
 
+    def test_update_package_with_filter(self):
+
+        _self = self
+        class UpdatePackageHandlerMatcher(HandlersMatcher):
+            def __eq__(self, handlers):
+
+                result = handlers[200](None)
+                _self.assertEquals(result.is_success(), True)
+                _self.assertEquals(result.message, 'Package updated')
+                _self.assertEquals(result.response, None)
+
+                return super(UpdatePackageHandlerMatcher, self).__eq__(handlers)
+
+        self.package_manager.update_package_with_filter('mygroup', 'mypackage', '1.2.3', '/content/dam', foo='bar')
+        bag.request.assert_called_once_with(
+            'get',
+            'http://localhost:4502/crx/packmgr/update.jsp',
+            {'packageName': 'mypackage',
+             'groupName': 'mygroup',
+             'version': '1.2.3',
+             '_charset_': 'utf-8',
+             'path': '/etc/packages/mygroup/mypackage-1.2.3.zip',
+             'filter': '[{"rules": [], "root": "/content/dam"}]',
+             'foo': 'bar'},
+            UpdatePackageHandlerMatcher([200, 401, 405]),
+            debug=True)
 
     def test_download_package(self):
 

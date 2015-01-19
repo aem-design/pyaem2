@@ -1,10 +1,3 @@
-<img align="right" src="https://raw.github.com/cliffano/pyaem/master/avatar.jpg" alt="Avatar"/>
-
-[![Build Status](https://secure.travis-ci.org/cliffano/pyaem.png?branch=master)](http://travis-ci.org/cliffano/pyaem)
-[![Coverage Status](https://coveralls.io/repos/cliffano/pyaem/badge.png?branch=master)](https://coveralls.io/r/cliffano/pyaem?branch=master)
-[![Published Version](https://badge.fury.io/py/pyaem.svg)](http://badge.fury.io/py/coveralls)
-<br/>
-
 PyAEM
 -----
 
@@ -70,6 +63,8 @@ Package Management
 
     aem.delete_package('mygroup', 'mypackage', 1.2.3)
 
+Package Management
+
     aem.upload_package_sync('mygroup', 'mypackage', 1.2.3, '/mnt/ephemeral0', force = 'true')
 
     aem.install_package_sync('mygroup', 'mypackage', 1.2.3)
@@ -84,22 +79,6 @@ Bundle Management
 
     aem.install_bundle('mybundle', 1.2.3, '/mnt/ephemeral0')
 
-Workflow Management
-
-    aem.enable_workflow(
-        '/etc/workflow/models/dam/update_asset/jcr:content/model',
-        '/content/dam(/.*/)renditions/original',
-        '/etc/workflow/launcher/config/update_asset_mod',
-        'nt:file',
-        'author')
-
-    aem.disable_workflow(
-        '/etc/workflow/models/dam/update_asset/jcr:content/model',
-        '/content/dam(/.*/)renditions/original',
-        '/etc/workflow/launcher/config/update_asset_mod',
-        'nt:file',
-        'author')
-
 Result And Error Handling
 -------------------------
 
@@ -110,7 +89,9 @@ Result And Error Handling
     try:
     
         result = aem.activate_path('/content/mysite')
-        
+        result = aem.create_package('mygroup', 'pyaem-create-package', '1.2.3')
+        result = aem.update_package_with_filter('mygroup', 'pyaem-create-package', '1.2.3', '/content/dam')
+
         # check result status
         if result.is_success():
         	print 'Success: {0}'.format(result.message)

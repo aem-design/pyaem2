@@ -143,50 +143,6 @@ class TestPyAem(unittest.TestCase):
         self.aem.content_repo.set_property.assert_called_once_with('/content/mysite', 'sling:target', '/welcome.html')
 
 
-    def test_enable_workflow(self):
-
-        self.aem.content_repo.enable_workflow = MagicMock()
-
-        self.aem.enable_workflow(
-            '/etc/workflow/models/dam/update_asset/jcr:content/model',
-            '/content/dam(/.*/)renditions/original',
-            '/etc/workflow/launcher/config/update_asset_mod',
-            'nt:file',
-            'author')
-        self.aem.content_repo.enable_workflow.assert_called_once_with(
-            '/etc/workflow/models/dam/update_asset/jcr:content/model',
-            '/content/dam(/.*/)renditions/original',
-            '/etc/workflow/launcher/config/update_asset_mod',
-            'nt:file',
-            'author')
-
-
-    def test_disable_workflow(self):
-
-        self.aem.content_repo.disable_workflow = MagicMock()
-
-        self.aem.disable_workflow(
-            '/etc/workflow/models/dam/update_asset/jcr:content/model',
-            '/content/dam(/.*/)renditions/original',
-            '/etc/workflow/launcher/config/update_asset_mod',
-            'nt:file',
-            'author')
-        self.aem.content_repo.disable_workflow.assert_called_once_with(
-            '/etc/workflow/models/dam/update_asset/jcr:content/model',
-            '/content/dam(/.*/)renditions/original',
-            '/etc/workflow/launcher/config/update_asset_mod',
-            'nt:file',
-            'author')
-
-
-    def test_get_cluster_list(self):
-
-        self.aem.content_repo.get_cluster_list = MagicMock()
-
-        self.aem.get_cluster_list()
-        self.aem.content_repo.get_cluster_list.assert_called_once_with()
-
-
     # package manager methods
 
 

@@ -1,6 +1,7 @@
 from . import bagofrequests as bag
 from . import handlers
 from . import result as res
+import json
 
 class PackageManager(object):
 
@@ -13,7 +14,6 @@ class PackageManager(object):
             401: handlers.auth_fail,
             405: handlers.method_not_allowed
         }
-
 
     def update_package(self, group_name, package_name, package_version, **kwargs):
 
@@ -43,6 +43,18 @@ class PackageManager(object):
         opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)
+
+    def update_package_with_filter(self, group_name, package_name, package_version, filter_paths, **kwargs):
+
+        filterpaths = filter_paths.split(",")
+        filters = []
+
+        for path in filterpaths:
+            filters.append({"rules": [], "root": path})
+
+        kwargs.update({'filter': json.dumps(filters)})
+
+        return self.update_package(group_name, package_name, package_version, **kwargs)
 
 
     def download_package(self, group_name, package_name, package_version, file_path, **kwargs):

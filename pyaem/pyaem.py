@@ -79,23 +79,14 @@ class PyAem(object):
         return self.content_repo.set_property(path, property_name, property_value, **kwargs)
 
 
-    def enable_workflow(self, workflow, glob, edit, node_type, run_mode, **kwargs):
-        return self.content_repo.enable_workflow(workflow, glob, edit, node_type, run_mode, **kwargs)
-
-
-    def disable_workflow(self, workflow, glob, edit, node_type, run_mode, **kwargs):
-        return self.content_repo.disable_workflow(workflow, glob, edit, node_type, run_mode, **kwargs)
-
-
-    def get_cluster_list(self, **kwargs):
-        return self.content_repo.get_cluster_list(**kwargs)
-
-
     # package manager methods
 
 
     def update_package(self, group_name, package_name, package_version, **kwargs):
         return self.package_manager.update_package(group_name, package_name, package_version, **kwargs)
+
+    def update_package_with_filter(self, group_name, package_name, package_version, filter_paths, **kwargs):
+        return self.package_manager.update_package_with_filter(group_name, package_name, package_version, filter_paths, **kwargs)
 
 
     def download_package(self, group_name, package_name, package_version, file_path, **kwargs):

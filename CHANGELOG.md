@@ -1,3 +1,7 @@
+### 0.9.3-pre
+* Add packagemanager#update_package_with_filter
+* Add pyaem#update_package_with_filter
+
 ### 0.9.2-pre
 * Add packagemanager#has_package
 * Add FRESH_CONNECT to all requests to ensure no cached connection is used

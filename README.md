@@ -3,7 +3,7 @@ PyAEM
 
 PyAEM is a Python client for [Adobe Experience Manager](http://dev.day.com/docs/en/cq/current.html) (AEM) API.
 
-Tested with AEM 5.6.1 on Python 2.6 and 2.7 .
+Tested with AEM 5.6.1 and 6 SP1 on Python 2.6 and 2.7 .
 
 [API Reference](http://cliffano.github.io/pyaem/)
 
@@ -50,6 +50,8 @@ Package Management
     aem.create_package('mygroup', 'mypackage', 1.2.3)
 
     aem.update_package('mygroup', 'mypackage', 1.2.3, acHandling = 'true')
+
+    aem.update_package_with_filter('mygroup', 'mypackage', 1.2.3, '/content/dam', acHandling = 'true')
 
     aem.build_package('mygroup', 'mypackage', 1.2.3)
 

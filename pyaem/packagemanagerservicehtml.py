@@ -97,7 +97,8 @@ class PackageManagerServiceHtml(object):
             return result
 
         params = {
-            'cmd': 'install'
+            'cmd': 'install',
+            'recursive': 'true'
         }
 
         method = 'post'

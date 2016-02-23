@@ -1,3 +1,6 @@
+### 1.0.0
+* Update packagemanagerservicehtml#install_package to do recursive install
+
 ### 0.9.3-pre
 * Add packagemanager#update_package_with_filter
 * Add pyaem#update_package_with_filter

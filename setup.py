@@ -16,16 +16,16 @@ class PyTest(TestCommand):
 
 setup(
     name='pyaem',
-    version='0.9.1',
-    url='http://github.com/cliffano/pyaem/',
+    version='1.0.0',
+    url='http://github.com/wildone/pyaem/',
     license='MIT License',
-    author='Cliffano Subagio',
+    author='Max Barrass',
     tests_require=['mock', 'pytest'],
     install_requires=['BeautifulSoup>=3.2.1',
                     'pycurl>=7.19.0.0'
                     ],
     cmdclass={'test': PyTest},
-    author_email='cliffano@gmail.com',
+    author_email='max.barrass@gmail.com',
     description='Python client for Adobe Experience Manager (AEM) API',
     long_description='Python client for Adobe Experience Manager (AEM) API',
     packages=['pyaem'],

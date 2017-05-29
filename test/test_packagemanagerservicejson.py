@@ -134,6 +134,7 @@ class TestPackageManagerServiceJson(unittest.TestCase):
             'post',
             'http://localhost:4502/crx/packmgr/service/.json/etc/packages/mygroup/mypackage-1.2.3.zip',
             {'cmd': 'install',
+             'recursive': 'true',
              'foo': 'bar'},
             InstallPackageHandlerMatcher([200, 201, 401, 405]),
             debug=True)
@@ -147,6 +148,7 @@ class TestPackageManagerServiceJson(unittest.TestCase):
             'http://localhost:4502/crx/packmgr/service/.json/' +
                 'etc/packages/mygroup/CQ%205.6.1%20Security%20Service%20Pack-1.2.3.zip',
             {'cmd': 'install',
+             'recursive': 'true',
              'foo': 'bar'},
             HandlersMatcher([200, 201, 401]),
             debug=True)
@@ -178,4 +180,3 @@ class TestPackageManagerServiceJson(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-    

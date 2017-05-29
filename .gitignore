@@ -8,3 +8,4 @@ htmlcov
 *.pyc
 docs
 .idea
+.iml

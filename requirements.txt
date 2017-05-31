@@ -1,8 +1,12 @@
+BeautifulSoup==3.2.1
+pycurl==7.19.3.1
+xmltodict==0.9.0
+
 #python -c "import BeautifulSoup; print BeautifulSoup.__version__"
-beautifulsoup4>==4.6.0
+#beautifulsoup4>==4.6.0
 
 #python -c "import pycurl; print pycurl"
-pycurl>==7.43.0
+#pycurl>==7.43.0
 
 #python -c "import xmltodict; print xmltodict.__version__"
-xmltodict>==0.10.2
+#xmltodict>==0.10.2

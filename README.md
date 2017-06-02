@@ -70,7 +70,7 @@ Package Management
     aem.install_package_sync('mygroup', 'mypackage', 1.2.3)
 
     aem.replicate_package_sync('mygroup', 'mypackage', 1.2.3)
-    
+
 Bundle Management
 
     aem.start_bundle('mybundle')
@@ -87,7 +87,7 @@ Result And Error Handling
     aem = pyaem.PyAem('admin', 'password', 'localhost', 4502)
 
     try:
-    
+
         result = aem.activate_path('/content/mysite')
         result = aem.create_package('mygroup', 'pyaem-create-package', '1.2.3')
         result = aem.update_package_with_filter('mygroup', 'pyaem-create-package', '1.2.3', '/content/dam')
@@ -107,9 +107,9 @@ Result And Error Handling
 
         # debug all response and request details in a single string
         print result.debug()
- 
+
     except pyaem.PyAemException, e:
-    
+
         # exception message
         print e.message
 
@@ -125,10 +125,14 @@ Result And Error Handling
 
  Development
  -----------
-
- ```
+Dev
+```bash
   apt-get install python-pip libcurl4-gnutls-dev python-dev
   make deps-dev
   make deps
   make build
+```
+Test
+```bash
+  make test
 ```

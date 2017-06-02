@@ -16,3 +16,6 @@ min-similarity-lines=15
 
 [DESIGN]
 max-args=7
+
+[MASTER]
+ignore=test

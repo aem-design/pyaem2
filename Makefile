@@ -9,6 +9,7 @@ clean:
 	rm -rf docs/*
 
 deps:
+	export PYCURL_SSL_LIBRARY=openssl
 	pip install -r requirements.txt
 
 deps-dev:

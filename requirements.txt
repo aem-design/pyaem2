@@ -1,7 +1,7 @@
 #python -c "import BeautifulSoup; print BeautifulSoup.__version__"
 beautifulsoup4>==4.6.0
 
-#python -c "import pycurl; print pycurl"
+#python -c "import pycurl; print pycurl.version"
 pycurl>==7.43.0
 
 #python -c "import xmltodict; print xmltodict.__version__"

@@ -21,10 +21,7 @@ setup(
     license='MIT License',
     author='Max Barrass',
     tests_require=['mock', 'pytest'],
-    install_requires=['BeautifulSoup4>==4.6.0',
-                       'pycurl>==7.43.0',
-                      'xmltodict>==0.10.2'
-                    ],
+    install_requires=['BeautifulSoup4>=4.6.0', 'pycurl>=7.43.0', 'xmltodict>=0.10.2'],
     cmdclass={'test': PyTest},
     author_email='max.barrass@gmail.com',
     description='Python client for Adobe Experience Manager (AEM) API',

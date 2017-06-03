@@ -1,5 +1,5 @@
-coverage>==4.4.1
-coveralls>==1.1
-mock>==2.0.0
-pylint>==1.7.1
-Sphinx>==1.6.2
+coverage
+coveralls
+mock
+pylint
+Sphinx

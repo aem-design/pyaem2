@@ -16,7 +16,7 @@ class PyTest(TestCommand):
 
 setup(
     name='pyaem',
-    version='1.0.0',
+    version='1.0.1',
     url='http://github.com/wildone/pyaem/',
     license='MIT License',
     author='Max Barrass',
@@ -32,7 +32,7 @@ setup(
     test_suite='pyaem.test.test_pyaem',
     classifiers = [
         'Programming Language :: Python',
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Natural Language :: English',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',

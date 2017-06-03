@@ -1,9 +1,14 @@
 PyAEM
 -----
 
+[![Build Status](https://travis-ci.org/wildone/pyaem.svg?branch=master)](https://travis-ci.org/wildone/pyaem)
+[![Coverage Status](https://coveralls.io/repos/github/wildone/pyaem/badge.svg)](https://coveralls.io/github/wildone/pyaem)
+
 PyAEM is a Python client for [Adobe Experience Manager](http://dev.day.com/docs/en/cq/current.html) (AEM) API.
 
-Tested with AEM 5.6.1 up to 6.1 SP1 on Python 2.6 and 2.7.
+<img align="right" src="https://raw.github.com/wildone/pyaem/master/avatar.jpg" alt="Avatar"/>
+
+Tested with AEM 5.6.1 up to 6.2 SP1 on Python 2.6 and 2.7.
 
 Installation
 ------------

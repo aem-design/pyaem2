@@ -154,6 +154,14 @@ class TestPyAem(unittest.TestCase):
         self.aem.package_manager.update_package.assert_called_once_with('somegroup', 'somepackage', '1.2-SNAPSHOT')
 
 
+    def test_update_package_with_filter(self):
+
+        self.aem.package_manager.update_package_with_filter = MagicMock()
+
+        self.aem.update_package_with_filter('somegroup', 'somepackage', '/content/dam', '1.2-SNAPSHOT')
+        self.aem.package_manager.update_package_with_filter.assert_called_once_with('somegroup', 'somepackage', '/content/dam', '1.2-SNAPSHOT')
+
+
     def test_download_package(self):
 
         self.aem.package_manager.download_package = MagicMock()

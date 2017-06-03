@@ -1,7 +1,7 @@
+import json
 from . import bagofrequests as bag
 from . import handlers
 from . import result as res
-import json
 
 class PackageManager(object):
 

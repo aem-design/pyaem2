@@ -11,7 +11,7 @@ class PyAem(object):
 
     def __init__(self, username, password, host, port, use_ssl=False, debug=False):
 
-        protocol = 'http' if use_ssl == False else 'https'
+        protocol = 'http' if not use_ssl else 'https'
         url = '{0}://{1}:{2}@{3}:{4}'.format(protocol, username, password, host, port)
 
         self.content_repo = contentrepo.ContentRepo(url, debug=debug)
@@ -170,4 +170,3 @@ class PyAem(object):
 
     def install_bundle(self, bundle_name, bundle_version, file_path, **kwargs):
         return self.web_console.install_bundle(bundle_name, bundle_version, file_path, **kwargs)
-

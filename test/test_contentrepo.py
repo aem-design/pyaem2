@@ -1,34 +1,28 @@
+import unittest
+import json
 from mock import MagicMock
 import pyaem
-import json
 from pyaem import bagofrequests as bag
-import unittest
 from .util import HandlersMatcher
 
+
 class TestContentRepo(unittest.TestCase):
-
-
     def setUp(self):
-
         self.content_repo = pyaem.contentrepo.ContentRepo('http://localhost:4502', debug=True)
         bag.request = MagicMock()
 
-
     def test_init(self):
-
         self.assertEqual(self.content_repo.url, 'http://localhost:4502')
         self.assertEqual(self.content_repo.kwargs['debug'], True)
 
         self.assertTrue(401 in self.content_repo.handlers)
         self.assertTrue(405 in self.content_repo.handlers)
 
-
     def test_create_path(self):
-
         _self = self
+
         class CreatePathHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 response = None
                 result = handlers[200](response, path='/content/somepath/')
                 _self.assertEquals(result.is_warning(), True)
@@ -51,13 +45,11 @@ class TestContentRepo(unittest.TestCase):
             CreatePathHandlerMatcher([200, 201, 401, 405]),
             debug=True)
 
-
     def test_delete_path(self):
-
         _self = self
+
         class DeletePathHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 response = None
                 result = handlers[204](response, path='/content/somepath/')
                 _self.assertEquals(result.is_success(), True)
@@ -80,13 +72,11 @@ class TestContentRepo(unittest.TestCase):
             DeletePathHandlerMatcher([204, 404]),
             debug=True)
 
-
     def test_activate_path(self):
-
         _self = self
+
         class ActivatePathHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 response = {'body': ''}
                 result = handlers[200](response, path='/content/somepath/')
                 _self.assertEquals(result.is_success(), True)
@@ -111,13 +101,11 @@ class TestContentRepo(unittest.TestCase):
             ActivatePathHandlerMatcher([200, 401, 405]),
             debug=True)
 
-
     def test_does_user_exist(self):
-
         _self = self
+
         class DoesUserExistHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 response = None
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
@@ -140,13 +128,11 @@ class TestContentRepo(unittest.TestCase):
             DoesUserExistHandlerMatcher([200, 401, 405]),
             debug=True)
 
-
     def test_create_user(self):
-
         _self = self
+
         class CreateUserHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 response = None
                 result = handlers[201](response)
                 _self.assertEquals(result.is_success(), True)
@@ -154,8 +140,8 @@ class TestContentRepo(unittest.TestCase):
                 _self.assertEquals(result.response, response)
 
                 response = {'body':
-                    '<td><div id="Message">org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
-                    'User or Group for \'someuser\' already exists</div></td>'}
+                                '<td><div id="Message">org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
+                                'User or Group for \'someuser\' already exists</div></td>'}
                 result = handlers[500](response)
                 _self.assertEquals(result.is_warning(), True)
                 _self.assertEquals(result.message, 'User /home/users/someuser already exists')
@@ -181,13 +167,11 @@ class TestContentRepo(unittest.TestCase):
             CreateUserHandlerMatcher([201, 401, 405, 500]),
             debug=True)
 
-
     def test_add_user_to_group(self):
-
         _self = self
+
         class AddUserToGroupHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 response = None
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
@@ -205,13 +189,11 @@ class TestContentRepo(unittest.TestCase):
             AddUserToGroupHandlerMatcher([200, 401, 405]),
             debug=True)
 
-
     def test_does_group_exist(self):
-
         _self = self
+
         class DoesGroupExistHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 response = None
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
@@ -234,13 +216,11 @@ class TestContentRepo(unittest.TestCase):
             DoesGroupExistHandlerMatcher([200, 401, 405]),
             debug=True)
 
-
     def test_create_group(self):
-
         _self = self
+
         class CreateGroupHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 response = None
                 result = handlers[201](response)
                 _self.assertEquals(result.is_success(), True)
@@ -248,8 +228,8 @@ class TestContentRepo(unittest.TestCase):
                 _self.assertEquals(result.response, response)
 
                 response = {'body':
-                    '<td><div id="Message">org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
-                    'User or Group for \'somegroup\' already exists</div></td>'}
+                                '<td><div id="Message">org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
+                                'User or Group for \'somegroup\' already exists</div></td>'}
                 result = handlers[500](response)
                 _self.assertEquals(result.is_warning(), True)
                 _self.assertEquals(result.message, 'Group /home/groups/somegroup already exists')
@@ -275,13 +255,11 @@ class TestContentRepo(unittest.TestCase):
             CreateGroupHandlerMatcher([201, 401, 405, 500]),
             debug=True)
 
-
     def test_change_password(self):
-
         _self = self
+
         class ChangePasswordHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 response = None
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
@@ -300,18 +278,16 @@ class TestContentRepo(unittest.TestCase):
             ChangePasswordHandlerMatcher([200, 401, 405]),
             debug=True)
 
-
     def test_set_permission(self):
-
         _self = self
+
         class SetPermissionHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 response = None
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
                 _self.assertEquals(result.message,
-                    'Permissions read:true,modify:true set on path somepath for user/group somegroup')
+                                   'Permissions read:true,modify:true set on path somepath for user/group somegroup')
                 _self.assertEquals(result.response, response)
 
                 response = {'body': '<td><div id="Message">No such node /home/groups/somegroup</div></td>'}
@@ -332,13 +308,11 @@ class TestContentRepo(unittest.TestCase):
             SetPermissionHandlerMatcher([200, 401, 405]),
             debug=True)
 
-
     def test_create_flush_agent(self):
-
         _self = self
+
         class SetAgentHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 response = None
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
@@ -376,13 +350,11 @@ class TestContentRepo(unittest.TestCase):
             SetAgentHandlerMatcher([201, 204, 402, 405]),
             debug=True)
 
-
     def test_create_replicate_agent(self):
-
         _self = self
+
         class SetAgentHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 response = None
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
@@ -414,13 +386,11 @@ class TestContentRepo(unittest.TestCase):
             SetAgentHandlerMatcher([201, 204, 402, 405]),
             debug=True)
 
-
     def test_delete_agent(self):
-
         _self = self
+
         class DeleteAgentHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 response = None
                 result = handlers[204](response)
                 _self.assertEquals(result.is_success(), True)
@@ -443,13 +413,11 @@ class TestContentRepo(unittest.TestCase):
             DeleteAgentHandlerMatcher([204, 402, 405]),
             debug=True)
 
-
     def test_set_property(self):
-
         _self = self
+
         class SetPropertyHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 response = None
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
@@ -472,18 +440,16 @@ class TestContentRepo(unittest.TestCase):
             SetPropertyHandlerMatcher([200, 201, 405]),
             debug=True)
 
-
     def test_enable_workflow(self):
-
         _self = self
+
         class EnableWorkflowHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 response = None
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
                 _self.assertEquals(result.message,
-                    'Workflow /etc/workflow/models/dam/update_asset/jcr:content/model enabled')
+                                   'Workflow /etc/workflow/models/dam/update_asset/jcr:content/model enabled')
                 _self.assertEquals(result.response, response)
 
                 return super(EnableWorkflowHandlerMatcher, self).__eq__(handlers)
@@ -516,18 +482,16 @@ class TestContentRepo(unittest.TestCase):
             EnableWorkflowHandlerMatcher([200, 201, 405]),
             debug=True)
 
-
     def test_disable_workflow(self):
-
         _self = self
+
         class DisableWorkflowHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 response = None
                 result = handlers[200](response)
                 _self.assertEquals(result.is_success(), True)
                 _self.assertEquals(result.message,
-                    'Workflow /etc/workflow/models/dam/update_asset/jcr:content/model disabled')
+                                   'Workflow /etc/workflow/models/dam/update_asset/jcr:content/model disabled')
                 _self.assertEquals(result.response, response)
 
                 return super(DisableWorkflowHandlerMatcher, self).__eq__(handlers)
@@ -542,7 +506,7 @@ class TestContentRepo(unittest.TestCase):
             condition='Some condition',
             description='Work flow for nested metadata nodes',
             excludeList='jcr:lastModified,dc:modified,dc:format,jcr:lastModifiedBy,newRendition'
-            )
+        )
         bag.request.assert_called_once_with(
             'post',
             'http://localhost:4502/libs/cq/workflow/launcher',
@@ -564,19 +528,17 @@ class TestContentRepo(unittest.TestCase):
             DisableWorkflowHandlerMatcher([200, 201, 405]),
             debug=True)
 
-
     def test_get_cluster_list(self):
-
         _self = self
+
         class GetClusterListHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
-
                 cluster_list = {
-                    'masterId':'node-id-2',
-                    'nodeId':'node-id-1',
-                    'nodes':[
-                        {'OS':'Linux', 'hostname':'host-1.com', 'id':'node-id-1', 'repositoryHome':'/path/to/repo'},
-                        {'OS':'Linux', 'hostname':'host-2.com', 'id':'node-id-2', 'repositoryHome':'/path/to/repo'}
+                    'masterId': 'node-id-2',
+                    'nodeId': 'node-id-1',
+                    'nodes': [
+                        {'OS': 'Linux', 'hostname': 'host-1.com', 'id': 'node-id-1', 'repositoryHome': '/path/to/repo'},
+                        {'OS': 'Linux', 'hostname': 'host-2.com', 'id': 'node-id-2', 'repositoryHome': '/path/to/repo'}
                     ]}
 
                 response = {'body': json.dumps(cluster_list)}
@@ -610,4 +572,3 @@ class TestContentRepo(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-    

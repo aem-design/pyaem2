@@ -1,11 +1,9 @@
+import xmltodict
 from . import bagofrequests as bag
 from . import handlers
 from . import result as res
-import xmltodict
 
 class PackageManagerServiceJsp(object):
-
-
     def __init__(self, url, **kwargs):
 
         self.url = url
@@ -13,7 +11,6 @@ class PackageManagerServiceJsp(object):
         self.handlers = {
             401: handlers.auth_fail
         }
-
 
     def is_package_uploaded(self, group_name, package_name, package_version, **kwargs):
 
@@ -34,11 +31,11 @@ class PackageManagerServiceJsp(object):
 
                 def match(package):
                     # when version value is not specified, the version xml element will be empty <version></version>
-                    if package['version'] == None:
+                    if not package['version']:
                         package['version'] = ''
                     return (package['group'] == group_name and
-                        package['name'] == package_name and
-                        package['version'] == package_version)
+                            package['name'] == package_name and
+                            package['version'] == package_version)
 
                 is_uploaded = False
                 packages = data['crx']['response']['data']['packages']
@@ -50,7 +47,7 @@ class PackageManagerServiceJsp(object):
                     elif match(packages['package']):
                         is_uploaded = True
 
-                if is_uploaded == True:
+                if is_uploaded:
                     message = 'Package {0}/{1}-{2} is uploaded'.format(group_name, package_name, package_version)
                     result.success(message)
                 else:
@@ -68,13 +65,12 @@ class PackageManagerServiceJsp(object):
         }
 
         method = 'get'
-        url = '{0}/crx/packmgr/service.jsp'.format(self.url, package_name)
+        url = '{0}/crx/packmgr/service.jsp'.format(self.url)
         params = dict(params.items() + kwargs.items())
         _handlers = dict(self.handlers.items() + _handlers.items())
         opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)
-
 
     def is_package_installed(self, group_name, package_name, package_version, **kwargs):
 
@@ -95,12 +91,12 @@ class PackageManagerServiceJsp(object):
 
                 def match(package):
                     # when version value is not specified, the version xml element will be empty <version></version>
-                    if package['version'] == None:
+                    if not package['version']:
                         package['version'] = ''
                     return (package['group'] == group_name and
-                        package['name'] == package_name and
-                        package['version'] == package_version and
-                        package['lastUnpackedBy'] != 'null')
+                            package['name'] == package_name and
+                            package['version'] == package_version and
+                            package['lastUnpackedBy'] != 'null')
 
                 is_installed = False
                 packages = data['crx']['response']['data']['packages']
@@ -112,7 +108,7 @@ class PackageManagerServiceJsp(object):
                     elif match(packages['package']):
                         is_installed = True
 
-                if is_installed == True:
+                if is_installed:
                     message = 'Package {0}/{1}-{2} is installed'.format(group_name, package_name, package_version)
                     result.success(message)
                 else:
@@ -130,7 +126,7 @@ class PackageManagerServiceJsp(object):
         }
 
         method = 'get'
-        url = '{0}/crx/packmgr/service.jsp'.format(self.url, package_name)
+        url = '{0}/crx/packmgr/service.jsp'.format(self.url)
         params = dict(params.items() + kwargs.items())
         _handlers = dict(self.handlers.items() + _handlers.items())
         opts = self.kwargs

@@ -1,10 +1,11 @@
-from . import bagofrequests as bag
-from bs4 import BeautifulSoup
-from . import handlers
 import json
-import pycurl
-from . import result as res
 import urllib
+import pycurl
+from bs4 import BeautifulSoup
+from . import bagofrequests as bag
+from . import handlers
+from . import result as res
+
 
 class PackageManagerServiceHtml(object):
     """Package Manager service using /crx/packmgr/service/script.html AEM endpoint.
@@ -22,18 +23,17 @@ class PackageManagerServiceHtml(object):
     package-related services.
     """
 
-
     def __init__(self, url, **kwargs):
 
         def _handler_ok(response, **kwargs):
 
-            soup = BeautifulSoup(response['body'], 'html.parser' )
+            soup = BeautifulSoup(response['body'], 'html.parser')
             message_elem = soup.find('textarea')
             data = json.loads(message_elem.contents[0])
             message = data['msg']
 
             result = res.PyAemResult(response)
-            if data['success'] == True:
+            if data['success']:
                 result.success(message)
             else:
                 result.failure(message)
@@ -57,7 +57,6 @@ class PackageManagerServiceHtml(object):
             401: handlers.auth_fail
         }
 
-
     def upload_package(self, group_name, package_name, package_version, file_path, **kwargs):
 
         file_name = '{0}-{1}.zip'.format(package_name, package_version)
@@ -78,13 +77,11 @@ class PackageManagerServiceHtml(object):
 
         return bag.upload_file(url, params, _handlers, **opts)
 
-
     def install_package(self, group_name, package_name, package_version, **kwargs):
 
         # AEM might respond with '201 Created' after installing a package
         # this is actually a failure since the package status is uploaded but not installed
         def _handler_failure(response, **kwargs):
-
             message = 'Installation failure, package status is uploaded but not installed'
             result = res.PyAemResult(response)
 
@@ -108,7 +105,6 @@ class PackageManagerServiceHtml(object):
         opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)
-
 
     def replicate_package(self, group_name, package_name, package_version, **kwargs):
 

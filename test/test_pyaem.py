@@ -1,6 +1,6 @@
+import unittest
 from mock import MagicMock
 import pyaem
-import unittest
 
 class TestPyAem(unittest.TestCase):
 

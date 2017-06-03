@@ -1,9 +1,9 @@
+import json
+import urllib
+import pycurl
 from . import bagofrequests as bag
 from . import handlers
-import json
-import pycurl
 from . import result as res
-import urllib
 
 class PackageManagerServiceJson(object):
 
@@ -16,7 +16,7 @@ class PackageManagerServiceJson(object):
             message = data['msg']
             result = res.PyAemResult(response)
 
-            if data['success'] == True:
+            if data['success']:
                 result.success(message)
             else:
                 result.failure(message)

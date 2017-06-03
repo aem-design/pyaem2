@@ -1,7 +1,7 @@
 import cStringIO
-from .handlers import unexpected as handle_unexpected
-import pycurl
 import urllib
+import pycurl
+from .handlers import unexpected as handle_unexpected
 
 def request(method, url, params, handlers, **kwargs):
     """Sends HTTP request to a specified URL.

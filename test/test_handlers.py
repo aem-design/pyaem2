@@ -1,5 +1,5 @@
-import pyaem
 import unittest
+import pyaem
 
 class TestHandlers(unittest.TestCase):
 

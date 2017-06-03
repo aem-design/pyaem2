@@ -1,7 +1,7 @@
+import unittest
 from mock import MagicMock
 import pyaem
 from pyaem import bagofrequests as bag
-import unittest
 from .util import HandlersMatcher
 
 class TestPackageManager(unittest.TestCase):

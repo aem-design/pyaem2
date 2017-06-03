@@ -1,6 +1,6 @@
+import pycurl
 from . import bagofrequests as bag
 from . import handlers
-import pycurl
 from . import result as res
 
 class WebConsole(object):

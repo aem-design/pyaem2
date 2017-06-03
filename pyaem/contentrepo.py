@@ -1,14 +1,13 @@
-from . import bagofrequests as bag
-from bs4 import BeautifulSoup
-from . import handlers
 import re
+from bs4 import BeautifulSoup
+from . import bagofrequests as bag
+from . import handlers
 from . import result as res
 
 HEX_MASSAGE = [(re.compile('&#x([^;]+);'), lambda m: '&#%d;' % int(m.group(1), 16))]
 
+
 class ContentRepo(object):
-
-
     def __init__(self, url, **kwargs):
 
         self.url = url
@@ -18,18 +17,15 @@ class ContentRepo(object):
             405: handlers.method_not_allowed
         }
 
-
     def create_path(self, path, **kwargs):
 
         def _handler_exist(response, **kwargs):
-
             message = 'Path {0} already exists'.format(path)
             result = res.PyAemResult(response)
             result.warning(message)
             return result
 
         def _handler_ok(response, **kwargs):
-
             message = 'Path {0} created'.format(path)
             result = res.PyAemResult(response)
             result.success(message)
@@ -48,18 +44,15 @@ class ContentRepo(object):
 
         return bag.request(method, url, params, _handlers, **opts)
 
-
     def delete_path(self, path, **kwargs):
 
         def _handler_ok(response, **kwargs):
-
             message = 'Path {0} deleted'.format(path)
             result = res.PyAemResult(response)
             result.success(message)
             return result
 
         def _handler_not_found(response, **kwargs):
-
             message = 'Path {0} not found'.format(path)
             result = res.PyAemResult(response)
             result.warning(message)
@@ -78,7 +71,6 @@ class ContentRepo(object):
 
         return bag.request(method, url, params, _handlers, **opts)
 
-
     def activate_path(self, path, **kwargs):
 
         def _handler_ok(response, **kwargs):
@@ -87,7 +79,7 @@ class ContentRepo(object):
             errors = soup.find_all(class_="error")
 
             result = res.PyAemResult(response)
-            if len(errors) == 0:
+            if not errors:
                 message = 'Path {0} activated'.format(path)
                 result.success(message)
             else:
@@ -112,12 +104,10 @@ class ContentRepo(object):
 
         return bag.request(method, url, params, _handlers, **opts)
 
-
     def does_user_exist(self, user_path, user_name, **kwargs):
 
         node_path = '{0}/{1}'.format(user_path.rstrip('/'), user_name.lstrip('/'))
         return self._does_node_exist(node_path, 'User', **kwargs)
-
 
     def create_user(self, user_path, user_name, password, **kwargs):
 
@@ -136,7 +126,7 @@ class ContentRepo(object):
                 message = message_elem.contents[0]
 
             exist_message = ('org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
-                'User or Group for \'{0}\' already exists'.format(user_name))
+                             'User or Group for \'{0}\' already exists'.format(user_name))
 
             result = res.PyAemResult(response)
             if message == exist_message:
@@ -165,11 +155,9 @@ class ContentRepo(object):
 
         return bag.request(method, url, params, _handlers, **opts)
 
-
     def add_user_to_group(self, user_name, group_path, group_name, **kwargs):
 
         def _handler_ok(response, **kwargs):
-
             message = 'User {0} added to group {1}/{2}'.format(user_name, group_path.rstrip('/'), group_name)
             result = res.PyAemResult(response)
             result.success(message)
@@ -191,12 +179,10 @@ class ContentRepo(object):
 
         return bag.request(method, url, params, _handlers, **opts)
 
-
     def does_group_exist(self, group_path, group_name, **kwargs):
 
         node_path = '{0}/{1}'.format(group_path.rstrip('/'), group_name.lstrip('/'))
         return self._does_node_exist(node_path, 'Group', **kwargs)
-
 
     def create_group(self, group_path, group_name, **kwargs):
 
@@ -215,7 +201,7 @@ class ContentRepo(object):
                 message = message_elem.contents[0]
 
             exist_message = ('org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
-                'User or Group for \'{0}\' already exists'.format(group_name))
+                             'User or Group for \'{0}\' already exists'.format(group_name))
 
             result = res.PyAemResult(response)
             if message == exist_message:
@@ -244,11 +230,9 @@ class ContentRepo(object):
 
         return bag.request(method, url, params, _handlers, **opts)
 
-
     def change_password(self, user_path, user_name, old_password, new_password, **kwargs):
 
         def _handler_ok(response, **kwargs):
-
             message = 'User {0}/{1} password changed'.format(user_path.rstrip('/'), user_name)
             result = res.PyAemResult(response)
             result.success(message)
@@ -271,18 +255,15 @@ class ContentRepo(object):
 
         return bag.request(method, url, params, _handlers, **opts)
 
-
     def set_permission(self, user_or_group_name, path, permissions, **kwargs):
 
         def _handler_ok(response, **kwargs):
-
             message = 'Permissions {0} set on path {1} for user/group {2}'.format(permissions, path, user_or_group_name)
             result = res.PyAemResult(response)
             result.success(message)
             return result
 
         def _handler_not_found(response, **kwargs):
-
             soup = BeautifulSoup(response['body'], 'html.parser')
             message_elem = soup.find('div', {'id': 'Message'})
             message = message_elem.contents[0]
@@ -308,7 +289,6 @@ class ContentRepo(object):
         opts = self.kwargs
 
         return bag.request(method, url, params, _handlers, **opts)
-
 
     def create_agent(self, agent_name, agent_type, dest_username, dest_password, dest_url, run_mode, **kwargs):
 
@@ -368,18 +348,15 @@ class ContentRepo(object):
 
         return bag.request(method, url, params, _handlers, **opts)
 
-
     def delete_agent(self, agent_name, run_mode, **kwargs):
 
         def _handler_ok(response, **kwargs):
-
             message = '{0} agent {1} deleted'.format(run_mode, agent_name)
             result = res.PyAemResult(response)
             result.success(message)
             return result
 
         def _handler_not_found(response, **kwargs):
-
             message = '{0} agent {1} not found'.format(run_mode, agent_name)
             result = res.PyAemResult(response)
             result.warning(message)
@@ -401,11 +378,9 @@ class ContentRepo(object):
 
         return bag.request(method, url, params, _handlers, **opts)
 
-
     def set_property(self, path, property_name, property_value, **kwargs):
 
         def _handler_ok(response, **kwargs):
-
             message = 'Set property {0}={1} on path {2}'.format(property_name, property_value, path)
             result = res.PyAemResult(response)
             result.success(message)
@@ -428,28 +403,23 @@ class ContentRepo(object):
 
         return bag.request(method, url, params, _handlers, **opts)
 
-
     def enable_workflow(self, workflow, glob, edit, node_type, run_mode, **kwargs):
 
         return self._set_workflow(workflow, glob, edit, True, node_type, run_mode, **kwargs)
-
 
     def disable_workflow(self, workflow, glob, edit, node_type, run_mode, **kwargs):
 
         return self._set_workflow(workflow, glob, edit, False, node_type, run_mode, **kwargs)
 
-
     def _does_node_exist(self, node_path, node_desc, **kwargs):
 
         def _handler_ok(response, **kwargs):
-
             message = '{0} {1} exists'.format(node_desc, node_path)
             result = res.PyAemResult(response)
             result.success(message)
             return result
 
         def _handler_not_found(response, **kwargs):
-
             message = '{0} {1} does not exist'.format(node_desc, node_path)
             result = res.PyAemResult(response)
             result.failure(message)
@@ -468,12 +438,10 @@ class ContentRepo(object):
 
         return bag.request(method, url, params, _handlers, **opts)
 
-
     def _set_workflow(self, workflow, glob, edit, is_enabled, node_type, run_mode, **kwargs):
 
         def _handler_ok(response, **kwargs):
-
-            message = 'Workflow {0} {1}'.format(workflow, 'enabled' if is_enabled == True else 'disabled')
+            message = 'Workflow {0} {1}'.format(workflow, 'enabled' if is_enabled else 'disabled')
             result = res.PyAemResult(response)
             result.success(message)
             return result
@@ -484,7 +452,7 @@ class ContentRepo(object):
             'condition': kwargs.get('condition', ''),
             'description': kwargs.get('description', ''),
             'edit': edit,
-            'enabled': 'true' if is_enabled == True else 'false',
+            'enabled': 'true' if is_enabled else 'false',
             'eventType': '16',
             'excludeList': kwargs.get('excludeList', ''),
             'glob': glob,
@@ -505,11 +473,9 @@ class ContentRepo(object):
 
         return bag.request(method, url, params, _handlers, **opts)
 
-
     def get_cluster_list(self, **kwargs):
 
         def _handler_ok(response, **kwargs):
-
             message = 'Cluster list retrieved'
             result = res.PyAemResult(response)
             result.success(message)

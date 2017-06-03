@@ -58,7 +58,7 @@ class PyAemResult(object):
         }
 
         debug = ''
-        for key in data.keys():
-            debug += '{0}: {1}\n'.format(key, data[key])
+        for key, value in data:
+            debug += '{0}: {1}\n'.format(key, value)
 
         return debug

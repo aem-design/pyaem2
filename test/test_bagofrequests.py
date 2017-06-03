@@ -1,18 +1,16 @@
+import unittest
 from mock import MagicMock
 import pyaem
 from pyaem import result as res
 import pycurl
-import unittest
+
 
 class TestBagOfRequests(unittest.TestCase):
-
-
     def _handler_dummy(self, response, **kwargs):
 
         result = res.PyAemResult(response)
         result.success('some dummy message')
         return result
-
 
     def test_request_post(self):
 
@@ -49,7 +47,6 @@ class TestBagOfRequests(unittest.TestCase):
         self.assertEqual(result.response['request']['url'], 'http://localhost:4502/.cqactions.html')
         self.assertEqual(result.response['request']['params'], params)
 
-
     def test_request_get(self):
 
         curl = pycurl.Curl()
@@ -81,9 +78,8 @@ class TestBagOfRequests(unittest.TestCase):
         self.assertEqual(result.message, 'some dummy message')
         self.assertEqual(result.response['request']['method'], 'get')
         self.assertEqual(result.response['request']['url'],
-            'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2a&foo2=bar2b')
+                         'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2a&foo2=bar2b')
         self.assertEqual(result.response['request']['params'], params)
-
 
     def test_request_delete(self):
 
@@ -118,7 +114,6 @@ class TestBagOfRequests(unittest.TestCase):
         self.assertEqual(result.response['request']['method'], 'delete')
         self.assertEqual(result.response['request']['url'], 'http://localhost:4502/.cqactions.html')
         self.assertEqual(result.response['request']['params'], params)
-
 
     def test_request_head(self):
 
@@ -155,7 +150,6 @@ class TestBagOfRequests(unittest.TestCase):
         self.assertEqual(result.response['request']['url'], 'http://localhost:4502/.cqactions.html')
         self.assertEqual(result.response['request']['params'], params)
 
-
     def test_request_unexpected_resp(self):
 
         curl = pycurl.Curl()
@@ -188,7 +182,6 @@ class TestBagOfRequests(unittest.TestCase):
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
         curl.close.assert_called_once_with()
 
-
     def test_download_file(self):
 
         curl = pycurl.Curl()
@@ -219,7 +212,7 @@ class TestBagOfRequests(unittest.TestCase):
         self.assertEqual(result.message, 'some dummy message')
         self.assertEqual(result.response['request']['method'], 'get')
         self.assertEqual(result.response['request']['url'],
-            'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2a&foo2=bar2b')
+                         'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2a&foo2=bar2b')
         self.assertEqual(result.response['request']['params'], params)
 
     def test_download_file_unexpected(self):
@@ -241,8 +234,8 @@ class TestBagOfRequests(unittest.TestCase):
         except pyaem.PyAemException as exception:
             self.assertEqual(exception.code, 500)
             self.assertEqual(exception.message,
-                'Unexpected response\nhttp code: 500\nbody:\n' +
-                'Download http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2 to /tmp/somefile')
+                             'Unexpected response\nhttp code: 500\nbody:\n' +
+                             'Download http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2 to /tmp/somefile')
 
         curl.setopt.assert_any_call(pycurl.URL, 'http://localhost:4502/.cqactions.html?foo1=bar1&foo2=bar2')
         curl.setopt.assert_any_call(pycurl.FOLLOWLOCATION, 1)
@@ -254,7 +247,6 @@ class TestBagOfRequests(unittest.TestCase):
         curl.perform.assert_called_once_with()
         curl.getinfo.assert_called_once_with(pycurl.HTTP_CODE)
         curl.close.assert_called_once_with()
-
 
     def test_upload_file(self):
 
@@ -289,7 +281,6 @@ class TestBagOfRequests(unittest.TestCase):
         self.assertEqual(result.response['request']['method'], 'post')
         self.assertEqual(result.response['request']['url'], 'http://localhost:4502/.cqactions.html')
         self.assertEqual(result.response['request']['params'], params)
-
 
     def test_upload_file_unexpected(self):
 

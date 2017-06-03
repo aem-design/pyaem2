@@ -112,8 +112,10 @@ class WebConsole(object):
         }
 
         url = '{0}/system/console/bundles'.format(self.url)
-        params = dict(list(params.items()) + list(kwargs.items()))
+        new_dict = params.items().copy()
+        new_dict.update(kwargs.items())
+        # params = dict(list(params.items()) + list(kwargs.items()))
         _handlers = dict(self.handlers.items() + _handlers.items())
         opts = dict(self.kwargs.items() + opts.items())
 
-        return bag.upload_file(url, params, _handlers, **opts)
+        return bag.upload_file(url, new_dict, _handlers, **opts)

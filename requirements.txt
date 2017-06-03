@@ -6,3 +6,6 @@ pycurl
 
 #python -c "import xmltodict; print xmltodict.__version__"
 xmltodict
+
+#python -c "import six; print six.__version__"
+six

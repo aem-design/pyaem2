@@ -1,3 +1,4 @@
+six
 beautifulsoup4
 pycurl
 xmltodict

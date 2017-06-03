@@ -22,4 +22,4 @@ max-args=7
 ignore=test
 
 [TYPECHECK]
-ignored-modules=pycurl
+ignored-modules=pycurl,six

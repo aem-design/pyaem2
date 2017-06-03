@@ -112,9 +112,9 @@ class WebConsole(object):
         }
 
         url = '{0}/system/console/bundles'.format(self.url)
-        new_dict = params.items().copy()
-        new_dict.update(kwargs.items())
-        # params = dict(list(params.items()) + list(kwargs.items()))
+        new_dict = dict(params.items()).copy()
+        new_dict.update(dict(kwargs.items()))
+        # params = dict(params.items() + kwargs.items())
         _handlers = dict(self.handlers.items() + _handlers.items())
         opts = dict(self.kwargs.items() + opts.items())
 

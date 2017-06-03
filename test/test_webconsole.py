@@ -30,9 +30,9 @@ class TestWebConsole(unittest.TestCase):
         response = None
         result = handler(response, bundle_name='some_bundle_name')
 
-        self.assertEquals(result.is_failure(), True)
-        self.assertEquals(result.message, 'Bundle some_bundle_name not found')
-        self.assertEquals(result.response, response)
+        self.assertEqual(result.is_failure(), True)
+        self.assertEqual(result.message, 'Bundle some_bundle_name not found')
+        self.assertEqual(result.response, response)
 
 
     def test_start_bundle(self):
@@ -43,15 +43,15 @@ class TestWebConsole(unittest.TestCase):
 
                 response = None
                 result = handlers[200](response, bundle_name='mybundle')
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Bundle mybundle started')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Bundle mybundle started')
+                _self.assertEqual(result.response, response)
 
                 response = None
                 result = handlers[201](response, bundle_name='mybundle')
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Bundle mybundle started')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Bundle mybundle started')
+                _self.assertEqual(result.response, response)
 
                 return super(StartBundleHandlerMatcher, self).__eq__(handlers)
 
@@ -74,15 +74,15 @@ class TestWebConsole(unittest.TestCase):
 
                 response = None
                 result = handlers[200](response, bundle_name='mybundle')
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Bundle mybundle stopped')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Bundle mybundle stopped')
+                _self.assertEqual(result.response, response)
 
                 response = None
                 result = handlers[201](response, bundle_name='mybundle')
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Bundle mybundle stopped')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Bundle mybundle stopped')
+                _self.assertEqual(result.response, response)
 
                 return super(StopBundleHandlerMatcher, self).__eq__(handlers)
 
@@ -105,15 +105,15 @@ class TestWebConsole(unittest.TestCase):
 
                 response = None
                 result = handlers[200](response, bundle_name='mybundle')
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Bundle mybundle installed')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Bundle mybundle installed')
+                _self.assertEqual(result.response, response)
 
                 response = None
                 result = handlers[201](response, bundle_name='mybundle')
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Bundle mybundle installed')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Bundle mybundle installed')
+                _self.assertEqual(result.response, response)
 
                 return super(InstallBundleHandlerMatcher, self).__eq__(handlers)
 

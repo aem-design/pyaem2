@@ -25,15 +25,15 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
                 response = None
                 result = handlers[200](response, path='/content/somepath/')
-                _self.assertEquals(result.is_warning(), True)
-                _self.assertEquals(result.message, 'Path /content/somepath/ already exists')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_warning(), True)
+                _self.assertEqual(result.message, 'Path /content/somepath/ already exists')
+                _self.assertEqual(result.response, response)
 
                 response = None
                 result = handlers[201](response, path='/content/somepath/')
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Path /content/somepath/ created')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Path /content/somepath/ created')
+                _self.assertEqual(result.response, response)
 
                 return super(CreatePathHandlerMatcher, self).__eq__(handlers)
 
@@ -52,15 +52,15 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
                 response = None
                 result = handlers[204](response, path='/content/somepath/')
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Path /content/somepath/ deleted')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Path /content/somepath/ deleted')
+                _self.assertEqual(result.response, response)
 
                 response = None
                 result = handlers[404](response, path='/content/somepath/')
-                _self.assertEquals(result.is_warning(), True)
-                _self.assertEquals(result.message, 'Path /content/somepath/ not found')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_warning(), True)
+                _self.assertEqual(result.message, 'Path /content/somepath/ not found')
+                _self.assertEqual(result.response, response)
 
                 return super(DeletePathHandlerMatcher, self).__eq__(handlers)
 
@@ -79,15 +79,15 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
                 response = {'body': ''}
                 result = handlers[200](response, path='/content/somepath/')
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Path /content/somepath/ activated')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Path /content/somepath/ activated')
+                _self.assertEqual(result.response, response)
 
                 response = {'body': '<div class="error">some error</div>'}
                 result = handlers[200](response, path='/content/somepath/')
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message, 'some error')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message, 'some error')
+                _self.assertEqual(result.response, response)
 
                 return super(ActivatePathHandlerMatcher, self).__eq__(handlers)
 
@@ -108,15 +108,15 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
                 response = None
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'User /home/users/someuser exists')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'User /home/users/someuser exists')
+                _self.assertEqual(result.response, response)
 
                 response = None
                 result = handlers[404](response)
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message, 'User /home/users/someuser does not exist')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message, 'User /home/users/someuser does not exist')
+                _self.assertEqual(result.response, response)
 
                 return super(DoesUserExistHandlerMatcher, self).__eq__(handlers)
 
@@ -135,23 +135,23 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
                 response = None
                 result = handlers[201](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'User /home/users/someuser created')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'User /home/users/someuser created')
+                _self.assertEqual(result.response, response)
 
                 response = {'body':
                                 '<td><div id="Message">org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
                                 'User or Group for \'someuser\' already exists</div></td>'}
                 result = handlers[500](response)
-                _self.assertEquals(result.is_warning(), True)
-                _self.assertEquals(result.message, 'User /home/users/someuser already exists')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_warning(), True)
+                _self.assertEqual(result.message, 'User /home/users/someuser already exists')
+                _self.assertEqual(result.response, response)
 
                 response = {'body': '<td><div id="Message">some other error message</div></td>'}
                 result = handlers[500](response)
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message, 'some other error message')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message, 'some other error message')
+                _self.assertEqual(result.response, response)
 
                 return super(CreateUserHandlerMatcher, self).__eq__(handlers)
 
@@ -174,9 +174,9 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
                 response = None
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'User someuser added to group /home/groups/somegroup')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'User someuser added to group /home/groups/somegroup')
+                _self.assertEqual(result.response, response)
 
                 return super(AddUserToGroupHandlerMatcher, self).__eq__(handlers)
 
@@ -196,15 +196,15 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
                 response = None
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Group /home/groups/somegroup exists')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Group /home/groups/somegroup exists')
+                _self.assertEqual(result.response, response)
 
                 response = None
                 result = handlers[404](response)
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message, 'Group /home/groups/somegroup does not exist')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message, 'Group /home/groups/somegroup does not exist')
+                _self.assertEqual(result.response, response)
 
                 return super(DoesGroupExistHandlerMatcher, self).__eq__(handlers)
 
@@ -223,23 +223,23 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
                 response = None
                 result = handlers[201](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Group /home/groups/somegroup created')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Group /home/groups/somegroup created')
+                _self.assertEqual(result.response, response)
 
                 response = {'body':
                                 '<td><div id="Message">org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
                                 'User or Group for \'somegroup\' already exists</div></td>'}
                 result = handlers[500](response)
-                _self.assertEquals(result.is_warning(), True)
-                _self.assertEquals(result.message, 'Group /home/groups/somegroup already exists')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_warning(), True)
+                _self.assertEqual(result.message, 'Group /home/groups/somegroup already exists')
+                _self.assertEqual(result.response, response)
 
                 response = {'body': '<td><div id="Message">some other error message</div></td>'}
                 result = handlers[500](response)
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message, 'some other error message')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message, 'some other error message')
+                _self.assertEqual(result.response, response)
 
                 return super(CreateGroupHandlerMatcher, self).__eq__(handlers)
 
@@ -262,9 +262,9 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
                 response = None
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'User /home/users/someuser password changed')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'User /home/users/someuser password changed')
+                _self.assertEqual(result.response, response)
 
                 return super(ChangePasswordHandlerMatcher, self).__eq__(handlers)
 
@@ -285,16 +285,16 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
                 response = None
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message,
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message,
                                    'Permissions read:true,modify:true set on path somepath for user/group somegroup')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.response, response)
 
                 response = {'body': '<td><div id="Message">No such node /home/groups/somegroup</div></td>'}
                 result = handlers[404](response)
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message, 'No such node /home/groups/somegroup')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message, 'No such node /home/groups/somegroup')
+                _self.assertEqual(result.response, response)
 
                 return super(SetPermissionHandlerMatcher, self).__eq__(handlers)
 
@@ -315,15 +315,15 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
                 response = None
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'publish agent someagent updated')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'publish agent someagent updated')
+                _self.assertEqual(result.response, response)
 
                 response = None
                 result = handlers[201](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'publish agent someagent created')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'publish agent someagent created')
+                _self.assertEqual(result.response, response)
 
                 return super(SetAgentHandlerMatcher, self).__eq__(handlers)
 
@@ -357,15 +357,15 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
                 response = None
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'author agent someagent updated')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'author agent someagent updated')
+                _self.assertEqual(result.response, response)
 
                 response = None
                 result = handlers[201](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'author agent someagent created')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'author agent someagent created')
+                _self.assertEqual(result.response, response)
 
                 return super(SetAgentHandlerMatcher, self).__eq__(handlers)
 
@@ -393,15 +393,15 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
                 response = None
                 result = handlers[204](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'author agent someagent deleted')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'author agent someagent deleted')
+                _self.assertEqual(result.response, response)
 
                 response = None
                 result = handlers[404](response)
-                _self.assertEquals(result.is_warning(), True)
-                _self.assertEquals(result.message, 'author agent someagent not found')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_warning(), True)
+                _self.assertEqual(result.message, 'author agent someagent not found')
+                _self.assertEqual(result.response, response)
 
                 return super(DeleteAgentHandlerMatcher, self).__eq__(handlers)
 
@@ -420,15 +420,15 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
                 response = None
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Set property sling:target=/welcome.html on path /content/mysite')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Set property sling:target=/welcome.html on path /content/mysite')
+                _self.assertEqual(result.response, response)
 
                 response = None
                 result = handlers[201](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Set property sling:target=/welcome.html on path /content/mysite')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Set property sling:target=/welcome.html on path /content/mysite')
+                _self.assertEqual(result.response, response)
 
                 return super(SetPropertyHandlerMatcher, self).__eq__(handlers)
 
@@ -447,10 +447,10 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
                 response = None
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message,
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message,
                                    'Workflow /etc/workflow/models/dam/update_asset/jcr:content/model enabled')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.response, response)
 
                 return super(EnableWorkflowHandlerMatcher, self).__eq__(handlers)
 
@@ -489,10 +489,10 @@ class TestContentRepo(unittest.TestCase):
             def __eq__(self, handlers):
                 response = None
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message,
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message,
                                    'Workflow /etc/workflow/models/dam/update_asset/jcr:content/model disabled')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.response, response)
 
                 return super(DisableWorkflowHandlerMatcher, self).__eq__(handlers)
 
@@ -543,21 +543,21 @@ class TestContentRepo(unittest.TestCase):
 
                 response = {'body': json.dumps(cluster_list)}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Cluster list retrieved')
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Cluster list retrieved')
 
                 data = json.loads(result.response['body'])
-                _self.assertEquals(data['masterId'], 'node-id-2')
-                _self.assertEquals(data['nodeId'], 'node-id-1')
-                _self.assertEquals(len(data['nodes']), 2)
-                _self.assertEquals(data['nodes'][0]['OS'], 'Linux')
-                _self.assertEquals(data['nodes'][0]['hostname'], 'host-1.com')
-                _self.assertEquals(data['nodes'][0]['id'], 'node-id-1')
-                _self.assertEquals(data['nodes'][1]['OS'], 'Linux')
-                _self.assertEquals(data['nodes'][1]['hostname'], 'host-2.com')
-                _self.assertEquals(data['nodes'][1]['id'], 'node-id-2')
+                _self.assertEqual(data['masterId'], 'node-id-2')
+                _self.assertEqual(data['nodeId'], 'node-id-1')
+                _self.assertEqual(len(data['nodes']), 2)
+                _self.assertEqual(data['nodes'][0]['OS'], 'Linux')
+                _self.assertEqual(data['nodes'][0]['hostname'], 'host-1.com')
+                _self.assertEqual(data['nodes'][0]['id'], 'node-id-1')
+                _self.assertEqual(data['nodes'][1]['OS'], 'Linux')
+                _self.assertEqual(data['nodes'][1]['hostname'], 'host-2.com')
+                _self.assertEqual(data['nodes'][1]['id'], 'node-id-2')
 
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.response, response)
 
                 return super(GetClusterListHandlerMatcher, self).__eq__(handlers)
 

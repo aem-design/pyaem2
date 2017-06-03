@@ -26,27 +26,27 @@ class TestPackageManagerServiceHtml(unittest.TestCase):
         response = {'body': '<textarea>{ "success": true, "msg": "some message" }</textarea>'}
         result = handler(response)
 
-        self.assertEquals(result.is_success(), True)
-        self.assertEquals(result.message, 'some message')
-        self.assertEquals(result.response, response)
+        self.assertEqual(result.is_success(), True)
+        self.assertEqual(result.message, 'some message')
+        self.assertEqual(result.response, response)
 
     def test_init_ok_failure(self):
         handler = self.package_manager_sync.handlers[200]
         response = {'body': '<textarea>{ "success": false, "msg": "some message" }</textarea>'}
         result = handler(response)
 
-        self.assertEquals(result.is_failure(), True)
-        self.assertEquals(result.message, 'some message')
-        self.assertEquals(result.response, response)
+        self.assertEqual(result.is_failure(), True)
+        self.assertEqual(result.message, 'some message')
+        self.assertEqual(result.response, response)
 
     def test_init_created(self):
         handler = self.package_manager_sync.handlers[201]
         response = {'body': '<td><div id="Message">some message</div></td>'}
         result = handler(response)
 
-        self.assertEquals(result.is_success(), True)
-        self.assertEquals(result.message, 'some message')
-        self.assertEquals(result.response, response)
+        self.assertEqual(result.is_success(), True)
+        self.assertEqual(result.message, 'some message')
+        self.assertEqual(result.response, response)
 
     def test_upload_package(self):
         self.package_manager_sync.upload_package('mygroup', 'mypackage', '1.2.3', '/tmp/somepath', foo='bar')
@@ -66,16 +66,16 @@ class TestPackageManagerServiceHtml(unittest.TestCase):
             def __eq__(self, handlers):
                 response = {'body': '<textarea>{ "success": true, "msg": "some message" }</textarea>'}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'some message')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'some message')
+                _self.assertEqual(result.response, response)
 
                 response = {'body': '<textarea>{ "success": true, "msg": "some message" }</textarea>'}
                 result = handlers[201](response)
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message,
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message,
                                    'Installation failure, package status is uploaded but not installed')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.response, response)
 
                 return super(InstallPackageHandlerMatcher, self).__eq__(handlers)
 

@@ -31,9 +31,9 @@ class TestPackageManager(unittest.TestCase):
             def __eq__(self, handlers):
 
                 result = handlers[200](None)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Package updated')
-                _self.assertEquals(result.response, None)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Package updated')
+                _self.assertEqual(result.response, None)
 
                 return super(UpdatePackageHandlerMatcher, self).__eq__(handlers)
 
@@ -57,9 +57,9 @@ class TestPackageManager(unittest.TestCase):
             def __eq__(self, handlers):
 
                 result = handlers[200](None)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Package updated')
-                _self.assertEquals(result.response, None)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Package updated')
+                _self.assertEqual(result.response, None)
 
                 return super(UpdatePackageHandlerMatcher, self).__eq__(handlers)
 
@@ -84,9 +84,9 @@ class TestPackageManager(unittest.TestCase):
             def __eq__(self, handlers):
 
                 result = handlers[200](None, file='/tmp/somepath/mypackage-1.2.3.zip')
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, '/tmp/somepath/mypackage-1.2.3.zip downloaded')
-                _self.assertEquals(result.response, None)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, '/tmp/somepath/mypackage-1.2.3.zip downloaded')
+                _self.assertEqual(result.response, None)
 
                 return super(DownloadPackageHandlerMatcher, self).__eq__(handlers)
 

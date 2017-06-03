@@ -29,15 +29,15 @@ class TestSling(unittest.TestCase):
 
                 response = None
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Login is valid')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Login is valid')
+                _self.assertEqual(result.response, response)
 
                 response = None
                 result = handlers[401](response)
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message, 'Login is invalid')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message, 'Login is invalid')
+                _self.assertEqual(result.response, response)
 
                 return super(IsValidLoginHandlerMatcher, self).__eq__(handlers)
 

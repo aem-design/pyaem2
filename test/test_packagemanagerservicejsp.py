@@ -27,10 +27,10 @@ class TestPackageManagerServiceJsp(unittest.TestCase):
                 # non-ok status
                 response = {'body': '<crx><response><status code="500">notok</status></response></crx>'}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message,
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message,
                                    'Unable to retrieve package list. Command status code 500 and status value notok')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.response, response)
 
                 # two packages with one matching
                 response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
@@ -38,35 +38,35 @@ class TestPackageManagerServiceJsp(unittest.TestCase):
                                     '<package><group>mygroup</group><name>mypackage</name><version>1.2.3</version></package>' +
                                     '</packages></data></response></crx>'}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Package mygroup/mypackage-1.2.3 is uploaded')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Package mygroup/mypackage-1.2.3 is uploaded')
+                _self.assertEqual(result.response, response)
 
                 # one non-matching package
                 response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
                                     '<package><group>yourgroup</group><name>yourpackage</name><version>4.5.6</version></package>' +
                                     '</packages></data></response></crx>'}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message, 'Package mygroup/mypackage-1.2.3 is not uploaded')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message, 'Package mygroup/mypackage-1.2.3 is not uploaded')
+                _self.assertEqual(result.response, response)
 
                 # one matching package
                 response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
                                     '<package><group>mygroup</group><name>mypackage</name><version>1.2.3</version></package>' +
                                     '</packages></data></response></crx>'}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Package mygroup/mypackage-1.2.3 is uploaded')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Package mygroup/mypackage-1.2.3 is uploaded')
+                _self.assertEqual(result.response, response)
 
                 # no package
                 response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
                                     '</packages></data></response></crx>'}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message, 'Package mygroup/mypackage-1.2.3 is not uploaded')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message, 'Package mygroup/mypackage-1.2.3 is not uploaded')
+                _self.assertEqual(result.response, response)
 
                 return super(IsPackageUploadedHandlerMatcher, self).__eq__(handlers)
 
@@ -89,18 +89,18 @@ class TestPackageManagerServiceJsp(unittest.TestCase):
                                     '<package><group>mygroup</group><name>mypackage</name><version></version></package>' +
                                     '</packages></data></response></crx>'}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Package mygroup/mypackage- is uploaded')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Package mygroup/mypackage- is uploaded')
+                _self.assertEqual(result.response, response)
 
                 # one non matching package
                 response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
                                     '<package><group>mygroup</group><name>mypackage</name><version>1.2.3</version></package>' +
                                     '</packages></data></response></crx>'}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message, 'Package mygroup/mypackage- is not uploaded')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message, 'Package mygroup/mypackage- is not uploaded')
+                _self.assertEqual(result.response, response)
 
                 return super(IsPackageUploadedHandlerMatcher, self).__eq__(handlers)
 
@@ -121,10 +121,10 @@ class TestPackageManagerServiceJsp(unittest.TestCase):
                 # non-ok status
                 response = {'body': '<crx><response><status code="500">notok</status></response></crx>'}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message,
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message,
                                    'Unable to retrieve package list. Command status code 500 and status value notok')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.response, response)
 
                 # one matching package
                 response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
@@ -132,9 +132,9 @@ class TestPackageManagerServiceJsp(unittest.TestCase):
                                     '<lastUnpackedBy>admin</lastUnpackedBy></package>' +
                                     '</packages></data></response></crx>'}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Package mygroup/mypackage-1.2.3 is installed')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Package mygroup/mypackage-1.2.3 is installed')
+                _self.assertEqual(result.response, response)
 
                 # two packages with one matching
                 response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
@@ -144,9 +144,9 @@ class TestPackageManagerServiceJsp(unittest.TestCase):
                                     '<lastUnpackedBy>admin</lastUnpackedBy></package>' +
                                     '</packages></data></response></crx>'}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Package mygroup/mypackage-1.2.3 is installed')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Package mygroup/mypackage-1.2.3 is installed')
+                _self.assertEqual(result.response, response)
 
                 # two packages with none matching
                 response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
@@ -156,17 +156,17 @@ class TestPackageManagerServiceJsp(unittest.TestCase):
                                     '<lastUnpackedBy>null</lastUnpackedBy></package>' +
                                     '</packages></data></response></crx>'}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message, 'Package mygroup/mypackage-1.2.3 is not installed')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message, 'Package mygroup/mypackage-1.2.3 is not installed')
+                _self.assertEqual(result.response, response)
 
                 # no package
                 response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
                                     '</packages></data></response></crx>'}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message, 'Package mygroup/mypackage-1.2.3 is not installed')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message, 'Package mygroup/mypackage-1.2.3 is not installed')
+                _self.assertEqual(result.response, response)
 
                 return super(IsPackageInstalledHandlerMatcher, self).__eq__(handlers)
 
@@ -190,9 +190,9 @@ class TestPackageManagerServiceJsp(unittest.TestCase):
                                     '<lastUnpackedBy>admin</lastUnpackedBy></package>' +
                                     '</packages></data></response></crx>'}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'Package mygroup/mypackage- is installed')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'Package mygroup/mypackage- is installed')
+                _self.assertEqual(result.response, response)
 
                 # no matching package
                 response = {'body': '<crx><response><status code="200">ok</status><data><packages>' +
@@ -200,9 +200,9 @@ class TestPackageManagerServiceJsp(unittest.TestCase):
                                     '<lastUnpackedBy>admin</lastUnpackedBy></package>' +
                                     '</packages></data></response></crx>'}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message, 'Package mygroup/mypackage- is not installed')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message, 'Package mygroup/mypackage- is not installed')
+                _self.assertEqual(result.response, response)
 
                 return super(IsPackageInstalledHandlerMatcher, self).__eq__(handlers)
 

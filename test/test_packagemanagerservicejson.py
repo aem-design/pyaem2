@@ -26,18 +26,18 @@ class TestPackageManagerServiceJson(unittest.TestCase):
         response = {'body': '{ "success": true, "msg": "some message" }'}
         result = handler(response)
 
-        self.assertEquals(result.is_success(), True)
-        self.assertEquals(result.message, 'some message')
-        self.assertEquals(result.response, response)
+        self.assertEqual(result.is_success(), True)
+        self.assertEqual(result.message, 'some message')
+        self.assertEqual(result.response, response)
 
     def test_init_ok_failure(self):
         handler = self.package_manager.handlers[200]
         response = {'body': '{ "success": false, "msg": "some message" }'}
         result = handler(response)
 
-        self.assertEquals(result.is_failure(), True)
-        self.assertEquals(result.message, 'some message')
-        self.assertEquals(result.response, response)
+        self.assertEqual(result.is_failure(), True)
+        self.assertEqual(result.message, 'some message')
+        self.assertEqual(result.response, response)
 
     def test_create_package(self):
         self.package_manager.create_package('mygroup', 'mypackage', '1.2.3', foo='bar')
@@ -70,15 +70,15 @@ class TestPackageManagerServiceJson(unittest.TestCase):
             def __eq__(self, handlers):
                 response = {'body': '{"success": true, "msg": "some message"}'}
                 result = handlers[200](response, file='/tmp/somepath/mypackage-1.2.3.zip')
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'some message')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'some message')
+                _self.assertEqual(result.response, response)
 
                 response = {'body': '{"success": false, "msg": "some message"}'}
                 result = handlers[200](response, file='/tmp/somepath/mypackage-1.2.3.zip')
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message, 'some message')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message, 'some message')
+                _self.assertEqual(result.response, response)
 
                 return super(UploadPackageHandlerMatcher, self).__eq__(handlers)
 
@@ -99,17 +99,17 @@ class TestPackageManagerServiceJson(unittest.TestCase):
             def __eq__(self, handlers):
                 response = {'body': '{"success": true, "msg": "some message"}'}
                 result = handlers[200](response)
-                _self.assertEquals(result.is_success(), True)
-                _self.assertEquals(result.message, 'some message')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.is_success(), True)
+                _self.assertEqual(result.message, 'some message')
+                _self.assertEqual(result.response, response)
 
                 response = {'body': '{"success": false, "msg": "some message"}'}
                 result = handlers[201](response)
-                _self.assertEquals(result.is_failure(), True)
-                _self.assertEquals(result.message,
+                _self.assertEqual(result.is_failure(), True)
+                _self.assertEqual(result.message,
                                    'AEM message: some message - ' +
                                    'Installation failure, package status is uploaded but not installed')
-                _self.assertEquals(result.response, response)
+                _self.assertEqual(result.response, response)
 
                 return super(InstallPackageHandlerMatcher, self).__eq__(handlers)
 

@@ -1,6 +1,6 @@
 import json
-import urllib
 import pycurl
+from six.moves.urllib.parse import quote
 from . import bagofrequests as bag
 from . import handlers
 from . import result as res
@@ -110,7 +110,7 @@ class PackageManagerServiceJson(object):
 
         method = 'post'
         url = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(
-            self.url, group_name, urllib.quote(package_name), package_version)
+            self.url, group_name, quote(package_name), package_version)
         params = dict(params.items() + kwargs.items())
         _handlers = {
             201: _handler_failure

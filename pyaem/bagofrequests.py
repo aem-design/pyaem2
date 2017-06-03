@@ -1,5 +1,5 @@
-import urllib
 from io import StringIO
+from six.moves.urllib.parse import urlencode
 import pycurl
 from .handlers import unexpected as handle_unexpected
 
@@ -25,14 +25,14 @@ def request(method, url, params, handlers, **kwargs):
 
     if method == 'post':
         curl.setopt(pycurl.POST, 1)
-        curl.setopt(pycurl.POSTFIELDS, urllib.urlencode(params, True))
+        curl.setopt(pycurl.POSTFIELDS, urlencode(params, True))
     elif method == 'delete':
         curl.setopt(pycurl.CUSTOMREQUEST, method)
     elif method == 'head':
         curl.setopt(pycurl.HEADER, True)
         curl.setopt(pycurl.NOBODY, True)
     else:
-        url = '{0}?{1}'.format(url, urllib.urlencode(params, True))
+        url = '{0}?{1}'.format(url, urlencode(params, True))
 
     curl.setopt(pycurl.URL, url)
     curl.setopt(pycurl.FOLLOWLOCATION, 1)
@@ -77,7 +77,7 @@ def download_file(url, params, handlers, **kwargs):
     :raises: PyAemException
     """
     curl = pycurl.Curl()
-    url = '{0}?{1}'.format(url, urllib.urlencode(params, True))
+    url = '{0}?{1}'.format(url, urlencode(params, True))
     data = open(kwargs['file'], 'wb')
 
     curl.setopt(pycurl.URL, url)

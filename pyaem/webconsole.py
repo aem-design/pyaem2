@@ -48,13 +48,17 @@ class WebConsole(object):
 
         method = 'post'
         url = '{0}/system/console/bundles/{1}'.format(self.url, bundle_name)
-        new_dict = dict(params.items()).copy()
-        new_dict.update(dict(kwargs.items()))
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
         # params = dict(list(params.items()) + list(kwargs.items()))
-        _handlers = dict(self.handlers.items() + _handlers.items())
-        opts = dict(self.kwargs.items() + opts.items())
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
+        # _handlers = dict(self.handlers.items() + _handlers.items())
+        opts_all = dict(self.kwargs.items()).copy()
+        opts_all.update(dict(opts.items()))
+        # opts = dict(self.kwargs.items() + opts.items())
 
-        return bag.request(method, url, new_dict, _handlers, **opts)
+        return bag.request(method, url, params_all, handlers_all, **opts_all)
 
 
     def stop_bundle(self, bundle_name, **kwargs):
@@ -81,13 +85,17 @@ class WebConsole(object):
 
         method = 'post'
         url = '{0}/system/console/bundles/{1}'.format(self.url, bundle_name)
-        new_dict = dict(params.items()).copy()
-        new_dict.update(dict(kwargs.items()))
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
         # params = dict(list(params.items()) + list(kwargs.items()))
-        _handlers = dict(self.handlers.items() + _handlers.items())
-        opts = dict(self.kwargs.items() + opts.items())
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
+        # _handlers = dict(self.handlers.items() + _handlers.items())
+        opts_all = dict(self.kwargs.items()).copy()
+        opts_all.update(dict(opts.items()))
+        # opts = dict(self.kwargs.items() + opts.items())
 
-        return bag.request(method, url, new_dict, _handlers, **opts)
+        return bag.request(method, url, params_all, handlers_all, **opts_all)
 
 
     def install_bundle(self, bundle_name, bundle_version, file_path, **kwargs):
@@ -116,10 +124,14 @@ class WebConsole(object):
         }
 
         url = '{0}/system/console/bundles'.format(self.url)
-        new_dict = dict(params.items()).copy()
-        new_dict.update(dict(kwargs.items()))
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
         # params = dict(params.items() + kwargs.items())
-        _handlers = dict(self.handlers.items() + _handlers.items())
-        opts = dict(self.kwargs.items() + opts.items())
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
+        # _handlers = dict(self.handlers.items() + _handlers.items())
+        opts_all = dict(self.kwargs.items()).copy()
+        opts_all.update(dict(opts.items()))
+        # opts = dict(self.kwargs.items() + opts.items())
 
-        return bag.upload_file(url, new_dict, _handlers, **opts)
+        return bag.upload_file(url, params_all, handlers_all, **opts_all)

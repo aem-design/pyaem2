@@ -287,7 +287,7 @@ class TestContentRepo(unittest.TestCase):
                 result = handlers[200](response)
                 _self.assertEqual(result.is_success(), True)
                 _self.assertEqual(result.message,
-                                   'Permissions read:true,modify:true set on path somepath for user/group somegroup')
+                                  'Permissions read:true,modify:true set on path somepath for user/group somegroup')
                 _self.assertEqual(result.response, response)
 
                 response = {'body': '<td><div id="Message">No such node /home/groups/somegroup</div></td>'}
@@ -449,7 +449,7 @@ class TestContentRepo(unittest.TestCase):
                 result = handlers[200](response)
                 _self.assertEqual(result.is_success(), True)
                 _self.assertEqual(result.message,
-                                   'Workflow /etc/workflow/models/dam/update_asset/jcr:content/model enabled')
+                                  'Workflow /etc/workflow/models/dam/update_asset/jcr:content/model enabled')
                 _self.assertEqual(result.response, response)
 
                 return super(EnableWorkflowHandlerMatcher, self).__eq__(handlers)
@@ -491,7 +491,7 @@ class TestContentRepo(unittest.TestCase):
                 result = handlers[200](response)
                 _self.assertEqual(result.is_success(), True)
                 _self.assertEqual(result.message,
-                                   'Workflow /etc/workflow/models/dam/update_asset/jcr:content/model disabled')
+                                  'Workflow /etc/workflow/models/dam/update_asset/jcr:content/model disabled')
                 _self.assertEqual(result.response, response)
 
                 return super(DisableWorkflowHandlerMatcher, self).__eq__(handlers)

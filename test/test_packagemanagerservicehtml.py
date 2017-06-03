@@ -74,7 +74,7 @@ class TestPackageManagerServiceHtml(unittest.TestCase):
                 result = handlers[201](response)
                 _self.assertEqual(result.is_failure(), True)
                 _self.assertEqual(result.message,
-                                   'Installation failure, package status is uploaded but not installed')
+                                  'Installation failure, package status is uploaded but not installed')
                 _self.assertEqual(result.response, response)
 
                 return super(InstallPackageHandlerMatcher, self).__eq__(handlers)

@@ -29,7 +29,7 @@ class TestPackageManagerServiceJsp(unittest.TestCase):
                 result = handlers[200](response)
                 _self.assertEqual(result.is_failure(), True)
                 _self.assertEqual(result.message,
-                                   'Unable to retrieve package list. Command status code 500 and status value notok')
+                                  'Unable to retrieve package list. Command status code 500 and status value notok')
                 _self.assertEqual(result.response, response)
 
                 # two packages with one matching
@@ -123,7 +123,7 @@ class TestPackageManagerServiceJsp(unittest.TestCase):
                 result = handlers[200](response)
                 _self.assertEqual(result.is_failure(), True)
                 _self.assertEqual(result.message,
-                                   'Unable to retrieve package list. Command status code 500 and status value notok')
+                                  'Unable to retrieve package list. Command status code 500 and status value notok')
                 _self.assertEqual(result.response, response)
 
                 # one matching package

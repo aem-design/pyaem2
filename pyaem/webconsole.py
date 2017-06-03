@@ -48,7 +48,7 @@ class WebConsole(object):
 
         method = 'post'
         url = '{0}/system/console/bundles/{1}'.format(self.url, bundle_name)
-        params = dict(params.items() + kwargs.items())
+        params = dict(list(params.items()) + list(kwargs.items()))
         _handlers = dict(self.handlers.items() + _handlers.items())
         opts = dict(self.kwargs.items() + opts.items())
 
@@ -79,7 +79,7 @@ class WebConsole(object):
 
         method = 'post'
         url = '{0}/system/console/bundles/{1}'.format(self.url, bundle_name)
-        params = dict(params.items() + kwargs.items())
+        params = dict(list(params.items()) + list(kwargs.items()))
         _handlers = dict(self.handlers.items() + _handlers.items())
         opts = dict(self.kwargs.items() + opts.items())
 
@@ -112,7 +112,7 @@ class WebConsole(object):
         }
 
         url = '{0}/system/console/bundles'.format(self.url)
-        params = dict(params.items() + kwargs.items())
+        params = dict(list(params.items()) + list(kwargs.items()))
         _handlers = dict(self.handlers.items() + _handlers.items())
         opts = dict(self.kwargs.items() + opts.items())
 

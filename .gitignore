@@ -11,3 +11,4 @@ docs
 .iml
 .cache
 .eggs
+*,cover

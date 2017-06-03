@@ -1,5 +1,5 @@
 from . import bagofrequests as bag
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 from . import handlers
 import json
 import pycurl
@@ -27,9 +27,7 @@ class PackageManagerServiceHtml(object):
 
         def _handler_ok(response, **kwargs):
 
-            soup = BeautifulSoup(response['body'],
-                convertEntities=BeautifulSoup.HTML_ENTITIES
-            )
+            soup = BeautifulSoup(response['body'], 'html.parser' )
             message_elem = soup.find('textarea')
             data = json.loads(message_elem.contents[0])
             message = data['msg']
@@ -43,9 +41,7 @@ class PackageManagerServiceHtml(object):
 
         def _handler_created(response, **kwargs):
 
-            soup = BeautifulSoup(response['body'],
-                convertEntities=BeautifulSoup.HTML_ENTITIES
-            )
+            soup = BeautifulSoup(response['body'], 'html.parser')
             message_elem = soup.find('div', {'id': 'Message'})
             message = message_elem.contents[0]
 

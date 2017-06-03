@@ -1,5 +1,5 @@
 from . import bagofrequests as bag
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 from . import handlers
 import re
 from . import result as res
@@ -83,11 +83,8 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
 
-            soup = BeautifulSoup(response['body'],
-                convertEntities=BeautifulSoup.HTML_ENTITIES,
-                markupMassage=HEX_MASSAGE
-            )
-            errors = soup.findAll(attrs={'class': 'error'})
+            soup = BeautifulSoup(response['body'], 'html.parser')
+            errors = soup.find_all(class_="error")
 
             result = res.PyAemResult(response)
             if len(errors) == 0:
@@ -133,10 +130,7 @@ class ContentRepo(object):
 
         def _handler_exist_or_error(response, **kwargs):
 
-            soup = BeautifulSoup(response['body'],
-                convertEntities=BeautifulSoup.HTML_ENTITIES,
-                markupMassage=HEX_MASSAGE
-            )
+            soup = BeautifulSoup(response['body'], 'html.parser')
             message_elem = soup.find('div', {'id': 'Message'})
             if message_elem != None:
                 message = message_elem.contents[0]
@@ -215,10 +209,7 @@ class ContentRepo(object):
 
         def _handler_exist_or_error(response, **kwargs):
 
-            soup = BeautifulSoup(response['body'],
-                convertEntities=BeautifulSoup.HTML_ENTITIES,
-                markupMassage=HEX_MASSAGE
-            )
+            soup = BeautifulSoup(response['body'], 'html.parser')
             message_elem = soup.find('div', {'id': 'Message'})
             if message_elem != None:
                 message = message_elem.contents[0]
@@ -292,10 +283,7 @@ class ContentRepo(object):
 
         def _handler_not_found(response, **kwargs):
 
-            soup = BeautifulSoup(response['body'],
-                convertEntities=BeautifulSoup.HTML_ENTITIES,
-                markupMassage=HEX_MASSAGE
-            )
+            soup = BeautifulSoup(response['body'], 'html.parser')
             message_elem = soup.find('div', {'id': 'Message'})
             message = message_elem.contents[0]
 

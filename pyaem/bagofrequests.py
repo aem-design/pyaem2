@@ -21,7 +21,7 @@ def request(method, url, params, handlers, **kwargs):
     :raises: PyAemException
     """
     curl = pycurl.Curl()
-    body_io = StringIO.StringIO()
+    body_io = StringIO()
 
     if method == 'post':
         curl.setopt(pycurl.POST, 1)
@@ -125,7 +125,7 @@ def upload_file(url, params, handlers, **kwargs):
     :raises: PyAemException
     """
     curl = pycurl.Curl()
-    body_io = StringIO.StringIO()
+    body_io = StringIO()
     _params = []
     for key, value in params.iteritems():
         _params.append((key, value))

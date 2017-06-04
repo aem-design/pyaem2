@@ -2,7 +2,7 @@
 beautifulsoup4
 
 #python -c "import pycurl; print pycurl.version"
-pycurl
+pycurl --global-option="--with-nss"
 
 #python -c "import xmltodict; print xmltodict.__version__"
 xmltodict

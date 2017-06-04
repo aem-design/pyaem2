@@ -1,6 +1,6 @@
 six
 beautifulsoup4
-pycurl --global-option="--with-nss"
+pycurl
 xmltodict
 coverage
 coveralls

@@ -13,6 +13,7 @@ deps:
 	pip install -r requirements.txt
 
 deps-dev:
+	export PYCURL_SSL_LIBRARY=nss
 	pip install -r requirements-dev.txt
 
 lint:

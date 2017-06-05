@@ -24,8 +24,8 @@ test:
 
 coverage:
 	coverage run setup.py test
-	coverage report --show-missing --fail-under=100
 	coverage html
+	coverage report --show-missing --fail-under=100
 
 coverage-publish: coverage
 	coveralls

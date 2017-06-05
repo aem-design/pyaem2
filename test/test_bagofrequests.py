@@ -1,9 +1,9 @@
 import unittest
+from StringIO import StringIO as BytesIO
 from mock import MagicMock
 import pyaem
 from pyaem import result as res
 import pycurl
-
 
 class TestBagOfRequests(unittest.TestCase):
     def _handler_dummy(self, response, **kwargs):
@@ -11,6 +11,10 @@ class TestBagOfRequests(unittest.TestCase):
         result = res.PyAemResult(response)
         result.success('some dummy message')
         return result
+
+    def test_import_bytesio(self):
+        body_io = BytesIO(b"abcdef")
+        self.assertEqual(body_io.getvalue().decode('utf-8'), "abcdef")
 
     def test_request_post(self):
 

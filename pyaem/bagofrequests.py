@@ -1,7 +1,13 @@
-from io import StringIO
+from StringIO import StringIO as BytesIO
 from six.moves.urllib.parse import urlencode
 import pycurl
 from .handlers import unexpected as handle_unexpected
+# try:
+#     # Python 3
+#     from io import BytesIO
+# except ImportError:
+#     # Python 2
+#     from StringIO import StringIO as BytesIO
 
 def request(method, url, params, handlers, **kwargs):
     """Sends HTTP request to a specified URL.
@@ -21,7 +27,7 @@ def request(method, url, params, handlers, **kwargs):
     :raises: PyAemException
     """
     curl = pycurl.Curl()
-    body_io = StringIO()
+    body_io = BytesIO()
 
     if method == 'post':
         curl.setopt(pycurl.POST, 1)
@@ -37,13 +43,13 @@ def request(method, url, params, handlers, **kwargs):
     curl.setopt(pycurl.URL, url)
     curl.setopt(pycurl.FOLLOWLOCATION, 1)
     curl.setopt(pycurl.FRESH_CONNECT, 1)
-    curl.setopt(pycurl.WRITEFUNCTION, body_io.write)
+    curl.setopt(pycurl.WRITEDATA, body_io)
 
     curl.perform()
 
     response = {
         'http_code': curl.getinfo(pycurl.HTTP_CODE),
-        'body': body_io.getvalue(),
+        'body': body_io.getvalue().decode('utf-8'),
         'request': {
             'method': method,
             'url': url,
@@ -83,7 +89,7 @@ def download_file(url, params, handlers, **kwargs):
     curl.setopt(pycurl.URL, url)
     curl.setopt(pycurl.FOLLOWLOCATION, 1)
     curl.setopt(pycurl.FRESH_CONNECT, 1)
-    curl.setopt(pycurl.WRITEFUNCTION, data.write)
+    curl.setopt(pycurl.WRITEDATA, data)
 
     curl.perform()
 
@@ -125,7 +131,7 @@ def upload_file(url, params, handlers, **kwargs):
     :raises: PyAemException
     """
     curl = pycurl.Curl()
-    body_io = StringIO()
+    body_io = BytesIO()
     _params = []
     for key, value in params.iteritems():
         _params.append((key, value))
@@ -135,13 +141,13 @@ def upload_file(url, params, handlers, **kwargs):
     curl.setopt(pycurl.URL, url)
     curl.setopt(pycurl.FOLLOWLOCATION, 1)
     curl.setopt(pycurl.FRESH_CONNECT, 1)
-    curl.setopt(pycurl.WRITEFUNCTION, body_io.write)
+    curl.setopt(pycurl.WRITEDATA, body_io)
 
     curl.perform()
 
     response = {
         'http_code': curl.getinfo(pycurl.HTTP_CODE),
-        'body': body_io.getvalue(),
+        'body': body_io.getvalue().decode('utf-8'),
         'request': {
             'method': 'post',
             'url': url,

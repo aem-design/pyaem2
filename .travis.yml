@@ -1,11 +1,11 @@
 language: python
 python:
   - 2.7
-#  - 3.6
-#  - "nightly"
+  - 3.6
+  - "nightly"
 install:
   - make deps-dev
-script: 
+script:
   - make build
 after_success:
   - make coverage-publish

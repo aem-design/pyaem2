@@ -49,17 +49,25 @@ class TestResult(unittest.TestCase):
             'body': '<html>some html here</html>'
         }
 
+        response_data = {
+            'Request method': response['request']['method'],
+            'Request URL': response['request']['url'],
+            'Request parameters': response['request']['params'],
+            'Response code': response['http_code'],
+            'Response body': response['body'],
+            'Result status': 'success',
+            'Result message': 'some message'
+        }
+
+        response_debug = ''
+        for key in response_data:
+            response_debug += '{0}: {1}\n'.format(key, response_data[key])
+
         result = pyaem.PyAemResult(response)
         result.success('some message')
 
-        self.assertEqual(result.debug(),
-                         'Response body: <html>some html here</html>\n' +
-                         'Request parameters: {\'foo\': \'bar\'}\n' +
-                         'Result status: success\n' +
-                         'Result message: some message\n' +
-                         'Request URL: http://localhost:4502\n' +
-                         'Request method: get\n' +
-                         'Response code: 200\n')
+        self.assertEqual(result.debug(), response_debug)
+
 
 
 if __name__ == '__main__':

@@ -66,11 +66,14 @@ class PackageManagerServiceJsp(object):
 
         method = 'get'
         url = '{0}/crx/packmgr/service.jsp'.format(self.url)
-        params = dict(params.items() + kwargs.items())
-        _handlers = dict(self.handlers.items() + _handlers.items())
+
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, handlers_all, **opts)
 
     def is_package_installed(self, group_name, package_name, package_version, **kwargs):
 
@@ -127,8 +130,10 @@ class PackageManagerServiceJsp(object):
 
         method = 'get'
         url = '{0}/crx/packmgr/service.jsp'.format(self.url)
-        params = dict(params.items() + kwargs.items())
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, handlers_all, **opts)

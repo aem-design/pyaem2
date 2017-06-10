@@ -1,13 +1,7 @@
-from StringIO import StringIO as BytesIO
+from six import BytesIO
 from six.moves.urllib.parse import urlencode
 import pycurl
 from .handlers import unexpected as handle_unexpected
-# try:
-#     # Python 3
-#     from io import BytesIO
-# except ImportError:
-#     # Python 2
-#     from StringIO import StringIO as BytesIO
 
 def request(method, url, params, handlers, **kwargs):
     """Sends HTTP request to a specified URL.
@@ -133,7 +127,7 @@ def upload_file(url, params, handlers, **kwargs):
     curl = pycurl.Curl()
     body_io = BytesIO()
     _params = []
-    for key, value in params.iteritems():
+    for key, value in params.items():
         _params.append((key, value))
 
     curl.setopt(pycurl.POST, 1)

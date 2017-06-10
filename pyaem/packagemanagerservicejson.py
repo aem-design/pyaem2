@@ -44,11 +44,12 @@ class PackageManagerServiceJson(object):
 
         method = 'post'
         url = '{0}/crx/packmgr/service/.json/etc/packages/{1}'.format(self.url, package_name)
-        params = dict(params.items() + kwargs.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
         _handlers = self.handlers
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, _handlers, **opts)
 
 
     def build_package(self, group_name, package_name, package_version, **kwargs):
@@ -60,11 +61,12 @@ class PackageManagerServiceJson(object):
         method = 'post'
         url = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(
             self.url, group_name, package_name, package_version)
-        params = dict(params.items() + kwargs.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
         _handlers = self.handlers
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, _handlers, **opts)
 
 
     def upload_package(self, group_name, package_name, package_version, file_path, **kwargs):
@@ -81,11 +83,13 @@ class PackageManagerServiceJson(object):
         }
 
         url = '{0}/crx/packmgr/service/.json/'.format(self.url)
-        params = dict(params.items() + kwargs.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
         _handlers = self.handlers
-        opts = dict(self.kwargs.items() + opts.items())
+        opts_all = dict(self.kwargs.items()).copy()
+        opts_all.update(dict(opts.items()))
 
-        return bag.upload_file(url, params, _handlers, **opts)
+        return bag.upload_file(url, params_all, _handlers, **opts_all)
 
 
     def install_package(self, group_name, package_name, package_version, **kwargs):
@@ -111,15 +115,17 @@ class PackageManagerServiceJson(object):
         method = 'post'
         url = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(
             self.url, group_name, quote(package_name), package_version)
-        params = dict(params.items() + kwargs.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
         _handlers = {
             201: _handler_failure
         }
 
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, handlers_all, **opts)
 
 
     def replicate_package(self, group_name, package_name, package_version, **kwargs):
@@ -131,11 +137,12 @@ class PackageManagerServiceJson(object):
         method = 'post'
         url = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(
             self.url, group_name, package_name, package_version)
-        params = dict(params.items() + kwargs.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
         _handlers = self.handlers
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, _handlers, **opts)
 
 
     def delete_package(self, group_name, package_name, package_version, **kwargs):
@@ -147,8 +154,9 @@ class PackageManagerServiceJson(object):
         method = 'post'
         url = '{0}/crx/packmgr/service/.json/etc/packages/{1}/{2}-{3}.zip'.format(
             self.url, group_name, package_name, package_version)
-        params = dict(params.items() + kwargs.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
         _handlers = self.handlers
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, _handlers, **opts)

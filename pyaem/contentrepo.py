@@ -39,10 +39,11 @@ class ContentRepo(object):
         method = 'post'
         url = '{0}/{1}'.format(self.url, path.lstrip('/'))
         params = kwargs
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params, handlers_all, **opts)
 
     def delete_path(self, path, **kwargs):
 
@@ -66,10 +67,11 @@ class ContentRepo(object):
         method = 'delete'
         url = '{0}/{1}'.format(self.url, path.lstrip('/'))
         params = kwargs
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params, handlers_all, **opts)
 
     def activate_path(self, path, **kwargs):
 
@@ -98,11 +100,13 @@ class ContentRepo(object):
 
         method = 'post'
         url = '{0}/etc/replication/treeactivation.html'.format(self.url)
-        params = dict(params.items() + kwargs.items())
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, handlers_all, **opts)
 
     def does_user_exist(self, user_path, user_name, **kwargs):
 
@@ -149,11 +153,13 @@ class ContentRepo(object):
 
         method = 'post'
         url = '{0}/libs/granite/security/post/authorizables'.format(self.url)
-        params = dict(params.items() + kwargs.items())
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, handlers_all, **opts)
 
     def add_user_to_group(self, user_name, group_path, group_name, **kwargs):
 
@@ -173,11 +179,13 @@ class ContentRepo(object):
 
         method = 'post'
         url = '{0}/{1}/{2}.rw.html'.format(self.url, group_path.strip('/'), group_name)
-        params = dict(params.items() + kwargs.items())
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, handlers_all, **opts)
 
     def does_group_exist(self, group_path, group_name, **kwargs):
 
@@ -224,11 +232,13 @@ class ContentRepo(object):
 
         method = 'post'
         url = '{0}/libs/granite/security/post/authorizables'.format(self.url)
-        params = dict(params.items() + kwargs.items())
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, handlers_all, **opts)
 
     def change_password(self, user_path, user_name, old_password, new_password, **kwargs):
 
@@ -249,11 +259,13 @@ class ContentRepo(object):
 
         method = 'post'
         url = '{0}/{1}/{2}.rw.html'.format(self.url, user_path.strip('/'), user_name)
-        params = dict(params.items() + kwargs.items())
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, handlers_all, **opts)
 
     def set_permission(self, user_or_group_name, path, permissions, **kwargs):
 
@@ -284,11 +296,13 @@ class ContentRepo(object):
 
         method = 'post'
         url = '{0}/.cqactions.html'.format(self.url)
-        params = dict(params.items() + kwargs.items())
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, handlers_all, **opts)
 
     def create_agent(self, agent_name, agent_type, dest_username, dest_password, dest_url, run_mode, **kwargs):
 
@@ -342,11 +356,13 @@ class ContentRepo(object):
 
         method = 'post'
         url = '{0}/etc/replication/agents.{1}/{2}'.format(self.url, run_mode, agent_name)
-        params = dict(params.items() + kwargs.items())
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, handlers_all, **opts)
 
     def delete_agent(self, agent_name, run_mode, **kwargs):
 
@@ -372,11 +388,13 @@ class ContentRepo(object):
 
         method = 'delete'
         url = '{0}/etc/replication/agents.{1}/{2}'.format(self.url, run_mode, agent_name)
-        params = dict(params.items() + kwargs.items())
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, handlers_all, **opts)
 
     def set_property(self, path, property_name, property_value, **kwargs):
 
@@ -397,11 +415,13 @@ class ContentRepo(object):
 
         method = 'post'
         url = '{0}/{1}'.format(self.url, path.lstrip('/'))
-        params = dict(params.items() + kwargs.items())
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, handlers_all, **opts)
 
     def enable_workflow(self, workflow, glob, edit, node_type, run_mode, **kwargs):
 
@@ -433,10 +453,11 @@ class ContentRepo(object):
         method = 'get'
         url = '{0}/{1}'.format(self.url, node_path.lstrip('/'))
         params = kwargs
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params, handlers_all, **opts)
 
     def _set_workflow(self, workflow, glob, edit, is_enabled, node_type, run_mode, **kwargs):
 
@@ -467,11 +488,13 @@ class ContentRepo(object):
 
         method = 'post'
         url = '{0}/libs/cq/workflow/launcher'.format(self.url)
-        params = dict(params.items() + kwargs.items())
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, handlers_all, **opts)
 
     def get_cluster_list(self, **kwargs):
 
@@ -488,7 +511,8 @@ class ContentRepo(object):
         method = 'get'
         url = '{0}/libs/granite/cluster/content/admin/cluster.list.json'.format(self.url)
         params = kwargs
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params, handlers_all, **opts)

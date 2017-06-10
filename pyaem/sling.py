@@ -38,7 +38,8 @@ class Sling(object):
         method = 'get'
         url = '{0}/system/sling/login'.format(self.url)
         params = kwargs
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params, handlers_all, **opts)

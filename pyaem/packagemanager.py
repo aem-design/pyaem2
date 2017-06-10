@@ -38,11 +38,15 @@ class PackageManager(object):
 
         method = 'get'
         url = '{0}/crx/packmgr/update.jsp'.format(self.url)
-        params = dict(params.items() + kwargs.items())
-        _handlers = dict(self.handlers.items() + _handlers.items())
+        # params = dict(params.items() + kwargs.items())
+        params_all = dict(params.items()).copy()
+        params_all.update(dict(kwargs.items()))
+        # _handlers = dict(self.handlers.items() + _handlers.items())
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
         opts = self.kwargs
 
-        return bag.request(method, url, params, _handlers, **opts)
+        return bag.request(method, url, params_all, handlers_all, **opts)
 
     def update_package_with_filter(self, group_name, package_name, package_version, filter_paths, **kwargs):
 
@@ -76,7 +80,11 @@ class PackageManager(object):
 
         url = '{0}/etc/packages/{1}/{2}-{3}.zip'.format(self.url, group_name, package_name, package_version)
         params = kwargs
-        _handlers = dict(self.handlers.items() + _handlers.items())
-        opts = dict(self.kwargs.items() + opts.items())
+        # _handlers = dict(self.handlers.items() + _handlers.items())
+        handlers_all = dict(self.handlers.items()).copy()
+        handlers_all.update(dict(_handlers.items()))
+        # opts = dict(self.kwargs.items() + opts.items())
+        opts_all = dict(self.kwargs.items()).copy()
+        opts_all.update(dict(opts.items()))
 
-        return bag.download_file(url, params, _handlers, **opts)
+        return bag.download_file(url, params, handlers_all, **opts_all)

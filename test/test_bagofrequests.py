@@ -1,7 +1,7 @@
 import unittest
 from six import BytesIO
 from mock import MagicMock
-from mock import mock
+import mock
 import pyaem
 from pyaem import result as res
 import pycurl

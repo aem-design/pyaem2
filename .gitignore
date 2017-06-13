@@ -12,3 +12,4 @@ docs
 .cache
 .eggs
 *,cover
+samples/*.zip

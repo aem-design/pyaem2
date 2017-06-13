@@ -24,23 +24,23 @@ class TestContentRepo(unittest.TestCase):
         class CreatePathHandlerMatcher(HandlersMatcher):
             def __eq__(self, handlers):
                 response = None
-                result = handlers[200](response, path='/content/somepath/')
+                result = handlers[200](response, path='/content/somepath/*')
                 _self.assertEqual(result.is_warning(), True)
-                _self.assertEqual(result.message, 'Path /content/somepath/ already exists')
+                _self.assertEqual(result.message, 'Path /content/somepath/* already exists')
                 _self.assertEqual(result.response, response)
 
                 response = None
-                result = handlers[201](response, path='/content/somepath/')
+                result = handlers[201](response, path='/content/somepath/*')
                 _self.assertEqual(result.is_success(), True)
-                _self.assertEqual(result.message, 'Path /content/somepath/ created')
+                _self.assertEqual(result.message, 'Path /content/somepath/* created')
                 _self.assertEqual(result.response, response)
 
                 return super(CreatePathHandlerMatcher, self).__eq__(handlers)
 
-        self.content_repo.create_path('/content/somepath/', foo='bar')
+        self.content_repo.create_path('/content/somepath/*', foo='bar')
         bag.request.assert_called_once_with(
             'post',
-            'http://localhost:4502/content/somepath/',
+            'http://localhost:4502/content/somepath/*',
             {'foo': 'bar'},
             CreatePathHandlerMatcher([200, 201, 401, 405]),
             debug=True)

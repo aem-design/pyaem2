@@ -37,7 +37,7 @@ def request(method, url, params, handlers, **kwargs):
     curl.setopt(pycurl.URL, url)
     curl.setopt(pycurl.FOLLOWLOCATION, 1)
     curl.setopt(pycurl.FRESH_CONNECT, 1)
-    curl.setopt(pycurl.WRITEDATA, body_io)
+    curl.setopt(pycurl.WRITEFUNCTION, body_io.write)
 
     curl.perform()
 
@@ -83,7 +83,7 @@ def download_file(url, params, handlers, **kwargs):
     curl.setopt(pycurl.URL, url)
     curl.setopt(pycurl.FOLLOWLOCATION, 1)
     curl.setopt(pycurl.FRESH_CONNECT, 1)
-    curl.setopt(pycurl.WRITEDATA, data)
+    curl.setopt(pycurl.WRITEFUNCTION, data.write)
 
     curl.perform()
 
@@ -135,7 +135,7 @@ def upload_file(url, params, handlers, **kwargs):
     curl.setopt(pycurl.URL, url)
     curl.setopt(pycurl.FOLLOWLOCATION, 1)
     curl.setopt(pycurl.FRESH_CONNECT, 1)
-    curl.setopt(pycurl.WRITEDATA, body_io)
+    curl.setopt(pycurl.WRITEFUNCTION, body_io.write)
 
     curl.perform()
 

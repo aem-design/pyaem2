@@ -9,7 +9,7 @@ PyAEM is a Python client for [Adobe Experience Manager](http://dev.day.com/docs/
 
 <img align="right" src="https://raw.github.com/wildone/pyaem/master/avatar.jpg" alt="Avatar"/>
 
-Tested with AEM 5.6.1 up to 6.2 SP1 on Python 2.6 and 2.7.
+Tested with AEM 5.6.1, 6.2 SP1 and AEM 6.3 on Python 2.7 and 3.6
 
 Installation
 ------------

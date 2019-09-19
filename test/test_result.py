@@ -1,11 +1,11 @@
 import unittest
-import pyaem
+import pyaem2
 
 
 class TestResult(unittest.TestCase):
     def setUp(self):
         response = {'body': 'some body'}
-        self.result = pyaem.PyAemResult(response)
+        self.result = pyaem2.PyAem2Result(response)
 
     def test_init(self):
         self.assertEqual(self.result.response['body'], 'some body')
@@ -63,7 +63,7 @@ class TestResult(unittest.TestCase):
         for key in response_data:
             response_debug += '{0}: {1}\n'.format(key, response_data[key])
 
-        result = pyaem.PyAemResult(response)
+        result = pyaem2.PyAem2Result(response)
         result.success('some message')
 
         self.assertEqual(result.debug(), response_debug)

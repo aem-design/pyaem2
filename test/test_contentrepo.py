@@ -1,14 +1,14 @@
 import unittest
 import json
 from mock import MagicMock
-import pyaem
-from pyaem import bagofrequests as bag
+import pyaem2
+from pyaem2 import bagofrequests as bag
 from .util import HandlersMatcher
 
 
 class TestContentRepo(unittest.TestCase):
     def setUp(self):
-        self.content_repo = pyaem.contentrepo.ContentRepo('http://localhost:4502', debug=True)
+        self.content_repo = pyaem2.contentrepo.ContentRepo('http://localhost:4502', debug=True)
         bag.request = MagicMock()
 
     def test_init(self):

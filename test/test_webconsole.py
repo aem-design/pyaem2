@@ -1,7 +1,7 @@
 import unittest
 from mock import MagicMock
-import pyaem
-from pyaem import bagofrequests as bag
+import pyaem2
+from pyaem2 import bagofrequests as bag
 from .util import HandlersMatcher
 
 class TestWebConsole(unittest.TestCase):
@@ -9,7 +9,7 @@ class TestWebConsole(unittest.TestCase):
 
     def setUp(self):
 
-        self.web_console = pyaem.webconsole.WebConsole('http://localhost:4502', debug=True)
+        self.web_console = pyaem2.webconsole.WebConsole('http://localhost:4502', debug=True)
         bag.request = MagicMock()
         bag.upload_file = MagicMock()
 

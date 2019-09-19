@@ -1,4 +1,4 @@
-class HandlersMatcher(object):
+class HandlersMatcher():
 
     def __init__(self, handler_keys):
         self.handler_keys = handler_keys

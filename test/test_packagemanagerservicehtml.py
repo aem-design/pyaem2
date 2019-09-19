@@ -1,13 +1,13 @@
 import unittest
 from mock import MagicMock
-import pyaem
-from pyaem import bagofrequests as bag
+import pyaem2
+from pyaem2 import bagofrequests as bag
 from .util import HandlersMatcher
 
 
 class TestPackageManagerServiceHtml(unittest.TestCase):
     def setUp(self):
-        self.package_manager_sync = pyaem.packagemanagerservicehtml.PackageManagerServiceHtml(
+        self.package_manager_sync = pyaem2.packagemanagerservicehtml.PackageManagerServiceHtml(
             'http://localhost:4502', debug=True)
         bag.request = MagicMock()
         bag.download_file = MagicMock()

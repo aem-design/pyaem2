@@ -6,9 +6,9 @@ import json
 import sys
 import argparse
 
-import pyaem
+import pyaem2
 
-aem = pyaem.PyAem('admin', 'admin', 'localhost', 4502)
+aem = pyaem2.PyAem2('admin', 'admin', 'localhost', 4502)
 
 
 try:
@@ -25,7 +25,7 @@ try:
     else:
         print(json.dumps({ 'msg': result.message }))
 
-except pyaem.PyAemException as e:
+except pyaem2.PyAem2Exception as e:
 
     # exception message
     print(e.message)

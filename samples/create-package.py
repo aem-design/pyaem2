@@ -1,13 +1,13 @@
 __author__ = 'maxbarrass'
 
-import pyaem
+import pyaem2
 
-aem = pyaem.PyAem('admin', 'admin', 'localhost', 4502)
+aem = pyaem2.PyAem2('admin', 'admin', 'localhost', 4502)
 
 try:
 
-    result = aem.create_package('mygroup', 'pyaem-create-package', '1.2.3')
-    result = aem.update_package_with_filter('mygroup', 'pyaem-create-package', '1.2.3', '/content/dam')
+    result = aem.create_package('mygroup', 'pyaem2-create-package', '1.2.3')
+    result = aem.update_package_with_filter('mygroup', 'pyaem2-create-package', '1.2.3', '/content/dam')
 
     # check result status
     if result.is_success():
@@ -25,7 +25,7 @@ try:
     # debug all response and request details in a single string
     print(result.debug())
 
-except pyaem.PyAemException as e:
+except pyaem2.PyAem2Exception as e:
 
     # exception message
     print(e.message)

@@ -1,7 +1,7 @@
 import unittest
 from mock import MagicMock
-import pyaem
-from pyaem import bagofrequests as bag
+import pyaem2
+from pyaem2 import bagofrequests as bag
 from .util import HandlersMatcher
 
 class TestSling(unittest.TestCase):
@@ -9,7 +9,7 @@ class TestSling(unittest.TestCase):
 
     def setUp(self):
 
-        self.sling = pyaem.sling.Sling('http://localhost:4502', debug=True)
+        self.sling = pyaem2.sling.Sling('http://localhost:4502', debug=True)
         bag.request = MagicMock()
 
 

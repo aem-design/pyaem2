@@ -1,13 +1,13 @@
 import unittest
 from mock import MagicMock
-import pyaem
+import pyaem2
 
-class TestPyAem(unittest.TestCase):
+class TestPyAem2(unittest.TestCase):
 
 
     def setUp(self):
 
-        self.aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502)
+        self.aem = pyaem2.PyAem2('someusername', 'somepassword', 'localhost', 4502)
 
 
     def test_init(self):
@@ -22,7 +22,7 @@ class TestPyAem(unittest.TestCase):
 
     def test_init_ssl_debug(self):
 
-        aem = pyaem.PyAem('someusername', 'somepassword', 'localhost', 4502, use_ssl=True, debug=True)
+        aem = pyaem2.PyAem2('someusername', 'somepassword', 'localhost', 4502, use_ssl=True, debug=True)
         self.assertTrue(hasattr(aem, 'content_repo'))
         self.assertTrue(hasattr(aem, 'package_manager'))
         self.assertTrue(hasattr(aem, 'package_manager_service_html'))

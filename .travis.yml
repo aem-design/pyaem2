@@ -3,9 +3,21 @@ python:
   - 2.7
   - 3.6
   - "nightly"
-install:
+before_script:
   - make deps-dev
+install:
+  - make
 script:
-  - make build
+  - make coverage-publish codecov-publish doc
+  - make publish-test
 after_success:
-  - make coverage-publish
+  - make publish
+## Create release in GitHub
+deploy:
+  provider: pages
+  local_dir: docs/_build/html
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: master

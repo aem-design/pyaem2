@@ -3,7 +3,7 @@ python:
   - 2.7
   - 3.6
   - "nightly"
-before_script:
+before_install:
   - make deps-dev
 install:
   - make

@@ -15,10 +15,10 @@ class PyTest(TestCommand):
         sys.exit(errno)
 
 setup(
-    name='pyaem',
-    version='1.0.1',
-    url='http://github.com/wildone/pyaem/',
-    license='MIT License',
+    name='pyaem2',
+    version='2.0.0',
+    url='http://github.com/aem-design/pyaem2/',
+    license='Apache 2.0',
     author='Max Barrass',
     tests_require=['mock', 'pytest'],
     install_requires=['BeautifulSoup4>=4.6.0', 'pycurl>=7.43.0', 'xmltodict>=0.10.2'],
@@ -26,10 +26,10 @@ setup(
     author_email='max.barrass@gmail.com',
     description='Python client for Adobe Experience Manager (AEM) API',
     long_description='Python client for Adobe Experience Manager (AEM) API',
-    packages=['pyaem'],
+    packages=['pyaem2'],
     include_package_data=True,
     platforms='any',
-    test_suite='pyaem.test.test_pyaem',
+    test_suite='pyaem2.test.test_pyaem2',
     classifiers = [
         'Programming Language :: Python',
         'Development Status :: 5 - Production/Stable',

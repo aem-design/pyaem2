@@ -6,7 +6,7 @@ from . import packagemanagerservicejsp
 from . import sling
 from . import webconsole
 
-class PyAem(object):
+class PyAem2():
 
 
     def __init__(self, username, password, host, port, use_ssl=False, debug=False):

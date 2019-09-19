@@ -3,7 +3,7 @@ from . import bagofrequests as bag
 from . import handlers
 from . import result as res
 
-class PackageManagerServiceJsp(object):
+class PackageManagerServiceJsp():
     def __init__(self, url, **kwargs):
 
         self.url = url
@@ -19,7 +19,7 @@ class PackageManagerServiceJsp(object):
             data = xmltodict.parse(response['body'])
             status_code = data['crx']['response']['status']['@code']
             status_value = data['crx']['response']['status']['#text']
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
 
             if status_code != '200' or status_value != 'ok':
 
@@ -39,7 +39,7 @@ class PackageManagerServiceJsp(object):
 
                 is_uploaded = False
                 packages = data['crx']['response']['data']['packages']
-                if packages != None:
+                if packages is not None:
                     if isinstance(packages['package'], list):
                         for package in packages['package']:
                             if match(package):
@@ -82,7 +82,7 @@ class PackageManagerServiceJsp(object):
             data = xmltodict.parse(response['body'])
             status_code = data['crx']['response']['status']['@code']
             status_value = data['crx']['response']['status']['#text']
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
 
             if status_code != '200' or status_value != 'ok':
 
@@ -103,7 +103,7 @@ class PackageManagerServiceJsp(object):
 
                 is_installed = False
                 packages = data['crx']['response']['data']['packages']
-                if packages != None:
+                if packages is not None:
                     if isinstance(packages['package'], list):
                         for package in packages['package']:
                             if match(package):

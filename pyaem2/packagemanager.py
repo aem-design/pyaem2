@@ -3,7 +3,7 @@ from . import bagofrequests as bag
 from . import handlers
 from . import result as res
 
-class PackageManager(object):
+class PackageManager():
 
 
     def __init__(self, url, **kwargs):
@@ -20,7 +20,7 @@ class PackageManager(object):
         def _handler_ok_update(response, **kwargs):
 
             message = 'Package updated'
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 
@@ -66,7 +66,7 @@ class PackageManager(object):
         def _handler_ok_download(response, **kwargs):
 
             message = '{0} downloaded'.format(kwargs['file'])
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 

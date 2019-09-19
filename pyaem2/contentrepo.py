@@ -7,7 +7,7 @@ from . import result as res
 HEX_MASSAGE = [(re.compile('&#x([^;]+);'), lambda m: '&#%d;' % int(m.group(1), 16))]
 
 
-class ContentRepo(object):
+class ContentRepo():
     def __init__(self, url, **kwargs):
 
         self.url = url
@@ -21,13 +21,13 @@ class ContentRepo(object):
 
         def _handler_exist(response, **kwargs):
             message = 'Path {0} already exists'.format(path)
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.warning(message)
             return result
 
         def _handler_ok(response, **kwargs):
             message = 'Path {0} created'.format(path)
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 
@@ -49,13 +49,13 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
             message = 'Path {0} deleted'.format(path)
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 
         def _handler_not_found(response, **kwargs):
             message = 'Path {0} not found'.format(path)
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.warning(message)
             return result
 
@@ -80,7 +80,7 @@ class ContentRepo(object):
             soup = BeautifulSoup(response['body'], 'html.parser')
             errors = soup.find_all(class_="error")
 
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             if not errors:
                 message = 'Path {0} activated'.format(path)
                 result.success(message)
@@ -118,7 +118,7 @@ class ContentRepo(object):
         def _handler_ok(response, **kwargs):
 
             message = 'User {0}/{1} created'.format(user_path.rstrip('/'), user_name)
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 
@@ -126,13 +126,13 @@ class ContentRepo(object):
 
             soup = BeautifulSoup(response['body'], 'html.parser')
             message_elem = soup.find('div', {'id': 'Message'})
-            if message_elem != None:
+            if message_elem is not None:
                 message = message_elem.contents[0]
 
             exist_message = ('org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
                              'User or Group for \'{0}\' already exists'.format(user_name))
 
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             if message == exist_message:
                 result.warning('User {0}/{1} already exists'.format(user_path.rstrip('/'), user_name))
             else:
@@ -165,7 +165,7 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
             message = 'User {0} added to group {1}/{2}'.format(user_name, group_path.rstrip('/'), group_name)
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 
@@ -197,7 +197,7 @@ class ContentRepo(object):
         def _handler_ok(response, **kwargs):
 
             message = 'Group {0}/{1} created'.format(group_path.rstrip('/'), group_name)
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 
@@ -205,13 +205,13 @@ class ContentRepo(object):
 
             soup = BeautifulSoup(response['body'], 'html.parser')
             message_elem = soup.find('div', {'id': 'Message'})
-            if message_elem != None:
+            if message_elem is not None:
                 message = message_elem.contents[0]
 
             exist_message = ('org.apache.jackrabbit.api.security.user.AuthorizableExistsException: ' +
                              'User or Group for \'{0}\' already exists'.format(group_name))
 
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             if message == exist_message:
                 result.warning('Group {0}/{1} already exists'.format(group_path.rstrip('/'), group_name))
             else:
@@ -244,7 +244,7 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
             message = 'User {0}/{1} password changed'.format(user_path.rstrip('/'), user_name)
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 
@@ -271,7 +271,7 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
             message = 'Permissions {0} set on path {1} for user/group {2}'.format(permissions, path, user_or_group_name)
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 
@@ -280,7 +280,7 @@ class ContentRepo(object):
             message_elem = soup.find('div', {'id': 'Message'})
             message = message_elem.contents[0]
 
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.failure(message)
             return result
 
@@ -309,14 +309,14 @@ class ContentRepo(object):
         def _handler_ok_created(response, **kwargs):
 
             message = '{0} agent {1} created'.format(run_mode, agent_name)
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 
         def _handler_ok_updated(response, **kwargs):
 
             message = '{0} agent {1} updated'.format(run_mode, agent_name)
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 
@@ -344,9 +344,9 @@ class ContentRepo(object):
         params['jcr:content/cq:template'] = '/libs/cq/replication/templates/agent'
         params['jcr:content/enabled'] = 'true'
 
-        if dest_username != None:
+        if dest_username is not None:
             params['jcr:content/transportUser'] = dest_username
-        if dest_password != None:
+        if dest_password is not None:
             params['jcr:content/transportPassword'] = dest_password
 
         _handlers = {
@@ -368,13 +368,13 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
             message = '{0} agent {1} deleted'.format(run_mode, agent_name)
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 
         def _handler_not_found(response, **kwargs):
             message = '{0} agent {1} not found'.format(run_mode, agent_name)
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.warning(message)
             return result
 
@@ -400,7 +400,7 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
             message = 'Set property {0}={1} on path {2}'.format(property_name, property_value, path)
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 
@@ -435,13 +435,13 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
             message = '{0} {1} exists'.format(node_desc, node_path)
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 
         def _handler_not_found(response, **kwargs):
             message = '{0} {1} does not exist'.format(node_desc, node_path)
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.failure(message)
             return result
 
@@ -463,7 +463,7 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
             message = 'Workflow {0} {1}'.format(workflow, 'enabled' if is_enabled else 'disabled')
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 
@@ -500,7 +500,7 @@ class ContentRepo(object):
 
         def _handler_ok(response, **kwargs):
             message = 'Cluster list retrieved'
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 

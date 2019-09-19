@@ -1,9 +1,9 @@
-class PyAemException(Exception):
+class PyAem2Exception(Exception):
 
 
     def __init__(self, code, message, response):
 
-        super(PyAemException, self).__init__(message)
+        super(PyAem2Exception, self).__init__(message)
 
         self.code = code
         self.message = message

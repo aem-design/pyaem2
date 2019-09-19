@@ -2,7 +2,7 @@ SUCCESS = 'success'
 FAILURE = 'failure'
 WARNING = 'warning'
 
-class PyAemResult(object):
+class PyAem2Result():
 
 
     def __init__(self, response):

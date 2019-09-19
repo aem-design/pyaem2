@@ -2,7 +2,7 @@ from . import bagofrequests as bag
 from . import handlers
 from . import result as res
 
-class Sling(object):
+class Sling():
 
 
     def __init__(self, url, **kwargs):
@@ -19,14 +19,14 @@ class Sling(object):
         def _handler_valid(response, **kwargs):
 
             message = 'Login is valid'
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.success(message)
             return result
 
         def _handler_invalid(response, **kwargs):
 
             message = 'Login is invalid'
-            result = res.PyAemResult(response)
+            result = res.PyAem2Result(response)
             result.failure(message)
             return result
 

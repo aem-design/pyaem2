@@ -17,8 +17,8 @@ def request(method, url, params, handlers, **kwargs):
     :type params: dict
     :param handlers: Response handlers key-value pairs, keys are response http code, values are callback methods
     :type handlers: dict
-    :returns:  PyAemResult -- Result of the request containing status, response http code and body, and request info
-    :raises: PyAemException
+    :returns:  PyAem2Result -- Result of the request containing status, response http code and body, and request info
+    :raises: PyAem2Exception
     """
     curl = pycurl.Curl()
     body_io = BytesIO()
@@ -55,9 +55,8 @@ def request(method, url, params, handlers, **kwargs):
 
     if response['http_code'] in handlers:
         return handlers[response['http_code']](response, **kwargs)
-    else:
-        handle_unexpected(response, **kwargs)
 
+    return handle_unexpected(response, **kwargs)
 
 def download_file(url, params, handlers, **kwargs):
     """Downloads a file from specified URL, the file will be downloaded to path specified in file kwarg.
@@ -73,8 +72,8 @@ def download_file(url, params, handlers, **kwargs):
     :type handlers: dict
     :param kwargs: file (str) -- Location where the downloaded file will be saved to
     :type kwargs: dict
-    :returns:  PyAemResult -- The result containing status, response http code and body, and request info
-    :raises: PyAemException
+    :returns:  PyAem2Result -- The result containing status, response http code and body, and request info
+    :raises: PyAem2Exception
     """
     curl = pycurl.Curl()
     url = '{0}?{1}'.format(url, urlencode(params, True))
@@ -102,8 +101,8 @@ def download_file(url, params, handlers, **kwargs):
 
     if response['http_code'] in handlers:
         return handlers[response['http_code']](response, **kwargs)
-    else:
-        handle_unexpected(response, **kwargs)
+
+    return handle_unexpected(response, **kwargs)
 
 
 def upload_file(url, params, handlers, **kwargs):
@@ -121,8 +120,8 @@ def upload_file(url, params, handlers, **kwargs):
     :type handlers: dict
     :param kwargs: file (str) -- Location of the file to be uploaded
     :type kwargs: dict
-    :returns:  PyAemResult -- The result containing status, response http code and body, and request info
-    :raises: PyAemException
+    :returns:  PyAem2Result -- The result containing status, response http code and body, and request info
+    :raises: PyAem2Exception
     """
     curl = pycurl.Curl()
     body_io = BytesIO()
@@ -153,5 +152,5 @@ def upload_file(url, params, handlers, **kwargs):
 
     if response['http_code'] in handlers:
         return handlers[response['http_code']](response, **kwargs)
-    else:
-        handle_unexpected(response, **kwargs)
+
+    return handle_unexpected(response, **kwargs)

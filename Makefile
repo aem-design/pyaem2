@@ -49,6 +49,7 @@ doc:
 			-D extensions=sphinx.ext.autodoc,sphinx.ext.viewcode,sphinx.ext.todo,sphinx_rtd_theme" \
 		PYTHONPATH=../../pyaem2/ \
 		make html
+	touch docs/_build/html/.nojekyll
 	cd docs/_build/html && tar -cvf /tmp/pyaem2-doc.tar .
 
 publish-test:

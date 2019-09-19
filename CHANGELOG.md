@@ -1,3 +1,9 @@
+### 2.0.0
+* migrate to https://github.com/aem-design
+* change to pyaem2
+* lint updates
+* deploy to pypi 
+
 ### 1.0.0
 * Update packagemanagerservicehtml#install_package to do recursive install
 

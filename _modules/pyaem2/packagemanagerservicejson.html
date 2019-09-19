@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyaem2.packagemanagerservicejson &mdash; PyAEM2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> PyAEM2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../pyaem2.html">pyaem2 package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">PyAEM2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>pyaem2.packagemanagerservicejson</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for pyaem2.packagemanagerservicejson</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">pycurl</span>
+<span class="kn">from</span> <span class="nn">six.moves.urllib.parse</span> <span class="k">import</span> <span class="n">quote</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">bagofrequests</span> <span class="k">as</span> <span class="n">bag</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">handlers</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">result</span> <span class="k">as</span> <span class="n">res</span>
+
+<div class="viewcode-block" id="PackageManagerServiceJson"><a class="viewcode-back" href="../../pyaem2.html#pyaem2.packagemanagerservicejson.PackageManagerServiceJson">[docs]</a><span class="k">class</span> <span class="nc">PackageManagerServiceJson</span><span class="p">():</span>
+
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">def</span> <span class="nf">_handler_ok</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">])</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;msg&#39;</span><span class="p">]</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">PyAem2Result</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;success&#39;</span><span class="p">]:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span><span class="o">.</span><span class="n">failure</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">result</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="mi">200</span><span class="p">:</span> <span class="n">_handler_ok</span><span class="p">,</span>
+            <span class="mi">401</span><span class="p">:</span> <span class="n">handlers</span><span class="o">.</span><span class="n">auth_fail</span><span class="p">,</span>
+            <span class="mi">405</span><span class="p">:</span> <span class="n">handlers</span><span class="o">.</span><span class="n">method_not_allowed</span>
+        <span class="p">}</span>
+
+
+<div class="viewcode-block" id="PackageManagerServiceJson.create_package"><a class="viewcode-back" href="../../pyaem2.html#pyaem2.packagemanagerservicejson.PackageManagerServiceJson.create_package">[docs]</a>    <span class="k">def</span> <span class="nf">create_package</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="n">package_version</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;cmd&#39;</span><span class="p">:</span> <span class="s1">&#39;create&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;groupName&#39;</span><span class="p">:</span> <span class="n">group_name</span><span class="p">,</span>
+            <span class="s1">&#39;packageName&#39;</span><span class="p">:</span> <span class="n">package_name</span><span class="p">,</span>
+            <span class="s1">&#39;packageVersion&#39;</span><span class="p">:</span> <span class="n">package_version</span><span class="p">,</span>
+            <span class="s1">&#39;_charset_&#39;</span><span class="p">:</span> <span class="s1">&#39;utf-8&#39;</span>
+        <span class="p">}</span>
+
+        <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;post&#39;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/crx/packmgr/service/.json/etc/packages/</span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">package_name</span><span class="p">)</span>
+        <span class="n">params_all</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">())</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">params_all</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+        <span class="n">_handlers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span>
+        <span class="n">opts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span>
+
+        <span class="k">return</span> <span class="n">bag</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params_all</span><span class="p">,</span> <span class="n">_handlers</span><span class="p">,</span> <span class="o">**</span><span class="n">opts</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PackageManagerServiceJson.build_package"><a class="viewcode-back" href="../../pyaem2.html#pyaem2.packagemanagerservicejson.PackageManagerServiceJson.build_package">[docs]</a>    <span class="k">def</span> <span class="nf">build_package</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="n">package_version</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;cmd&#39;</span><span class="p">:</span> <span class="s1">&#39;build&#39;</span>
+        <span class="p">}</span>
+
+        <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;post&#39;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/crx/packmgr/service/.json/etc/packages/</span><span class="si">{1}</span><span class="s1">/</span><span class="si">{2}</span><span class="s1">-</span><span class="si">{3}</span><span class="s1">.zip&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="n">package_version</span><span class="p">)</span>
+        <span class="n">params_all</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">())</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">params_all</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+        <span class="n">_handlers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span>
+        <span class="n">opts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span>
+
+        <span class="k">return</span> <span class="n">bag</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params_all</span><span class="p">,</span> <span class="n">_handlers</span><span class="p">,</span> <span class="o">**</span><span class="n">opts</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PackageManagerServiceJson.upload_package"><a class="viewcode-back" href="../../pyaem2.html#pyaem2.packagemanagerservicejson.PackageManagerServiceJson.upload_package">[docs]</a>    <span class="k">def</span> <span class="nf">upload_package</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="n">package_version</span><span class="p">,</span> <span class="n">file_path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">file_name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">-</span><span class="si">{1}</span><span class="s1">.zip&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">package_name</span><span class="p">,</span> <span class="n">package_version</span><span class="p">)</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;cmd&#39;</span><span class="p">:</span> <span class="s1">&#39;upload&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;package&#39;</span><span class="p">:</span> <span class="p">(</span><span class="n">pycurl</span><span class="o">.</span><span class="n">FORM_FILE</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/</span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file_path</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">),</span> <span class="n">file_name</span><span class="p">))</span>
+        <span class="p">}</span>
+
+        <span class="n">opts</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;file_name&#39;</span><span class="p">:</span> <span class="n">file_name</span>
+        <span class="p">}</span>
+
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/crx/packmgr/service/.json/&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">params_all</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">())</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">params_all</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+        <span class="n">_handlers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span>
+        <span class="n">opts_all</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">())</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">opts_all</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">opts</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+
+        <span class="k">return</span> <span class="n">bag</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params_all</span><span class="p">,</span> <span class="n">_handlers</span><span class="p">,</span> <span class="o">**</span><span class="n">opts_all</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PackageManagerServiceJson.install_package"><a class="viewcode-back" href="../../pyaem2.html#pyaem2.packagemanagerservicejson.PackageManagerServiceJson.install_package">[docs]</a>    <span class="k">def</span> <span class="nf">install_package</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="n">package_version</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="c1"># AEM might respond with &#39;201 Created&#39; after installing a package</span>
+        <span class="c1"># this is actually a failure since the package status is uploaded but not installed</span>
+        <span class="k">def</span> <span class="nf">_handler_failure</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;body&#39;</span><span class="p">])</span>
+            <span class="n">message</span> <span class="o">=</span> <span class="s1">&#39;AEM message: </span><span class="si">{0}</span><span class="s1"> - Installation failure, package status is uploaded but not installed&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">data</span><span class="p">[</span><span class="s1">&#39;msg&#39;</span><span class="p">])</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">PyAem2Result</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+            <span class="n">result</span><span class="o">.</span><span class="n">failure</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">result</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;cmd&#39;</span><span class="p">:</span> <span class="s1">&#39;install&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;recursive&#39;</span><span class="p">:</span> <span class="s1">&#39;true&#39;</span>
+        <span class="p">}</span>
+
+        <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;post&#39;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/crx/packmgr/service/.json/etc/packages/</span><span class="si">{1}</span><span class="s1">/</span><span class="si">{2}</span><span class="s1">-</span><span class="si">{3}</span><span class="s1">.zip&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">quote</span><span class="p">(</span><span class="n">package_name</span><span class="p">),</span> <span class="n">package_version</span><span class="p">)</span>
+        <span class="n">params_all</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">())</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">params_all</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+        <span class="n">_handlers</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="mi">201</span><span class="p">:</span> <span class="n">_handler_failure</span>
+        <span class="p">}</span>
+
+        <span class="n">handlers_all</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">handlers</span><span class="o">.</span><span class="n">items</span><span class="p">())</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">handlers_all</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">_handlers</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+        <span class="n">opts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span>
+
+        <span class="k">return</span> <span class="n">bag</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params_all</span><span class="p">,</span> <span class="n">handlers_all</span><span class="p">,</span> <span class="o">**</span><span class="n">opts</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PackageManagerServiceJson.replicate_package"><a class="viewcode-back" href="../../pyaem2.html#pyaem2.packagemanagerservicejson.PackageManagerServiceJson.replicate_package">[docs]</a>    <span class="k">def</span> <span class="nf">replicate_package</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="n">package_version</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;cmd&#39;</span><span class="p">:</span> <span class="s1">&#39;replicate&#39;</span>
+        <span class="p">}</span>
+
+        <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;post&#39;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/crx/packmgr/service/.json/etc/packages/</span><span class="si">{1}</span><span class="s1">/</span><span class="si">{2}</span><span class="s1">-</span><span class="si">{3}</span><span class="s1">.zip&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="n">package_version</span><span class="p">)</span>
+        <span class="n">params_all</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">())</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">params_all</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+        <span class="n">_handlers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span>
+        <span class="n">opts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span>
+
+        <span class="k">return</span> <span class="n">bag</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params_all</span><span class="p">,</span> <span class="n">_handlers</span><span class="p">,</span> <span class="o">**</span><span class="n">opts</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="PackageManagerServiceJson.delete_package"><a class="viewcode-back" href="../../pyaem2.html#pyaem2.packagemanagerservicejson.PackageManagerServiceJson.delete_package">[docs]</a>    <span class="k">def</span> <span class="nf">delete_package</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="n">package_version</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">params</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;cmd&#39;</span><span class="p">:</span> <span class="s1">&#39;delete&#39;</span>
+        <span class="p">}</span>
+
+        <span class="n">method</span> <span class="o">=</span> <span class="s1">&#39;post&#39;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{0}</span><span class="s1">/crx/packmgr/service/.json/etc/packages/</span><span class="si">{1}</span><span class="s1">/</span><span class="si">{2}</span><span class="s1">-</span><span class="si">{3}</span><span class="s1">.zip&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span> <span class="n">group_name</span><span class="p">,</span> <span class="n">package_name</span><span class="p">,</span> <span class="n">package_version</span><span class="p">)</span>
+        <span class="n">params_all</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">())</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">params_all</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+        <span class="n">_handlers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">handlers</span>
+        <span class="n">opts</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span>
+
+        <span class="k">return</span> <span class="n">bag</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params_all</span><span class="p">,</span> <span class="n">_handlers</span><span class="p">,</span> <span class="o">**</span><span class="n">opts</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Max Barrass
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

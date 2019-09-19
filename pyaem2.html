@@ -1,0 +1,779 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyaem2 package &mdash; PyAEM2  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to PyAEM2’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> PyAEM2
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">pyaem2 package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyaem2.bagofrequests">pyaem2.bagofrequests module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyaem2.contentrepo">pyaem2.contentrepo module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyaem2.exception">pyaem2.exception module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyaem2.handlers">pyaem2.handlers module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyaem2.packagemanager">pyaem2.packagemanager module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyaem2.packagemanagerservicehtml">pyaem2.packagemanagerservicehtml module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyaem2.packagemanagerservicejson">pyaem2.packagemanagerservicejson module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyaem2.packagemanagerservicejsp">pyaem2.packagemanagerservicejsp module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyaem2.pyaem2">pyaem2.pyaem2 module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyaem2.result">pyaem2.result module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyaem2.sling">pyaem2.sling module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyaem2.webconsole">pyaem2.webconsole module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-pyaem2">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyAEM2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>pyaem2 package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/pyaem2.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="pyaem2-package">
+<h1>pyaem2 package<a class="headerlink" href="#pyaem2-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-pyaem2.bagofrequests">
+<span id="pyaem2-bagofrequests-module"></span><h2>pyaem2.bagofrequests module<a class="headerlink" href="#module-pyaem2.bagofrequests" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyaem2.bagofrequests.download_file">
+<code class="sig-prename descclassname">pyaem2.bagofrequests.</code><code class="sig-name descname">download_file</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">params</em>, <em class="sig-param">handlers</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/bagofrequests.html#download_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.bagofrequests.download_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads a file from specified URL, the file will be downloaded to path specified in file kwarg.
+Parameters will be appended to URL automatically on HTTP get method.
+Response code will then be used to determine which handler should process the response.
+When response code does not match any handler, an exception will be raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>str</em>) – URL to send HTTP request to</p></li>
+<li><p><strong>params</strong> (<em>dict</em>) – Request parameters key-value pairs, use array value to represent multi parameters with the same name</p></li>
+<li><p><strong>handlers</strong> (<em>dict</em>) – Response handlers key-value pairs, keys are response http code, values are callback methods</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – file (str) – Location where the downloaded file will be saved to</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>PyAem2Result – The result containing status, response http code and body, and request info</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>PyAem2Exception</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyaem2.bagofrequests.request">
+<code class="sig-prename descclassname">pyaem2.bagofrequests.</code><code class="sig-name descname">request</code><span class="sig-paren">(</span><em class="sig-param">method</em>, <em class="sig-param">url</em>, <em class="sig-param">params</em>, <em class="sig-param">handlers</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/bagofrequests.html#request"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.bagofrequests.request" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends HTTP request to a specified URL.
+Parameters will be appended to URL automatically on HTTP get method.
+Response code will then be used to determine which handler should process the response.
+When response code does not match any handler, an exception will be raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<em>str</em>) – HTTP method (post, delete, get)</p></li>
+<li><p><strong>url</strong> (<em>str</em>) – URL to send HTTP request to</p></li>
+<li><p><strong>params</strong> (<em>dict</em>) – Request parameters key-value pairs, use array value to represent multi parameters with the same name</p></li>
+<li><p><strong>handlers</strong> (<em>dict</em>) – Response handlers key-value pairs, keys are response http code, values are callback methods</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>PyAem2Result – Result of the request containing status, response http code and body, and request info</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>PyAem2Exception</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pyaem2.bagofrequests.upload_file">
+<code class="sig-prename descclassname">pyaem2.bagofrequests.</code><code class="sig-name descname">upload_file</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">params</em>, <em class="sig-param">handlers</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/bagofrequests.html#upload_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.bagofrequests.upload_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>Uploads a file using the specified URL endpoint,
+the file to be uploaded must be available at the specified location in file kwarg.
+Parameters will be appended to URL automatically on HTTP get method.
+Response code will then be used to determine which handler should process the response.
+When response code does not match any handler, an exception will be raised.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<em>str</em>) – URL to send HTTP request to</p></li>
+<li><p><strong>params</strong> (<em>dict</em>) – Request parameters key-value pairs, use array value to represent multi parameters with the same name</p></li>
+<li><p><strong>handlers</strong> (<em>dict</em>) – Response handlers key-value pairs, keys are response http code, values are callback methods</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em>) – file (str) – Location of the file to be uploaded</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>PyAem2Result – The result containing status, response http code and body, and request info</p>
+</dd>
+<dt class="field-odd">Raises</dt>
+<dd class="field-odd"><p>PyAem2Exception</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyaem2.contentrepo">
+<span id="pyaem2-contentrepo-module"></span><h2>pyaem2.contentrepo module<a class="headerlink" href="#module-pyaem2.contentrepo" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyaem2.contentrepo.ContentRepo">
+<em class="property">class </em><code class="sig-prename descclassname">pyaem2.contentrepo.</code><code class="sig-name descname">ContentRepo</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="pyaem2.contentrepo.ContentRepo.activate_path">
+<code class="sig-name descname">activate_path</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo.activate_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo.activate_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.contentrepo.ContentRepo.add_user_to_group">
+<code class="sig-name descname">add_user_to_group</code><span class="sig-paren">(</span><em class="sig-param">user_name</em>, <em class="sig-param">group_path</em>, <em class="sig-param">group_name</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo.add_user_to_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo.add_user_to_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.contentrepo.ContentRepo.change_password">
+<code class="sig-name descname">change_password</code><span class="sig-paren">(</span><em class="sig-param">user_path</em>, <em class="sig-param">user_name</em>, <em class="sig-param">old_password</em>, <em class="sig-param">new_password</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo.change_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo.change_password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.contentrepo.ContentRepo.create_agent">
+<code class="sig-name descname">create_agent</code><span class="sig-paren">(</span><em class="sig-param">agent_name</em>, <em class="sig-param">agent_type</em>, <em class="sig-param">dest_username</em>, <em class="sig-param">dest_password</em>, <em class="sig-param">dest_url</em>, <em class="sig-param">run_mode</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo.create_agent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo.create_agent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.contentrepo.ContentRepo.create_group">
+<code class="sig-name descname">create_group</code><span class="sig-paren">(</span><em class="sig-param">group_path</em>, <em class="sig-param">group_name</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo.create_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo.create_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.contentrepo.ContentRepo.create_path">
+<code class="sig-name descname">create_path</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo.create_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo.create_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.contentrepo.ContentRepo.create_user">
+<code class="sig-name descname">create_user</code><span class="sig-paren">(</span><em class="sig-param">user_path</em>, <em class="sig-param">user_name</em>, <em class="sig-param">password</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo.create_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo.create_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.contentrepo.ContentRepo.delete_agent">
+<code class="sig-name descname">delete_agent</code><span class="sig-paren">(</span><em class="sig-param">agent_name</em>, <em class="sig-param">run_mode</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo.delete_agent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo.delete_agent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.contentrepo.ContentRepo.delete_path">
+<code class="sig-name descname">delete_path</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo.delete_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo.delete_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.contentrepo.ContentRepo.disable_workflow">
+<code class="sig-name descname">disable_workflow</code><span class="sig-paren">(</span><em class="sig-param">workflow</em>, <em class="sig-param">glob</em>, <em class="sig-param">edit</em>, <em class="sig-param">node_type</em>, <em class="sig-param">run_mode</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo.disable_workflow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo.disable_workflow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.contentrepo.ContentRepo.does_group_exist">
+<code class="sig-name descname">does_group_exist</code><span class="sig-paren">(</span><em class="sig-param">group_path</em>, <em class="sig-param">group_name</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo.does_group_exist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo.does_group_exist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.contentrepo.ContentRepo.does_user_exist">
+<code class="sig-name descname">does_user_exist</code><span class="sig-paren">(</span><em class="sig-param">user_path</em>, <em class="sig-param">user_name</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo.does_user_exist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo.does_user_exist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.contentrepo.ContentRepo.enable_workflow">
+<code class="sig-name descname">enable_workflow</code><span class="sig-paren">(</span><em class="sig-param">workflow</em>, <em class="sig-param">glob</em>, <em class="sig-param">edit</em>, <em class="sig-param">node_type</em>, <em class="sig-param">run_mode</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo.enable_workflow"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo.enable_workflow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.contentrepo.ContentRepo.get_cluster_list">
+<code class="sig-name descname">get_cluster_list</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo.get_cluster_list"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo.get_cluster_list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.contentrepo.ContentRepo.set_permission">
+<code class="sig-name descname">set_permission</code><span class="sig-paren">(</span><em class="sig-param">user_or_group_name</em>, <em class="sig-param">path</em>, <em class="sig-param">permissions</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo.set_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo.set_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.contentrepo.ContentRepo.set_property">
+<code class="sig-name descname">set_property</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">property_name</em>, <em class="sig-param">property_value</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/contentrepo.html#ContentRepo.set_property"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.contentrepo.ContentRepo.set_property" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyaem2.exception">
+<span id="pyaem2-exception-module"></span><h2>pyaem2.exception module<a class="headerlink" href="#module-pyaem2.exception" title="Permalink to this headline">¶</a></h2>
+<dl class="exception">
+<dt id="pyaem2.exception.PyAem2Exception">
+<em class="property">exception </em><code class="sig-prename descclassname">pyaem2.exception.</code><code class="sig-name descname">PyAem2Exception</code><span class="sig-paren">(</span><em class="sig-param">code</em>, <em class="sig-param">message</em>, <em class="sig-param">response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/exception.html#PyAem2Exception"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.exception.PyAem2Exception" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyaem2.handlers">
+<span id="pyaem2-handlers-module"></span><h2>pyaem2.handlers module<a class="headerlink" href="#module-pyaem2.handlers" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="pyaem2.handlers.auth_fail">
+<code class="sig-prename descclassname">pyaem2.handlers.</code><code class="sig-name descname">auth_fail</code><span class="sig-paren">(</span><em class="sig-param">response</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/handlers.html#auth_fail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.handlers.auth_fail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyaem2.handlers.method_not_allowed">
+<code class="sig-prename descclassname">pyaem2.handlers.</code><code class="sig-name descname">method_not_allowed</code><span class="sig-paren">(</span><em class="sig-param">response</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/handlers.html#method_not_allowed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.handlers.method_not_allowed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pyaem2.handlers.unexpected">
+<code class="sig-prename descclassname">pyaem2.handlers.</code><code class="sig-name descname">unexpected</code><span class="sig-paren">(</span><em class="sig-param">response</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/handlers.html#unexpected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.handlers.unexpected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-pyaem2.packagemanager">
+<span id="pyaem2-packagemanager-module"></span><h2>pyaem2.packagemanager module<a class="headerlink" href="#module-pyaem2.packagemanager" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyaem2.packagemanager.PackageManager">
+<em class="property">class </em><code class="sig-prename descclassname">pyaem2.packagemanager.</code><code class="sig-name descname">PackageManager</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanager.html#PackageManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanager.PackageManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="pyaem2.packagemanager.PackageManager.download_package">
+<code class="sig-name descname">download_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">file_path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanager.html#PackageManager.download_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanager.PackageManager.download_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.packagemanager.PackageManager.update_package">
+<code class="sig-name descname">update_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanager.html#PackageManager.update_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanager.PackageManager.update_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.packagemanager.PackageManager.update_package_with_filter">
+<code class="sig-name descname">update_package_with_filter</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">filter_paths</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanager.html#PackageManager.update_package_with_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanager.PackageManager.update_package_with_filter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyaem2.packagemanagerservicehtml">
+<span id="pyaem2-packagemanagerservicehtml-module"></span><h2>pyaem2.packagemanagerservicehtml module<a class="headerlink" href="#module-pyaem2.packagemanagerservicehtml" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyaem2.packagemanagerservicehtml.PackageManagerServiceHtml">
+<em class="property">class </em><code class="sig-prename descclassname">pyaem2.packagemanagerservicehtml.</code><code class="sig-name descname">PackageManagerServiceHtml</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanagerservicehtml.html#PackageManagerServiceHtml"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanagerservicehtml.PackageManagerServiceHtml" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Package Manager service using /crx/packmgr/service/script.html AEM endpoint.</p>
+<p>The endpoint’s response payload is in HTML format with message embedded in:</p>
+<ul class="simple">
+<li><p>&lt;textarea&gt;the message&lt;/textarea&gt; fragment when status code is 200</p></li>
+<li><p>&lt;div id=”message”&gt;the message&lt;/div&gt; fragment when status code is 201</p></li>
+</ul>
+<p>The Adobe consultant I worked with advised me that this endpoint provides a ‘more synchronous’
+operations compared to its /crx/packmgr/service/.json counterpart.</p>
+<p>Check out PackageManager, PackageManagerServiceJson, and PackageManagerServiceJsp for other
+package-related services.</p>
+<dl class="method">
+<dt id="pyaem2.packagemanagerservicehtml.PackageManagerServiceHtml.install_package">
+<code class="sig-name descname">install_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanagerservicehtml.html#PackageManagerServiceHtml.install_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanagerservicehtml.PackageManagerServiceHtml.install_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.packagemanagerservicehtml.PackageManagerServiceHtml.replicate_package">
+<code class="sig-name descname">replicate_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanagerservicehtml.html#PackageManagerServiceHtml.replicate_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanagerservicehtml.PackageManagerServiceHtml.replicate_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.packagemanagerservicehtml.PackageManagerServiceHtml.upload_package">
+<code class="sig-name descname">upload_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">file_path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanagerservicehtml.html#PackageManagerServiceHtml.upload_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanagerservicehtml.PackageManagerServiceHtml.upload_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyaem2.packagemanagerservicejson">
+<span id="pyaem2-packagemanagerservicejson-module"></span><h2>pyaem2.packagemanagerservicejson module<a class="headerlink" href="#module-pyaem2.packagemanagerservicejson" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyaem2.packagemanagerservicejson.PackageManagerServiceJson">
+<em class="property">class </em><code class="sig-prename descclassname">pyaem2.packagemanagerservicejson.</code><code class="sig-name descname">PackageManagerServiceJson</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanagerservicejson.html#PackageManagerServiceJson"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanagerservicejson.PackageManagerServiceJson" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="pyaem2.packagemanagerservicejson.PackageManagerServiceJson.build_package">
+<code class="sig-name descname">build_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanagerservicejson.html#PackageManagerServiceJson.build_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanagerservicejson.PackageManagerServiceJson.build_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.packagemanagerservicejson.PackageManagerServiceJson.create_package">
+<code class="sig-name descname">create_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanagerservicejson.html#PackageManagerServiceJson.create_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanagerservicejson.PackageManagerServiceJson.create_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.packagemanagerservicejson.PackageManagerServiceJson.delete_package">
+<code class="sig-name descname">delete_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanagerservicejson.html#PackageManagerServiceJson.delete_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanagerservicejson.PackageManagerServiceJson.delete_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.packagemanagerservicejson.PackageManagerServiceJson.install_package">
+<code class="sig-name descname">install_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanagerservicejson.html#PackageManagerServiceJson.install_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanagerservicejson.PackageManagerServiceJson.install_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.packagemanagerservicejson.PackageManagerServiceJson.replicate_package">
+<code class="sig-name descname">replicate_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanagerservicejson.html#PackageManagerServiceJson.replicate_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanagerservicejson.PackageManagerServiceJson.replicate_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.packagemanagerservicejson.PackageManagerServiceJson.upload_package">
+<code class="sig-name descname">upload_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">file_path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanagerservicejson.html#PackageManagerServiceJson.upload_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanagerservicejson.PackageManagerServiceJson.upload_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyaem2.packagemanagerservicejsp">
+<span id="pyaem2-packagemanagerservicejsp-module"></span><h2>pyaem2.packagemanagerservicejsp module<a class="headerlink" href="#module-pyaem2.packagemanagerservicejsp" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyaem2.packagemanagerservicejsp.PackageManagerServiceJsp">
+<em class="property">class </em><code class="sig-prename descclassname">pyaem2.packagemanagerservicejsp.</code><code class="sig-name descname">PackageManagerServiceJsp</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanagerservicejsp.html#PackageManagerServiceJsp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanagerservicejsp.PackageManagerServiceJsp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="pyaem2.packagemanagerservicejsp.PackageManagerServiceJsp.is_package_installed">
+<code class="sig-name descname">is_package_installed</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanagerservicejsp.html#PackageManagerServiceJsp.is_package_installed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanagerservicejsp.PackageManagerServiceJsp.is_package_installed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.packagemanagerservicejsp.PackageManagerServiceJsp.is_package_uploaded">
+<code class="sig-name descname">is_package_uploaded</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/packagemanagerservicejsp.html#PackageManagerServiceJsp.is_package_uploaded"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.packagemanagerservicejsp.PackageManagerServiceJsp.is_package_uploaded" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyaem2.pyaem2">
+<span id="pyaem2-pyaem2-module"></span><h2>pyaem2.pyaem2 module<a class="headerlink" href="#module-pyaem2.pyaem2" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyaem2.pyaem2.PyAem2">
+<em class="property">class </em><code class="sig-prename descclassname">pyaem2.pyaem2.</code><code class="sig-name descname">PyAem2</code><span class="sig-paren">(</span><em class="sig-param">username</em>, <em class="sig-param">password</em>, <em class="sig-param">host</em>, <em class="sig-param">port</em>, <em class="sig-param">use_ssl=False</em>, <em class="sig-param">debug=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.activate_path">
+<code class="sig-name descname">activate_path</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.activate_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.activate_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.add_user_to_group">
+<code class="sig-name descname">add_user_to_group</code><span class="sig-paren">(</span><em class="sig-param">user_name</em>, <em class="sig-param">group_path</em>, <em class="sig-param">group_name</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.add_user_to_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.add_user_to_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.build_package">
+<code class="sig-name descname">build_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.build_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.build_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.change_password">
+<code class="sig-name descname">change_password</code><span class="sig-paren">(</span><em class="sig-param">user_path</em>, <em class="sig-param">user_name</em>, <em class="sig-param">old_password</em>, <em class="sig-param">new_password</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.change_password"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.change_password" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.create_agent">
+<code class="sig-name descname">create_agent</code><span class="sig-paren">(</span><em class="sig-param">agent_name</em>, <em class="sig-param">agent_type</em>, <em class="sig-param">dest_username</em>, <em class="sig-param">dest_password</em>, <em class="sig-param">dest_url</em>, <em class="sig-param">run_mode</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.create_agent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.create_agent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.create_group">
+<code class="sig-name descname">create_group</code><span class="sig-paren">(</span><em class="sig-param">group_path</em>, <em class="sig-param">group_name</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.create_group"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.create_group" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.create_package">
+<code class="sig-name descname">create_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.create_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.create_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.create_path">
+<code class="sig-name descname">create_path</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.create_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.create_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.create_user">
+<code class="sig-name descname">create_user</code><span class="sig-paren">(</span><em class="sig-param">user_path</em>, <em class="sig-param">user_name</em>, <em class="sig-param">password</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.create_user"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.create_user" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.delete_agent">
+<code class="sig-name descname">delete_agent</code><span class="sig-paren">(</span><em class="sig-param">agent_name</em>, <em class="sig-param">run_mode</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.delete_agent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.delete_agent" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.delete_package">
+<code class="sig-name descname">delete_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.delete_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.delete_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.delete_path">
+<code class="sig-name descname">delete_path</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.delete_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.delete_path" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.does_group_exist">
+<code class="sig-name descname">does_group_exist</code><span class="sig-paren">(</span><em class="sig-param">group_path</em>, <em class="sig-param">group_name</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.does_group_exist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.does_group_exist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.does_user_exist">
+<code class="sig-name descname">does_user_exist</code><span class="sig-paren">(</span><em class="sig-param">user_path</em>, <em class="sig-param">user_name</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.does_user_exist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.does_user_exist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.download_package">
+<code class="sig-name descname">download_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">file_path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.download_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.download_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.install_bundle">
+<code class="sig-name descname">install_bundle</code><span class="sig-paren">(</span><em class="sig-param">bundle_name</em>, <em class="sig-param">bundle_version</em>, <em class="sig-param">file_path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.install_bundle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.install_bundle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.install_package">
+<code class="sig-name descname">install_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.install_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.install_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.install_package_sync">
+<code class="sig-name descname">install_package_sync</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.install_package_sync"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.install_package_sync" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.is_package_installed">
+<code class="sig-name descname">is_package_installed</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.is_package_installed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.is_package_installed" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.is_package_uploaded">
+<code class="sig-name descname">is_package_uploaded</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.is_package_uploaded"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.is_package_uploaded" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.is_valid_login">
+<code class="sig-name descname">is_valid_login</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.is_valid_login"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.is_valid_login" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.replicate_package">
+<code class="sig-name descname">replicate_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.replicate_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.replicate_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.replicate_package_sync">
+<code class="sig-name descname">replicate_package_sync</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.replicate_package_sync"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.replicate_package_sync" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.set_permission">
+<code class="sig-name descname">set_permission</code><span class="sig-paren">(</span><em class="sig-param">user_or_group_name</em>, <em class="sig-param">path</em>, <em class="sig-param">permissions</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.set_permission"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.set_permission" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.set_property">
+<code class="sig-name descname">set_property</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">property_name</em>, <em class="sig-param">property_value</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.set_property"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.set_property" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.start_bundle">
+<code class="sig-name descname">start_bundle</code><span class="sig-paren">(</span><em class="sig-param">bundle_name</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.start_bundle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.start_bundle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.stop_bundle">
+<code class="sig-name descname">stop_bundle</code><span class="sig-paren">(</span><em class="sig-param">bundle_name</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.stop_bundle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.stop_bundle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.update_package">
+<code class="sig-name descname">update_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.update_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.update_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.update_package_with_filter">
+<code class="sig-name descname">update_package_with_filter</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">filter_paths</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.update_package_with_filter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.update_package_with_filter" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.upload_package">
+<code class="sig-name descname">upload_package</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">file_path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.upload_package"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.upload_package" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.pyaem2.PyAem2.upload_package_sync">
+<code class="sig-name descname">upload_package_sync</code><span class="sig-paren">(</span><em class="sig-param">group_name</em>, <em class="sig-param">package_name</em>, <em class="sig-param">package_version</em>, <em class="sig-param">file_path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/pyaem2.html#PyAem2.upload_package_sync"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.pyaem2.PyAem2.upload_package_sync" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyaem2.result">
+<span id="pyaem2-result-module"></span><h2>pyaem2.result module<a class="headerlink" href="#module-pyaem2.result" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyaem2.result.PyAem2Result">
+<em class="property">class </em><code class="sig-prename descclassname">pyaem2.result.</code><code class="sig-name descname">PyAem2Result</code><span class="sig-paren">(</span><em class="sig-param">response</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/result.html#PyAem2Result"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.result.PyAem2Result" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="pyaem2.result.PyAem2Result.debug">
+<code class="sig-name descname">debug</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/result.html#PyAem2Result.debug"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.result.PyAem2Result.debug" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.result.PyAem2Result.failure">
+<code class="sig-name descname">failure</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/result.html#PyAem2Result.failure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.result.PyAem2Result.failure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.result.PyAem2Result.is_failure">
+<code class="sig-name descname">is_failure</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/result.html#PyAem2Result.is_failure"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.result.PyAem2Result.is_failure" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.result.PyAem2Result.is_success">
+<code class="sig-name descname">is_success</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/result.html#PyAem2Result.is_success"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.result.PyAem2Result.is_success" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.result.PyAem2Result.is_warning">
+<code class="sig-name descname">is_warning</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/result.html#PyAem2Result.is_warning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.result.PyAem2Result.is_warning" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.result.PyAem2Result.success">
+<code class="sig-name descname">success</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/result.html#PyAem2Result.success"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.result.PyAem2Result.success" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.result.PyAem2Result.warning">
+<code class="sig-name descname">warning</code><span class="sig-paren">(</span><em class="sig-param">message</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/result.html#PyAem2Result.warning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.result.PyAem2Result.warning" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyaem2.sling">
+<span id="pyaem2-sling-module"></span><h2>pyaem2.sling module<a class="headerlink" href="#module-pyaem2.sling" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyaem2.sling.Sling">
+<em class="property">class </em><code class="sig-prename descclassname">pyaem2.sling.</code><code class="sig-name descname">Sling</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/sling.html#Sling"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.sling.Sling" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="pyaem2.sling.Sling.is_valid_login">
+<code class="sig-name descname">is_valid_login</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/sling.html#Sling.is_valid_login"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.sling.Sling.is_valid_login" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyaem2.webconsole">
+<span id="pyaem2-webconsole-module"></span><h2>pyaem2.webconsole module<a class="headerlink" href="#module-pyaem2.webconsole" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="pyaem2.webconsole.WebConsole">
+<em class="property">class </em><code class="sig-prename descclassname">pyaem2.webconsole.</code><code class="sig-name descname">WebConsole</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/webconsole.html#WebConsole"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.webconsole.WebConsole" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="pyaem2.webconsole.WebConsole.install_bundle">
+<code class="sig-name descname">install_bundle</code><span class="sig-paren">(</span><em class="sig-param">bundle_name</em>, <em class="sig-param">bundle_version</em>, <em class="sig-param">file_path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/webconsole.html#WebConsole.install_bundle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.webconsole.WebConsole.install_bundle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.webconsole.WebConsole.start_bundle">
+<code class="sig-name descname">start_bundle</code><span class="sig-paren">(</span><em class="sig-param">bundle_name</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/webconsole.html#WebConsole.start_bundle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.webconsole.WebConsole.start_bundle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pyaem2.webconsole.WebConsole.stop_bundle">
+<code class="sig-name descname">stop_bundle</code><span class="sig-paren">(</span><em class="sig-param">bundle_name</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pyaem2/webconsole.html#WebConsole.stop_bundle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pyaem2.webconsole.WebConsole.stop_bundle" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-pyaem2">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-pyaem2" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to PyAEM2’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Max Barrass
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

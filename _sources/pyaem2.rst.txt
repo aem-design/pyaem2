@@ -1,0 +1,110 @@
+pyaem2 package
+==============
+
+Submodules
+----------
+
+pyaem2.bagofrequests module
+---------------------------
+
+.. automodule:: pyaem2.bagofrequests
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyaem2.contentrepo module
+-------------------------
+
+.. automodule:: pyaem2.contentrepo
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyaem2.exception module
+-----------------------
+
+.. automodule:: pyaem2.exception
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyaem2.handlers module
+----------------------
+
+.. automodule:: pyaem2.handlers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyaem2.packagemanager module
+----------------------------
+
+.. automodule:: pyaem2.packagemanager
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyaem2.packagemanagerservicehtml module
+---------------------------------------
+
+.. automodule:: pyaem2.packagemanagerservicehtml
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyaem2.packagemanagerservicejson module
+---------------------------------------
+
+.. automodule:: pyaem2.packagemanagerservicejson
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyaem2.packagemanagerservicejsp module
+--------------------------------------
+
+.. automodule:: pyaem2.packagemanagerservicejsp
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyaem2.pyaem2 module
+--------------------
+
+.. automodule:: pyaem2.pyaem2
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyaem2.result module
+--------------------
+
+.. automodule:: pyaem2.result
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyaem2.sling module
+-------------------
+
+.. automodule:: pyaem2.sling
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+pyaem2.webconsole module
+------------------------
+
+.. automodule:: pyaem2.webconsole
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: pyaem2
+   :members:
+   :undoc-members:
+   :show-inheritance:

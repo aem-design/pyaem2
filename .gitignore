@@ -7,9 +7,11 @@ dist
 htmlcov
 *.pyc
 docs
+build
 .idea
 .iml
 .cache
 .eggs
 *,cover
 samples/*.zip
+coverage.xml

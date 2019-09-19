@@ -16,7 +16,7 @@ class PyTest(TestCommand):
 
 setup(
     name='pyaem2',
-    version='2.0.0',
+    version='2.0.1',
     url='http://github.com/aem-design/pyaem2/',
     license='Apache 2.0',
     author='Max Barrass',

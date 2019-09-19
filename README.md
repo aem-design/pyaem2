@@ -1,27 +1,28 @@
-PyAEM
------
+# PyAEM 2
 
-[![Build Status](https://travis-ci.org/wildone/pyaem.svg?branch=master)](https://travis-ci.org/wildone/pyaem)
-[![Coverage Status](https://coveralls.io/repos/github/wildone/pyaem/badge.svg)](https://coveralls.io/github/wildone/pyaem)
-[![Codeship Status for wildone/pyaem](https://app.codeship.com/projects/b6e087c0-2a8b-0135-9536-463a645743d5/status?branch=master)](https://app.codeship.com/projects/223937)
+[![Build Status](https://travis-ci.org/aem-design/pyaem2.svg?branch=master)](https://travis-ci.org/aem-design/pyaem2)
+[![Coverage Status](https://coveralls.io/repos/github/aem-design/pyaem2/badge.svg)](https://coveralls.io/github/aem-design/pyaem2)
+[![codecov](https://codecov.io/gh/aem-design/pyaem2/branch/master/graph/badge.svg)](https://codecov.io/gh/aem-design/pyaem2)
+![PyPI](https://img.shields.io/pypi/v/pyaem2)
+[![github license](https://img.shields.io/github/license/aem-design/pyaem2)](https://github.com/aem-design/pyaem2) 
+[![github issues](https://img.shields.io/github/issues/aem-design/pyaem2)](https://github.com/aem-design/pyaem2) 
+[![github last commit](https://img.shields.io/github/last-commit/aem-design/pyaem2)](https://github.com/aem-design/pyaem2) 
+[![github repo size](https://img.shields.io/github/repo-size/aem-design/pyaem2)](https://github.com/aem-design/pyaem2) 
 
-PyAEM is a Python client for [Adobe Experience Manager](http://dev.day.com/docs/en/cq/current.html) (AEM) API.
 
-<img align="right" src="https://raw.github.com/wildone/pyaem/master/avatar.jpg" alt="Avatar"/>
+PyAEM 2.0 is a Python client for [Adobe Experience Manager](http://dev.day.com/docs/en/cq/current.html) (AEM) API.
 
-Tested with AEM 5.6.1, 6.2 SP1 and AEM 6.3 on Python 2.7 and 3.6
+Tested with AEM 5.6.1, 6.2 SP1 and AEM 6.3+ on Python 2.7 and 3.6
 
-Installation
-------------
+## Installation
 
-    pip install pyaem
+    pip install pyaem2
 
-Usage
------
+## Usage
 
-    import pyaem
+    import pyaem2
 
-    aem = pyaem.PyAem('admin', 'password', 'localhost', 4502)
+    aem = pyaem2.PyAem('admin', 'password', 'localhost', 4502)
 
 Content Management
 
@@ -85,18 +86,17 @@ Bundle Management
 
     aem.install_bundle('mybundle', 1.2.3, '/mnt/ephemeral0')
 
-Result And Error Handling
--------------------------
+## Result And Error Handling
 
-    import pyaem
+    import pyaem2
 
-    aem = pyaem.PyAem('admin', 'password', 'localhost', 4502)
+    aem = pyaem2.PyAem('admin', 'password', 'localhost', 4502)
 
     try:
 
         result = aem.activate_path('/content/mysite')
-        result = aem.create_package('mygroup', 'pyaem-create-package', '1.2.3')
-        result = aem.update_package_with_filter('mygroup', 'pyaem-create-package', '1.2.3', '/content/dam')
+        result = aem.create_package('mygroup', 'pyaem2-create-package', '1.2.3')
+        result = aem.update_package_with_filter('mygroup', 'pyaem2-create-package', '1.2.3', '/content/dam')
 
         # check result status
         if result.is_success():
@@ -114,7 +114,7 @@ Result And Error Handling
         # debug all response and request details in a single string
         print result.debug()
 
-    except pyaem.PyAemException, e:
+    except pyaem2.PyAemException, e:
 
         # exception message
         print e.message
@@ -129,8 +129,8 @@ Result And Error Handling
         print e.response['request']['url']
         print e.response['request']['params']
 
- Development
- -----------
+## Development
+
 Dev
 ```bash
   apt-get install python-pip libcurl4-gnutls-dev python-dev

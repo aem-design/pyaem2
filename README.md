@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/aem-design/pyaem2.svg?branch=master)](https://travis-ci.org/aem-design/pyaem2)
 [![Coverage Status](https://coveralls.io/repos/github/aem-design/pyaem2/badge.svg)](https://coveralls.io/github/aem-design/pyaem2)
 [![codecov](https://codecov.io/gh/aem-design/pyaem2/branch/master/graph/badge.svg)](https://codecov.io/gh/aem-design/pyaem2)
-![PyPI](https://img.shields.io/pypi/v/pyaem2)
+[![PyPI](https://img.shields.io/pypi/v/pyaem2)](https://pypi.org/project/pyaem2/)
 [![github license](https://img.shields.io/github/license/aem-design/pyaem2)](https://github.com/aem-design/pyaem2) 
 [![github issues](https://img.shields.io/github/issues/aem-design/pyaem2)](https://github.com/aem-design/pyaem2) 
 [![github last commit](https://img.shields.io/github/last-commit/aem-design/pyaem2)](https://github.com/aem-design/pyaem2) 

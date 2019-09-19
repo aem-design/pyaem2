@@ -5,22 +5,30 @@ python:
   - 3.6
   - "nightly"
 cache: pip
-before_install:
-  - sudo apt-get install libgnutls28-dev
-  - make deps-dev
-install:
-  - make
-script:
-  - make coverage-publish codecov-publish doc
-  - make publish-test
-after_success:
-  - make publish
-## Create release in GitHub
-deploy:
-  provider: pages
-  local_dir: docs/_build/html
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
-  keep_history: true
-  on:
-    branch: master
+
+jobs:
+  include:
+    - stage: prep
+      script:
+        - sudo apt-get install libgnutls28-dev
+        - make deps-dev
+    - stage: install
+      script:
+        - make
+    - stage: docs
+      script:
+        - make coverage-publish codecov-publish doc
+        - make publish-test
+    - stage: publish docs
+      script:
+        - make publish
+    - stage: deploy
+      deploy:
+        python: 3.6
+        provider: pages
+        local_dir: docs/_build/html
+        skip_cleanup: true
+        github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+        keep_history: true
+        on:
+          branch: master

@@ -5,30 +5,20 @@ python:
   - 3.6
   - "nightly"
 cache: pip
-
-stages:
-  - pep
-  - install
-  - docs
-  - publish
-  - deploy
+before_install:
+  - sudo apt-get install libgnutls28-dev
+  - make deps-dev
+install:
+  - make
+script:
+  - make coverage-publish codecov-publish doc
+  - make publish-test
+after_success:
+  - make publish
+## Create release in GitHub
 
 jobs:
   include:
-    - stage: prep
-      script:
-        - sudo apt-get install libgnutls28-dev
-        - make deps-dev
-    - stage: install
-      script:
-        - make
-    - stage: docs
-      script:
-        - make coverage-publish codecov-publish doc
-        - make publish-test
-    - stage: publish
-      script:
-        - make publish
     - stage: deploy
       deploy:
         python: 3.6

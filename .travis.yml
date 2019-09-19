@@ -6,6 +6,13 @@ python:
   - "nightly"
 cache: pip
 
+stages:
+  - pep
+  - install
+  - docs
+  - publish
+  - deploy
+
 jobs:
   include:
     - stage: prep
@@ -19,7 +26,7 @@ jobs:
       script:
         - make coverage-publish codecov-publish doc
         - make publish-test
-    - stage: publish docs
+    - stage: publish
       script:
         - make publish
     - stage: deploy

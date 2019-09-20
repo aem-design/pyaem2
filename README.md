@@ -22,7 +22,7 @@ Tested with AEM 5.6.1, 6.2 SP1 and AEM 6.3+ on Python 2.7 and 3.6
 
     import pyaem2
 
-    aem = pyaem2.PyAem('admin', 'password', 'localhost', 4502)
+    aem = pyaem2.PyAem2('admin', 'password', 'localhost', 4502)
 
 Content Management
 
@@ -90,7 +90,7 @@ Bundle Management
 
     import pyaem2
 
-    aem = pyaem2.PyAem('admin', 'password', 'localhost', 4502)
+    aem = pyaem2.PyAem2('admin', 'password', 'localhost', 4502)
 
     try:
 
@@ -114,7 +114,7 @@ Bundle Management
         # debug all response and request details in a single string
         print result.debug()
 
-    except pyaem2.PyAemException, e:
+    except pyaem2.PyAem2Exception, e:
 
         # exception message
         print e.message
